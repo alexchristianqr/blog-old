@@ -1,0 +1,491 @@
+@import "../../bower_components/bootstrap/dist/css/bootstrap.min.css";
+@import "../../bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css";
+@import "../../bower_components/hint.css/hint.min.css";
+@import "../../bower_components/metisMenu/dist/metisMenu.min.css";
+@import "../css/sb-admin-2.css";
+@import "../../bower_components/font-awesome/css/font-awesome.min.css";
+/*@import "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css";*/
+/*@import "../../bower_components/froala-wysiwyg-editor/css/froala_editor.pkgd.min.css";*/
+/*@import "../../bower_components/froala-wysiwyg-editor/css/froala_style.min.css";*/
+
+/*@import "http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.9.0/theme/blackboard.min.css";*/
+/*@import "http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.9.0/theme/monokai.min.css";*/
+/*@import "http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.6/summernote.css";*/
+/*@import "http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/androidstudio.min.css";*/
+
+.text-limit {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    width: 100%;
+    line-height: 16px;     /* fallback */
+    /*max-height: 32px;      !* fallback *!*/
+    -webkit-line-clamp: 2; /* number of lines to show */
+    -webkit-box-orient: vertical;
+}
+
+.navbar-top-links  .dropdown-alerts,
+.navbar-top-links .dropdown-user{
+    margin-top: 0.5em;
+}
+
+.modal{
+    text-align: center;
+}
+.modal::before {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    margin-right: -4px;
+    vertical-align: middle;
+}
+.modal-dialog{
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+}
+
+table.table-fixedheader ::-webkit-scrollbar-track {
+    background: #f5f5f5;
+}
+
+/*
+Force table width to 100%
+*/
+table.table-fixedheader {
+    width: 100%;
+}
+
+/*
+Set table elements to block mode.  (Normally they are inline).
+This allows a responsive table, such as one where columns can be stacked
+if the display is narrow.
+*/
+table.table-fixedheader, table.table-fixedheader > thead, table.table-fixedheader > tbody, table.table-fixedheader > thead > tr, table.table-fixedheader > tbody > tr, table.table-fixedheader > thead > tr > th, table.table-fixedheader > tbody > td {
+    display: block;
+}
+
+table.table-fixedheader > thead > tr:after, table.table-fixedheader > tbody > tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+/*
+When scrolling the table, actually it is only the tbody portion of the
+table that scrolls (not the entire table: we want the thead to remain
+fixed).  We must specify an explicit height for the tbody.  We include
+100px as a default, but it can be overridden elsewhere.
+
+Also, we force the scrollbar to always be displayed so that the usable
+width for the table contents doesn't change (such as becoming narrower
+when a scrollbar is visible and wider when it is not).
+*/
+table.table-fixedheader > tbody {
+    overflow-y: auto;
+    height: 360px;
+
+}
+
+/*
+We really don't want to scroll the thead contents, but we want to force
+a scrollbar to be displayed anyway so that the usable width of the thead
+will exactly match the tbody.
+*/
+/*table.table-fixedheader > thead {*/
+/*overflow-y: scroll;*/
+/*}*/
+
+/*
+For browsers that support it (webkit), we set the background color of
+the unneeded scrollbar in the thead to make it invisible.  (Setting
+visiblity: hidden defeats the purpose, as this alters the usable width
+of the thead.)
+*/
+/*table.table-fixedheader > thead::-webkit-scrollbar {*/
+    /*background-color: inherit;*/
+/*}*/
+
+table.table-fixedheader > thead > tr > th:after, table.table-fixedheader > tbody > tr > td:after {
+    content: ' ';
+    display: table-cell;
+    visibility: hidden;
+    clear: both;
+}
+
+/*
+We want to set <th> and <td> elements to float left.
+We also must explicitly set the width for each column (both for the <th>
+and the <td>).  We set to 20% here a default placeholder, but it can be
+overridden elsewhere.
+*/
+
+table.table-fixedheader > thead tr th, table.table-fixedheader > tbody tr td {
+    float: left;
+    word-wrap: break-word;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 0;
+    -webkit-text-fill-color: #000;
+    -webkit-box-shadow: inset 0 0 50px #ccc;
+}
+
+::-webkit-scrollbar-thumb:active {
+    -webkit-box-shadow: inset 0 0 50px #9e9e9e;
+}
+
+#side-menu {
+    font-size: 14px !important;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.input-group-addon {
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    color: #555 !important;
+    text-align: center;
+    background-color: #eee !important;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.input-group-addon {
+    border-color: #ccc !important;
+}
+
+#image-preview {
+    width: 400px;
+    height: 400px;
+    position: relative;
+    overflow: hidden;
+    background-color: #ffffff;
+    color: #ecf0f1;
+}
+
+#image-preview input {
+    line-height: 200px;
+    font-size: 200px;
+    position: absolute;
+    opacity: 0;
+    z-index: 10;
+}
+
+#image-preview label {
+    position: absolute;
+    z-index: 5;
+    opacity: 0.8;
+    cursor: pointer;
+    background-color: #bdc3c7;
+    width: 200px;
+    height: 50px;
+    font-size: 20px;
+    line-height: 50px;
+    text-transform: uppercase;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    text-align: center;
+}
+
+.not-visible {
+    visibility: hidden;
+}
+
+.autocomplete-suggestions {
+    border: 1px solid #999;
+    background: #FFF;
+    overflow: auto;
+    border-radius: 4px;
+    margin-top: 4px;
+    padding: 2px 2px;
+}
+
+.autocomplete-suggestion {
+    padding: 2px 5px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.autocomplete-selected {
+    background: #F0F0F0;
+    border-radius: 4px;
+    padding: 2px 5px;
+}
+
+.autocomplete-suggestions strong {
+    font-weight: normal;
+    color: #3399FF;
+}
+
+.autocomplete-group {
+    padding: 2px 5px;
+}
+
+.autocomplete-group strong {
+    display: block;
+    border-bottom: 1px solid #000;
+}
+
+.btn-danger-customize {
+    color: #fff;
+    background-color: #d9534f;
+    border-color: transparent;
+}
+
+.btn-danger-customize:active,
+.btn-danger-customize:hover {
+    color: #fff;
+    background-color: #c62828;
+    border-color: transparent;
+}
+
+.dropdown-menu {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+input[type=text]:disabled {
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+
+.input-group-addon {
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    background-color: #337ab7;
+    border: 1px solid #2e6da4;
+    border-radius: 4px;
+}
+
+.fa-grey-200 {
+    color: #eeeeee;
+}
+
+.fa-grey-400 {
+    color: #bdbdbd;
+}
+
+.fa-grey-600 {
+    color: #757575;
+}
+
+.fa-grey-800 {
+    color: #424242;
+}
+
+body {
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    font-family:  "Calibri Light","Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial, sans-serif !important;
+}
+
+.pointer:hover {
+    cursor: pointer !important;
+}
+
+.default:hover {
+    cursor: default !important;
+}
+
+.text-wordwrap {
+    word-wrap: break-word;
+    max-width: 650px;
+    width: 650px;
+}
+
+.w100 {
+    max-width: 100px !important;
+    width: 100px !important;
+}
+
+.w150 {
+    max-width: 150px !important;
+    width: 150px !important;
+}
+
+.w200 {
+    max-width: 200px !important;
+    width: 200px !important;
+}
+
+.w250 {
+    max-width: 250px !important;
+    width: 250px !important;
+}
+
+.w300 {
+    max-width: 300px !important;
+    width: 300px !important;
+}
+
+.w350 {
+    max-width: 350px !important;
+    width: 350px !important;
+}
+
+.w400 {
+    max-width: 400px !important;
+    width: 400px !important;
+}
+
+.w450 {
+    max-width: 450px !important;
+    width: 450px !important;
+}
+
+.w500 {
+    max-width: 500px !important;
+    width: 500px !important;
+}
+
+.text-green {
+    color: #4caf50; /*500*/
+}
+
+.text-red {
+    color: #f44336; /*500*/
+}
+
+.text-orange {
+    color: #ffc107; /*500*/
+}
+
+.text-blue {
+    color: #2196f3; /*500*/
+}
+
+.width250 {
+    width: 250px !important;
+}
+
+.table-sm {
+    font-size: 0.80em !important;
+}
+
+.alert-default {
+    color: #9e9e9e;
+    background-color: #f5f5f5;
+    border-color: #e0e0e0;
+}
+
+.fa-2 {
+    font-size: 2rem;
+}
+
+.fa-4 {
+    font-size: 3rem;
+}
+
+.fa-6 {
+    font-size: 6rem;
+}
+
+.fa-8 {
+    font-size: 8rem;
+}
+
+.page-header {
+    margin: 20px 0 20px;
+}
+
+.text-muted {
+    color: rgb(204, 204, 204);
+}
+
+@media (min-width: 768px) {
+    #page-wrapper {
+        position: inherit;
+        margin: 0 0 0 220px;
+        padding-bottom: 28px !important;
+        border-left: 1px solid #e7e7e7;
+    }
+}
+
+@media (min-width: 768px) {
+    .sidebar {
+        z-index: 1;
+        position: absolute;
+        width: 220px;
+        margin-top: 51px;
+    }
+}
+
+@media (min-width: 768px) {
+    .modal-content {
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+}
+
+.modal-content {
+    border-radius: 4px;
+}
+
+.nav#side-menu {
+    text-transform: capitalize;
+}
+
+.form-control:focus {
+    border-color: #9e9e9e; /*500*/
+}
+
+.form-control {
+    box-shadow: none !important;
+}
+
+.body-login {
+    background-color: #fff;
+}
+
+input::-webkit-input-placeholder:focus {
+    -webkit-user-modify: read-only !important;
+    word-wrap: inherit !important;
+    line-height: inherit !important;
+    font-weight: 900 !important;
+}
+
+::-webkit-input-placeholder {
+    color: #ccc !important /*500*/
+}
+
+.panel {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.btn-default-dev {
+    color: #333;
+    background-color: #eee;
+    border-color: #ccc;
+}
+
+.btn-default-dev.focus, .btn-default-dev:focus {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #8c8c8c;
+}
+
+input::-webkit-inner-spin-button {
+    visibility: hidden;
+}
+
