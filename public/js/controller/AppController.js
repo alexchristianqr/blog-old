@@ -7,7 +7,7 @@ define([
     'backbone',
     'js/utility',
     'toastr',
-    'bootpag'
+    'bootpag',
 ], function ($, _, Backbone, Utility, toastr) {
 
     var Ctrl,
@@ -78,6 +78,17 @@ define([
                         return false;
                     }
                 });
+
+                var r = [
+                    { value: 'Alex Quispe Roque', data: 'ALEX' },
+                    { value: 'Alex Quispe Roque', data: 'ALEX' },
+                    { value: 'Alex Quispe Roque', data: 'ALEX' },
+                    { value: 'Alex Quispe Roque', data: 'ALEX' },
+                    { value: 'Alex Quispe Roque', data: 'ALEX' },
+                    { value: 'Alex Quispe Roque', data: 'ALEX' },
+                    { value: 'Deysi Quispe Roque', data: 'DEYSI' }
+                ];
+                Utility.fnAutocomplete(r, '#autocomplete', '#btnDeleteAutocomplete');
 
             },
             fnApplyChange: function (num) {

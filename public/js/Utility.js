@@ -346,12 +346,18 @@ define([
             $(element).autocomplete({
                 lookup: response,
                 tabDisabled: true,
-                triggerSelectOnValidInput: false,
+                triggerSelectOnValidInput: true,
                 onSelect: function (suggestion) {
                     $(element).prop('disabled', true);
                     $.extend(Utility.obj, suggestion.data);
-                    $(second).closest('div').removeClass('not-visible');
-                    $function();
+
+                    if(second != undefined){
+                        $(second).closest('div').removeClass('not-visible');
+                    }
+                    if($function != undefined){
+                        $function();
+                    }
+
                 }
             });
         },

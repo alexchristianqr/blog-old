@@ -1,5 +1,5 @@
 <header id="header">
-    <h1><a href="#">Alex Christian</a></h1>
+    <h1><a href="{{ url('/') }}">Alex Christian</a></h1>
     <nav class="links">
         <ul>
             <li><a class="icon-fa-facebook" href="#"><i class="fa fa-facebook-square fa-2x"></i></a></li>
@@ -13,7 +13,7 @@
         <ul>
             <li class="search">
                 <a class="fa-search" href="#search">Search</a>
-                <form id="search" method="get" action="#">
+                <form id="search" method="GET" action="{{ url('search') }}">
                     <input type="text" name="query" placeholder="Buscar" />
                 </form>
             </li>

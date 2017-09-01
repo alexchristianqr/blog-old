@@ -43,10 +43,10 @@
             <form action="{{ url('email/suscription') }}" method="GET" id="formSendEmailSuscription">
                 <ul class="actions">
                     <li>
-                        <input type="email" name="email_suscription" placeholder="E-mail" title="email para la suscripcion" required style="background-color: #fff;"/>
+                        <input type="email" name="email_suscription" placeholder="E-mail" title="email para la suscripcion" class="form-control" required />
                     </li>
                     <li>
-                        <button id="btnSendEmailSuscription" class="button-inverse"><i class="fa fa-envelope"></i></button>
+                        <button type="submit" class="button button-href"><i class="fa fa-envelope"></i></button>
                     </li>
                 </ul>
             </form>

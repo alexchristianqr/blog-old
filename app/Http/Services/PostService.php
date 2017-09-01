@@ -22,9 +22,14 @@ class PostService
     function store($request)
     {
         try {
-            $data=(new Post())->fillable($request->all());
-            $data->save();
-            $this->fnSuccess();
+            $data = (new Post())->fillable($request->all());
+
+            if ($data->save()) {
+                $this->fnSuccess($data);
+            } else {
+                throw new Exception('excepcion');
+            }
+
         } catch (PDOException $e) {
             $this->fnException($e);
         } catch (Exception $e) {
@@ -42,7 +47,11 @@ class PostService
                 ->where('post.id', $id)
                 ->first();
 
-            $this->fnSuccess($data);
+            if ($data) {
+                $this->fnSuccess($data);
+            } else {
+                throw new Exception('excepcion');
+            }
 
         } catch (PDOException $e) {
             $this->fnException($e);
@@ -65,7 +74,7 @@ class PostService
             if ($data) {
                 $this->fnSuccess($data);
             } else {
-                throw new Exception('error');
+                throw new Exception('excepcion');
             }
 
         } catch (PDOException $e) {
@@ -76,19 +85,31 @@ class PostService
         return $this->rpta;
     }
 
-    function getPosts()
+    function getPosts($flag = true)
     {
         try {
+
             $data = (new Post())
                 ->select(['post.id', 'users.name AS user_name', 'users.image AS user_image', 'post.title', 'post.content_title', 'post.body', 'post.created_at', 'post.images', 'post.description', 'post.id_tipo_post'])
                 ->join('users', 'users.id', '=', 'post.id_user')
-                ->where('post.state', 'A')
-                ->paginate(2);
+                ->where('post.state', 'A');
+            if ($flag) {
+                $data = $data->paginate(2);
+            } else {
+                $data = $data->get();
+                if ($data) {
+                    return $data;
+                } else {
+                    return [];
+                }
+            }
+
             if ($data) {
                 $this->fnSuccess($data);
             } else {
-                throw new Exception('error');
+                throw new Exception('excepcion');
             }
+
         } catch (PDOException $e) {
             $this->fnException($e);
         } catch (Exception $e) {
@@ -112,7 +133,7 @@ class PostService
             if ($data) {
                 $this->fnSuccess($data);
             } else {
-                throw new Exception('exception');
+                throw new Exception('excepcion');
             }
 
         } catch (PDOException $e) {
@@ -136,7 +157,7 @@ class PostService
             if ($data) {
                 $this->fnSuccess($data);
             } else {
-                throw new Exception('error');
+                throw new Exception('excepcion');
             }
 
         } catch (PDOException $e) {
@@ -152,7 +173,11 @@ class PostService
         try {
             $data = (new Post())->findOrFail($id);
 
-            $this->fnSuccess($data);
+            if ($data) {
+                $this->fnSuccess($data);
+            } else {
+                throw new Exception('excepcion');
+            }
 
         } catch (PDOException $e) {
             $this->fnException($e);

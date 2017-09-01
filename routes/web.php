@@ -25,7 +25,7 @@ Route::group(['middleware' => ['auth']], function () {
         return view('admin.home');
     })->name('admin.home');
 
-    //ADMIN  BLOQUE POST
+    //ADMIN POST
     Route::get('admin/post/index', 'PostController@indexAdmin')->name('admin.post.index');
     Route::get('admin/post/edit', 'PostController@editAdmin')->name('admin.post.edit');
     Route::put('admin/post/update', 'PostController@updateAdmin')->name('admin.post.update');
@@ -35,11 +35,11 @@ Route::group(['middleware' => ['auth']], function () {
 
 });
 
-//LOGIN
+//USUARIO
 Route::get('auth/socialite/{provider}', 'Auth\OAuthController@redirectToProvider')->name('socialite.login');
 Route::get('auth/socialite/callback/{provider}', 'Auth\OAuthController@handleProviderCallback');
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-Route::post('login', 'Auth\LoginController@login')->name('post.login');
+Route::post('login', 'Auth\LoginController@fnDoLogin')->name('post.login');
 
 //PASSWORD
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm');
@@ -51,16 +51,18 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 Route::get('personal/service', 'HomeController@personalService');
 Route::get('personal/profile', 'HomeController@personalProfile');
 
-//POST
+//BLOG >> POST
 Route::get('post/store', 'PostController@store');
 Route::get('post/show/{id}/{tipo_post}', 'PostController@show');
 Route::get('/', 'PostController@index');
-Route::get('post/get-posts', 'PostController@getPosts');
 
 //OTROS
 Route::get('get/html', 'PostController@getHtml');
-Route::get('get/find', function () {
-    return view('find');
+Route::get('search', 'PostController@searchRepositories');
+
+//PORTAFOLIO
+Route::get('portafolio', function () {
+    return view('portafolio.index');
 });
 
 Route::get('email/suscription','PostController@sendEmailSuscription');

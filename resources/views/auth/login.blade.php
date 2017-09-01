@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4">
-                <form method="POST" action="{{ route('post.login') }}" autocomplete="off">
+                <form method="POST" action="{{ route('post.login') }}" autocomplete="on">
                     <h2>LOGIN</h2>
                     {{ csrf_field() }}
                     <div class=" form-group {{ $errors->has('email') ? ' has-error' : '' }}">
@@ -28,7 +28,7 @@
                             <div class="col-xs-6 col-md-6">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>
+                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }} >
                                         <span style="font-size: small">Recordarme</span>
                                     </label>
                                 </div>
@@ -42,16 +42,15 @@
                     </div>
                     <div class="form-group text-center">
                         <a href="{{ route('socialite.login',['driver'=>'google']) }}"
-                           class="btn btn-circle btn-default btn-google" title="logear con facebook"><i
-                                    class="fa fa-google"></i> </a>
+                           class="btn btn-circle btn-default btn-google" title="logear con facebook"><i class="fa fa-google"></i> </a>
                         <a href="{{ route('socialite.login',['driver'=>'facebook']) }}"
                            class="btn btn-circle btn-default btn-facebook"><i class="fa fa-facebook"></i> </a>
                         <a href="{{ route('socialite.login',['driver'=>'github']) }}"
                            class="btn btn-circle btn-default btn-github"><i class="fa fa-github"></i> </a>
                     </div>
                     <div class="form-group text-center">
-                        <button type="submit" class="button btn-block">Iniciar Sesion</button>
-                        <a href="#" class="button btn-block">Crear Cuenta</a>
+                        <button type="submit" class="button button-href big btn-block">Iniciar Sesion</button>
+                        <a href="#" class="button big btn-block">Crear Cuenta</a>
                     </div>
                 </form>
             </div>

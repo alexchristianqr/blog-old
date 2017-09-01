@@ -2,7 +2,7 @@
 
     <!-- Search -->
     <section>
-        <form class="search" method="get" action="#">
+        <form id="search" method="GET" action="{{ url('search') }}">
             <input type="text" name="query" placeholder="Search"/>
         </form>
     </section>
@@ -35,7 +35,7 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="{{ url('portafolio') }}">
                     <h3>Portafolio</h3>
                     <p>bitácora de proyectos participados y logrados por fechas.</p>
                 </a>

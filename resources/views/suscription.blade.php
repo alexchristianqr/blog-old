@@ -1,4 +1,4 @@
-@extends('layouts.web.master')
+@extends('layouts.web.master',['title'=>'Suscripcion'])
 @section('content')
     <div class="container">
         <article style="width: auto;border: 0 solid #ccc">

@@ -11,7 +11,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
 use App\Http\Services\PostService;
-use Jenssegers\Date\Date;
 
 /**
  * @property PostRequest request
@@ -59,7 +58,7 @@ class PostController
             $data_mini_posts = $rpta2['data'];
             $data_pre_posts = $rpta3['data'];
             $data_groups = $rpta4['data'];
-            return view('post', compact('data', 'data_mini_posts', 'data_pre_posts','data_groups'));
+            return view('post', compact('data', 'data_mini_posts', 'data_pre_posts', 'data_groups'));
         } else {
             return response()->view('errors.aviso');
         }
@@ -110,6 +109,27 @@ class PostController
         }
     }
 
+    function searchRepositories()
+    {
+        $text_search = trim($this->request['query']);
+        $data = [];
+        $posts = $this->service->getPosts(false);
+        foreach ($posts as $item) {
+            if (!is_null($text_search)) {
+                if (stristr($item->title, $text_search) != false) {
+                    array_push($data, $item);
+                } elseif (stristr($item->content_title, $text_search) != false) {
+                    array_push($data, $item);
+                } elseif (stristr($item->description, $text_search) != false) {
+                    array_push($data, $item);
+                } elseif (stristr($item->body, $text_search) != false) {
+                    array_push($data, $item);
+                }
+            }
+        }
+        return view('search', compact('data', 'text_search'));
+    }
+
     /**
      * Vistas Administrador
      **/
@@ -139,8 +159,8 @@ class PostController
     function sendEmailSuscription()
     {
         $email = $this->request['email_suscription'];
-         $this->fnFlashMessage('Mensaje','tu email '.$email.' ah sido suscrito correctamente.','success');
-         return response()->view('suscription');
+        $this->fnFlashMessage('Mensaje', 'tu email ' . $email . ' ah sido suscrito correctamente.', 'success');
+        return response()->view('suscription');
     }
 
 }

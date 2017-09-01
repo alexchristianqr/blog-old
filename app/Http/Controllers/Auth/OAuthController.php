@@ -24,8 +24,7 @@ class OAuthController
         try {
             return Socialite::driver($provider)->redirect();
         } catch (Exception $e) {
-            $this->fnFlashMessage('ERROR', $e->getMessage(), 'danger');
-            return redirect()->route('login')->withErrors('message de error');
+            return redirect()->route('login')->withErrors($e->getMessage());
         }
     }
 
@@ -34,30 +33,43 @@ class OAuthController
         try {
             $user = Socialite::driver($provider)->user();
 
-            // stroing data to our use table and logging them in
+            //user exist
             if ($user) {
-                $authUser = $this->findOrCreateUser($user, $provider);
-                Auth::login($authUser, true);
-                return redirect()->route('login');
+
+                $data = (new User)->where('id_provider', $user->getId())->first();
+
+                if (!$data) {//new user
+                    $authUser = $this->createUser($user, $provider);
+                    Auth::login($authUser, true);
+                    return redirect()->to('admin/home');//user authenticated
+                } else {//find user exist
+                    switch ($data->state) {//validate type state
+                        case 'I':
+                            Auth::logout();
+                            $msg = "El estado esta como INACTIVO, contácte al administrador.";
+                            return redirect()->route('login')->withErrors($msg);//user
+                            break;
+                        default:
+                            Auth::login($data, true);
+                            return redirect()->to('admin/home');//user authenticated
+                            break;
+                    }
+                }
+
             } else {
-                $this->fnFlashMessage('ERROR', 'ah ocurrido un error', 'danger');
-                return redirect()->route('user.login');
+                $msg = "Driver Socialite no Authenticated.";
+                return redirect()->route('login')->withErrors($msg);
             }
 
         } catch (Exception $e) {
-            self::fnDoLog('I',$e->getMessage());
+            self::fnDoLog('E', $e->getMessage());
             $this->fnFlashMessage('ADVERTENCIA', $e->getMessage(), 'warning');
             return redirect()->route('login');
         }
     }
 
-    private function findOrCreateUser($user, $provider)
+    private function createUser($user, $provider)
     {
-        $found = (new User)->where('provider_id', $user->getId())->where('state', 'A')->first();
-        if ($found) {
-            return $found;
-        }
-
         $avatar = str_replace('?sz=50', '', trim($user->getAvatar()));
 
         $new_user = (new User)->create([
@@ -65,8 +77,8 @@ class OAuthController
             'email' => trim($user->getEmail()),
             'avatar' => $avatar,
             'provider' => trim($provider),
-            'provider_id' => trim($user->getId()),
+            'id_provider' => trim($user->getId()),
         ]);
-        return $new_user;
+        return $new_user;//return nuevo usuario.
     }
 }

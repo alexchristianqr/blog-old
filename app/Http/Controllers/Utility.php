@@ -9,11 +9,11 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Intervention\Image\Facades\Image;
-use PHPExcel_IOFactory;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 use PHPExcel_Style_Alignment;
 use PHPExcel_Style_Border;
 use PHPExcel_Style_Fill;
@@ -63,7 +63,7 @@ trait Utility
                 $this->rpta = ['load' => false, 'data' => null, 'message' => $exception->getMessage(), 'title' => $title, 'level' => $level];
             }
         }
-        self::fnDoLog('I', $exception->getMessage());
+        self::fnDoLog('E', $exception);
     }
 
     //metodo generico que ingresa en la respuesta generica para notificar mensaje personalizado de Error.
@@ -79,7 +79,7 @@ trait Utility
     function fnSuccess($data = null, $message = 'ejecutado correctamente', $title = 'BIEN', $level = 'success')
     {
         $this->rpta = ['load' => true, 'data' => $data, 'title' => $title, 'message' => $message, 'level' => $level];
-        self::fnDoLog('L', $message);
+        self::fnDoLog('I', $message);
     }
 
     //metodo generico que realiza la respuesta.
@@ -163,23 +163,33 @@ trait Utility
         $image->save($path . FECHA_DETALLE . '_' . $request->getClientOriginalName());
     }
 
-    private static function fnDoLog($type, $detail)
+    private static function fnDoLog($type, $message)
     {
-        //Establecemos zona horaria por defecto
-//        date_default_timezone_set('America/Lima');
-        $path = storage_path() . '/logs/';
+        // Stream Handlers
+        $bubble = false;
+        $monolog = new Logger('LOG');//titulo de level log
+
+        $logFormat = "[%datetime%] %level_name%.%channel%: %message%\n";
+        $formatter = new LineFormatter($logFormat);
+
         switch ($type) {
-            case 'E':
-                Log::useFiles($path . 'error.log');
-                Log::error($detail);
+            case 'E'://para errores
+                $errorStreamHandler = new StreamHandler(storage_path() . "/logs/laravel_error.log", Logger::ERROR, $bubble);
+                $errorStreamHandler->setFormatter($formatter);
+                $monolog->pushHandler($errorStreamHandler);
+                $monolog->addError($message->getMessage() . ' | ' . $message->getFile() . ' | ' . $message->getLine());
                 break;
-            case 'L':
-                Log::useFiles($path . 'app.log');
-                Log::debug($detail);
+            case 'I'://para informacion
+                $infoStreamHandler = new StreamHandler(storage_path() . "/logs/laravel_info.log", Logger::INFO, $bubble);
+                $infoStreamHandler->setFormatter($formatter);
+                $monolog->pushHandler($infoStreamHandler);
+                $monolog->addInfo($message);
                 break;
-            default:
-                Log::useFiles($path . 'info.log');
-                Log::info($detail);
+            default://para lo demas
+                $warningStreamHandler = new StreamHandler(storage_path() . "/logs/laravel_warning.log", Logger::WARNING, $bubble);
+                $warningStreamHandler->setFormatter($formatter);
+                $monolog->pushHandler($warningStreamHandler);
+                $monolog->addWarning($message->getMessage());
                 break;
         }
     }

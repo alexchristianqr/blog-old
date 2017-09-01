@@ -1,6 +1,8 @@
-@import url(font-awesome.min.css);
-@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Raleway:400,800,900");
+<<<<<<< HEAD
+=======
+@import url("../../bower_components/font-awesome/css/font-awesome.min.css");
 
+>>>>>>> 00eb19b740edd024d1789b4f89909354996ed3df
 /*
 	Future Imperfect by HTML5 UP
 	html5up.net | @ajlkn
@@ -57,7 +59,7 @@
 	}
 
 /* Grid */
-
+/*
 	.row {
 		border-bottom: solid 1px transparent;
 		-moz-box-sizing: border-box;
@@ -1388,7 +1390,7 @@
 		}
 
 	}
-
+*/ /* .row eliminado */
 /* Basic */
 
 	@-ms-viewport {
@@ -1697,6 +1699,9 @@
 	input[type="submit"],
 	input[type="reset"],
 	input[type="button"],
+	button[type="submit"],
+	button[type="reset"],
+	button[type="button"],
 	button,
 	.button {
 		-moz-appearance: none;
@@ -1707,16 +1712,16 @@
 		-webkit-transition: background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
 		-ms-transition: background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
 		transition: background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
-		background-color: transparent;
 		border: 0;
 		box-shadow: inset 0 0 0 1px rgba(160, 160, 160, 0.3);
+		background-color: transparent ;
 		color: #3c3b3b !important;
 		cursor: pointer;
 		display: inline-block;
 		font-family: "Raleway", Helvetica, sans-serif;
 		font-size: 0.6em;
 		font-weight: 800;
-		height: 4.8125em;
+		height: 44px;
 		letter-spacing: 0.25em;
 		line-height: 4.8125em;
 		padding: 0 2.5em;
@@ -1731,7 +1736,7 @@
 		input[type="button"]:hover,
 		button:hover,
 		.button:hover {
-			box-shadow: inset 0 0 0 1px #2ebaae;
+			box-shadow: inset 0 0 0 1px #2ebaae ;
 			color: #2ebaae !important;
 		}
 
@@ -1740,7 +1745,7 @@
 			input[type="button"]:hover:active,
 			button:hover:active,
 			.button:hover:active {
-				background-color: rgba(46, 186, 174, 0.05);
+				background-color: rgba(46, 186, 174, 0.05) ;
 			}
 
 		input[type="submit"]:before, input[type="submit"]:after,
@@ -1779,6 +1784,7 @@
 		input[type="button"].fit,
 		button.fit,
 		.button.fit {
+			height: 4.8125em;
 			display: block;
 			margin: 0 0 1em 0;
 			width: 100%;
@@ -1789,6 +1795,7 @@
 		input[type="button"].big,
 		button.big,
 		.button.big {
+			height: 4.8125em;
 			font-size: 0.7em;
 			padding: 0 3em;
 		}
@@ -1798,6 +1805,7 @@
 		input[type="button"].small,
 		button.small,
 		.button.small {
+			height: 4.8125em;
 			font-size: 0.5em;
 		}
 
@@ -2703,7 +2711,7 @@ dl dd {
 						border-bottom: 0;
 					}
 
-						.post > footer .stats li .icon:before {
+					.post > footer .stats li .icon:before {
 							color: rgba(160, 160, 160, 0.3);
 							margin-right: 0.75em;
 						}
@@ -2878,8 +2886,9 @@ dl dd {
 		text-transform: uppercase;
 	}
 
-/* Table */
+/* Table eliminado*/
 
+/*
 	.table-wrapper {
 		-webkit-overflow-scrolling: touch;
 		overflow-x: auto;
@@ -2945,6 +2954,8 @@ dl dd {
 			table.alt tfoot {
 				border-top: 0;
 			}
+
+*/
 
 /* Header */
 

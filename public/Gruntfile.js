@@ -9,6 +9,12 @@ module.exports = function (grunt) {
             combine: {
                 dest: 'css/styles.min.css',
                 src: [
+                    'bower_components/font-awesome/css/font-awesome.min.css',
+                    'css/bootstrap.dev.css',
+                    'bower_components/hint.css/hint.min.css',
+                    'bower_components/toastr/toastr.min.css',
+                    'lib/prismjs/prism.css',
+                    'lib/prismjs/prism-line-numbers.css',
                     'assets/css/main.css',//core css principal
                     'css/styles.dev.css'//core css personalizada y Urls añadidas
                 ]

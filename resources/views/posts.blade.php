@@ -1,4 +1,4 @@
-@extends('layouts.web.app')
+@extends('layouts.web.app',['title'=>'Posts'])
 @section('content')
     @foreach($data as $key => $value)
         <!-- Pre-Posts -->

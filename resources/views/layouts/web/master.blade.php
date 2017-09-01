@@ -12,13 +12,14 @@
 @include('layouts.web.menu')
 
 <!-- Main -->
-<div id="main" style="width: 100%;margin-bottom: 0;height: calc(100vh - 175px)">
+<div id="main" style="width: 100%;margin-bottom: 0;">
     <div><br></div>
+    @include('layouts.web.flash')
     @yield('content')
 </div>
 
 <!-- Footer -->
-<div class="container-fluid">
+<div class="container-fluid" hidden>
     <div class="row">
     <div class="col-md-12">
         <div id="footer-master">
