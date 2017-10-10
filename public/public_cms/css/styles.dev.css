@@ -1,0 +1,100 @@
+@media {
+    html {
+        background-color: #fafafa;
+    }
+
+    a {
+        color: #777;
+    }
+
+    input, select, textarea, button, a {
+        outline: none !important;
+    }
+
+    input,
+    select,
+    textarea {
+        box-shadow: none !important;
+    }
+
+    .panel.nav-panel {
+        border-width: 0 1px 1px 1px;
+        border-color: #dddddd;
+    }
+
+    .panel {
+        border: 1px solid #dddddd;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    #wrapper {
+        background-color: #fafafa;
+        height: -webkit-fill-available;
+    }
+
+    .sidebar-nav {
+        border: 1px solid #e7e7e7;
+        border-width: 0 1px 0 0;
+    }
+
+    #page-wrapper {
+        padding-top: 70px;
+        background-color: #fafafa;
+        height: -webkit-fill-available;
+    }
+
+    .dropdown-menu {
+        width: 100%;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .dropdown-toggle {
+        width: 100%;
+    }
+
+    .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+        vertical-align: middle;
+    }
+
+    tbody.tbody-small {
+        font-size: 0.9em !important;
+    }
+
+    ol, ul {
+        /*margin-top: 3px;*/
+    }
+
+    body {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.42857143;
+    }
+
+    /* Tinymce */
+    #mceu_21 {
+        z-index: 1111;
+    }
+
+    .mce-panel {
+        box-shadow: none !important;
+    }
+
+    div.mce-fullscreen {
+        z-index: 2000 !important;
+    }
+
+}
+@media screen and (min-width: 768px) {
+    #page-wrapper {
+        border-left: 0;
+    }
+
+    .sidebar {
+        z-index: 1;
+        position: absolute;
+        width: 250px;
+        margin-top: 51px;
+    }
+}

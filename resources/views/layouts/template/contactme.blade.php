@@ -1,0 +1,3 @@
+<div>
+   {!! $commentary !!}
+</div>
