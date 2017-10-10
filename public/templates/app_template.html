@@ -1,0 +1,66 @@
+<script type="text/template" id="loadingTable">
+    <tr class="text-center text-success">
+        <td width="100%" colspan="<%=colspan %>">
+            <i class="fa fa-refresh fa-spin"></i>
+            <p> <%=txt %></p>
+        </td>
+    </tr>
+</script>
+<script type="text/template" id="failedTable">
+    <tr class="text-center text-primary">
+        <td width="100%" colspan="<%=colspan %>">
+            <i class="fa fa-warning"></i>
+            <p>no se encontraron registros!</p>
+        </td>
+    </tr>
+</script>
+<script type="text/template" id="tplActions">
+    <ul class="dropdown-menu dropdown-menu-right mat-grow-top-right am-fade-and-slide-right" role="menu"
+        style="top: 50px; left: 206px;  visibility: visible;">
+        <li role="presentation" class="dropdown-header"><i class="md md-android"></i> acciones</li>
+        <li role="presentation" class="divider"></li>
+        <li role="presentation"><a role="menuitem" href=""><i class="md md-add"></i> New</a></li>
+        <li role="presentation"><a role="menuitem" href=""><i class="md md-close"></i>Delete</a></li>
+        <li role="presentation"><a role="menuitem" href=""><i class="md md-refresh"></i> Refresh</a></li>
+    </ul>
+</script>
+<script type="text/template" id="tplModal">
+    <div class="modal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <button class="close"></button>
+                <h3>cabeza</h3>
+            </div>
+            <div class="modal-body">
+                <span>hola mundo</span>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</script>
+<script type="text/template" id="detailPagination">
+    <li class="disabled  text-center">
+        <span style="background-color: #f8f8f8; color: #000000" aria-hidden="true"><%=inicial %></span>
+    </li>
+    <li class="disabled  text-center">
+        <span style="width: 60px;" aria-hidden="true">hasta</span>
+    </li>
+    <li class="disabled  text-center">
+        <span style="background-color: #f8f8f8; color: #000000;" aria-hidden="true"><%=final %></span>
+    </li>
+    <li class="disabled  text-center">
+        <span style="width: 60px;" aria-hidden="true">de</span></li>
+    <li class="disabled  text-center">
+        <span style="background-color: #f8f8f8; color: #000000" aria-hidden="true"><%=totales %></span></li>
+    <li class="disabled  text-center">
+        <span style="width: 180px;" aria-hidden="true">registros encontrados</span>
+    </li>
+</script>
+<script type="text/template" id="loading">
+    <div class="form-group text-center">
+        <div class="text-success">
+            <i class="fa fa-refresh fa-spin fa-2x"></i>
+            <p class="text-center"><%=txt %></p>
+        </div>
+    </div>
+</script>
