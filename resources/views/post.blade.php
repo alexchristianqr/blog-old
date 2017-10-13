@@ -1,16 +1,10 @@
 @extends('layouts.web.app',['title'=>'Post','body'=>'single','id_wrapper'=>'wrapper-posted'])
 @section('head')
-    <meta http-equiv="Expires" content="0">
-    <meta http-equiv="Last-Modified" content="0">
-    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-
     <meta property="og:url"           content="{{ request()->getUri() }}" />
     <meta property="og:type"          content="website" />
     <meta property="og:title"         content="{{ $data->title }}" />
-    <meta property="og:description"   content="Your description" />
+    <meta property="og:description"   content="{{ $data->introduction }}" />
     <meta property="og:image"         content="{{ ASSET_POSTS.'1000/'.$data->image }}" />
-
 @endsection
 @section('content')
     <section id="view-post">
@@ -30,7 +24,7 @@
                           datetime="2015-11-01">{{ Jenssegers\Date\Date::parse($data->created_at)->format('d F Y') }}</time>
                     <a href="#" class="author">
                         <span class="name">{{ $data->user_name }}</span>
-                        <img class="img-profile" src="{{ DIR_IMG_USERS.$data->user_image }}" alt="auto">
+                        <img class="img-profile" src="{{ ASSET_USERS.$data->user_image }}" alt="auto">
                     </a>
                 </div>
             </header>

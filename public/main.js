@@ -50,25 +50,17 @@ require([
     $.extend(csrf_token, {'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')});
 
     //initialize Social Share Kit
+    var url = $('meta[property="og:url"]').attr('content'),
+        image = $('meta[property="og:image"]').attr('content'),
+        title = $('meta[property="og:title"]').attr('content'),
+        obj = {url: url, image: image, title: title};
     SocialShareKit.init({
         // selector: '.custom-parent .ssk',
         // url: 'http: // my-url',
         // Texto: 'Compartir texto predeterminado',
-        twitter: {
-            url: $('meta[property="og:url"]').attr('content'),
-            image:$('meta[property="og:image"]').attr('content'),
-            title:$('meta[property="og:title"]').attr('content')
-        },
-        facebook: {
-            url: $('meta[property="og:url"]').attr('content'),
-            image:$('meta[property="og:image"]').attr('content'),
-            title:$('meta[property="og:title"]').attr('content')
-        },
-        google: {
-            url: $('meta[property="og:url"]').attr('content'),
-            image:$('meta[property="og:image"]').attr('content'),
-            title:$('meta[property="og:title"]').attr('content')
-        }
+        twitter: obj,
+        facebook: obj,
+        google: obj
     });
 
     //shared Whatsapp
