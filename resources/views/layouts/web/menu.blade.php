@@ -3,12 +3,7 @@
     <!-- Search -->
     <section>
         <form id="search" method="GET" action="{{ url('search') }}">
-            <div class="input-group">
-                <input type="text" name="query" placeholder="buscar" maxlength="25" required />
-                <div class="input-group-btn" style="font-size: inherit">
-                    <button type="submit" class="button-main"><i class="fa fa-search"></i></button>
-                </div>
-            </div>
+            <input type="text" name="query" placeholder="buscar" maxlength="25" required/>
         </form>
     </section>
 

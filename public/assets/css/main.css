@@ -1682,8 +1682,8 @@ body {
 @media screen and (max-width: 736px) {
 
     #header {
-        height: 2.75em;
-        line-height: 2.75em;
+        height: 3.75em;
+        line-height: 3.75em;
     }
 
     #header h1 {
