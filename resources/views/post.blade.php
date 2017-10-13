@@ -1,5 +1,10 @@
 @extends('layouts.web.app',['title'=>'Post','body'=>'single','id_wrapper'=>'wrapper-posted'])
 @section('head')
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Last-Modified" content="0">
+    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+
     <meta property="og:url"           content="{{ request()->getUri() }}" />
     <meta property="og:type"          content="website" />
     <meta property="og:title"         content="{{ $data->title }}" />

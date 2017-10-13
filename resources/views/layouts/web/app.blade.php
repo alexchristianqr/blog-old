@@ -5,7 +5,8 @@
     @if(request()->getRequestUri() == '/')
         <meta property="og:url" content="{{ request()->getUri() }}"/>
         <meta property="og:type" content="website"/>
-        <meta property="og:title" content="AQUISPE.COM es un sitio blog, cuyo principal objetivo es el Aprendizaje."/>
+        <meta property="og:title" content="aquispe.com"/>
+        <meta property="og:description" content="aquispe.com es un sitio blog, cuyo principal objetivo es el Aprendizaje ." />
         <meta property="og:image" content="{{ ASSET_POSTS.'1000/routing-laravel-framework.jpg' }}"/>
     @else
         @yield('head')
