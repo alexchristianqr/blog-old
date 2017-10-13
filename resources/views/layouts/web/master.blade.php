@@ -22,7 +22,7 @@
 
 <!-- Main -->
 <div id="main">
-    <div class="container-main">
+    <div class="container-main" style="margin-top: 2em">
         <div class="container">
             <div class="col-md-12">
                 @includeWhen(!isset($flag),'layouts.notify')
