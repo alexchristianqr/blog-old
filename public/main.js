@@ -53,7 +53,8 @@ require([
     var url = $('meta[property="og:url"]').attr('content'),
         image = $('meta[property="og:image"]').attr('content'),
         title = $('meta[property="og:title"]').attr('content'),
-        obj = {url: url, image: image, title: title};
+        description = $('meta[property="og:description"]').attr('content'),
+        obj = {url: url, image: image, title: title,description:description};
     SocialShareKit.init({
         twitter: obj,
         facebook: obj,
