@@ -3,11 +3,6 @@
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-<meta property="og:image" content="http://aquispe.com:8092/images/x600/angularjs_x600.jpg" />
-<meta property="og:url" content="http://aquispe.com:8092/post/show/1/1" />
-<meta property="og:title" content="Acciones para completar y eliminar tareas con vue-router (SPA)" />
-<meta property="og:type" content='article' />
-
 <!-- Store CSRF token for AJAX calls -->
 <meta name="csrf_token" content="{{ csrf_token() }}">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Raleway:400,800,900">

@@ -7,7 +7,7 @@
                     <header>
                         <div class="title">
                             <h2>CONTACTO</h2>
-                            <p>POSICION DE ENCUENTRO</p>
+                            <p>UBICACION, PUNTO DE REUNION</p   >
                         </div>
                     </header>
                 </article>

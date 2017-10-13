@@ -2,10 +2,10 @@
 @section('content')
     <div class="container-fluid errorPage">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-xs-12 col-md-12">
                 <div class="error-template">
-                    <h1>Oops!</h1>
-                    <h2>problemas en server.</h2>
+                    <h2>Oops!</h2>
+                    <h4>problemas en server.</h4>
                     <div><br></div>
                     <div class="error-actions">
                         <a href="{{ url('/') }}" class="button btn-block-error">HOME</a>

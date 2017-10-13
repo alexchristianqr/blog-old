@@ -27,7 +27,6 @@ class CmsController extends Controller
         $this->middleware(['isActive', 'auth'])->except('logout');
         $this->service = $postService;
         $this->cms = $cmsService;
-
     }
 
     function cmsHome()
@@ -40,7 +39,7 @@ class CmsController extends Controller
     function cmsPosts(CmsRequest $request)
     {
         //for Index
-        $rpta = $this->service->getPosts(true, $request, 8);
+        $rpta = $this->service->getPosts($request, ['flag' => true, 'page' => 5]);
         if ($rpta['load']) {
             $data = $rpta['data'];
             $categories = $this->getTable('category', ['state', 'A']);
@@ -216,7 +215,6 @@ class CmsController extends Controller
         if ($rpta['load']) {
             $data = $rpta['data'];
             $type_users = $this->getTable('type_user');
-//            return response()->json(compact('data'));
             return view('cms.user', compact('data', 'type_users'));
         } else {
             return redirect()->back()->withInput()->withErrors($rpta['message']);
@@ -244,43 +242,6 @@ class CmsController extends Controller
         } else {
             return response()->view('errors.aviso');
         }
-    }
-
-    //CMS FILES BROWSER
-
-    function corsHeaders()
-    {
-        if (isset($_SERVER['HTTP_ORIGIN'])) {
-            header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
-        } else {
-            header("Access-Control-Allow-Origin: *");
-        }
-
-        header('Access-Control-Allow-Credentials: true');
-        header('Access-Control-Allow-Headers: Origin,X-Requested-With,Content-Type,Accept');
-        header('Access-Control-Max-Age: 86400');    // cache for 1 day
-
-        if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
-            if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD'])) {
-                header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-            }
-
-            exit(0);
-        }
-
-    }
-
-    function cmsBrowserFiles()
-    {
-        $this->corsHeaders();
-//        $data = array("success"=>true,"time"=>"2017-09-28 22:03:01","data"=>["code"=>200,"sources"=>["default"=>["baseurl"=>"https://xdsoft.net/jodit/files/","folders"=>[".","ceicom","test"],"path"=>""]]]);
-        $data = array("success" => true, "time" => "2017-09-28 22:03:01", "data" => ["code" => 200, "sources" => ["default" => ["baseurl" => "file:///D:/pictures/apache_x300.png", "folders" => [
-            ['file' => 'apache_x300.png', 'changed' => '09/28/2017 10:00 PM', 'size' => '62.06kB', 'thumb' => '_thumbs/apache_x300.png'],
-            ['file' => 'apache_x300.png', 'changed' => '09/28/2017 10:00 PM', 'size' => '62.06kB', 'thumb' => '_thumbs/apache_x300.png'],
-            ['file' => 'apache_x300.png', 'changed' => '09/28/2017 10:00 PM', 'size' => '62.06kB', 'thumb' => '_thumbs/apache_x300.png'],
-            ['file' => 'apache_x300.png', 'changed' => '09/28/2017 10:00 PM', 'size' => '62.06kB', 'thumb' => '_thumbs/apache_x300.png'],
-        ], "path" => ""]]]);
-        return response()->json($data);
     }
 
 }

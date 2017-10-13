@@ -29,7 +29,7 @@ class PostService
     {
         try {
             $data = (new Post())
-                ->select(['post.id', 'users.name AS user_name', 'users.image AS user_image', 'post.id_category', 'post.title', 'post.description_title', 'post.content', 'post.created_at', 'post.image', 'post.introduction','post.id_tag'])
+                ->select(['post.id', 'users.name AS user_name', 'users.image AS user_image', 'post.id_category', 'post.title', 'post.description_title', 'post.content', 'post.created_at', 'post.image', 'post.introduction', 'post.id_tag'])
                 ->join('users', 'users.id', '=', 'post.id_user')
                 ->where('post.state', 'A')
                 ->where('post.id', $id)
@@ -47,7 +47,7 @@ class PostService
         return $this->rpta;
     }
 
-    function getPosts($flag = true, $request = null, $option = null, $page = 3)
+    function getPosts($request = null, $option = null)
     {
         try {
             $data = (new Post())
@@ -55,35 +55,40 @@ class PostService
                 ->distinct()
                 ->join('users', 'users.id', '=', 'post.id_user');
 
-            if ($flag) {//for paginate()
+            // Paginacion
+            if ($option['flag']) {
 
-                if (isset($option['forSearch']) == true) {
+                // Para Buscar
+                if (isset($option['search'])) {
                     $search = $option["search"];
-                    $data
-                        ->where('post.state', '=', 'A')
+                    $data->where('post.state', '=', 'A')
                         ->where(function ($query) use ($search) {
-                            $query
-                                ->orWhere('post.title', 'like', '%' . $search . '%')
-                                ->orWhere('post.description_title', 'like', '%' . $search . '%')
-                                ->orWhere('post.introduction', 'like', '%' . $search . '%')
-                                ->orWhere('post.content', 'like', '%' . $search . '%');
+                            $query->orWhere('post.title', 'like', '%' . $search . '%')->orWhere('post.description_title', 'like', '%' . $search . '%')->orWhere('post.introduction', 'like', '%' . $search . '%')->orWhere('post.content', 'like', '%' . $search . '%');
                         });
                 }
 
-                if (isset($option['forFilters']) == true || isset($request)) {
-                    if ($request->has('search')) $data = $data->where('post.title', 'like', '%' . $request->search . '%');
-                    if ($request->has('category')) $data = $data->where('post.id_category', $request->category);
-                    if ($request->has('state')) $data = $data->where('post.state', $request->state);
+                // Existe Request
+                if (isset($request) != null) {
+                    if ($request->has('search')) $data = $data->where('post.title', 'like', '%' . $request->get('search') . '%');
+                    if ($request->has('category')) $data = $data->where('post.id_category', $request->get('category'));
+                    if ($request->has('state')) $data = $data->where('post.state', $request->get('state'));
                 }
 
-                if (isset($option['simplePaginate']) == true) {// for Blog Posts
-                    $data = $data->orderBy('id','desc')->simplePaginate($page);
+                // Filtros personalizados
+                if (isset($option['state'])) {
+                    $data = $data->where('post.state', '=', $option['state']);
+                }
+
+                // Tipo de Paginado
+                if (isset($option['simplePaginate']) == true) {
+                    $data = $data->orderBy('id', 'desc')->simplePaginate($option['page']);
                 } else {
-                    $data = $data->orderBy('id','desc')->paginate($page);
+                    $data = $data->orderBy('id', 'desc')->paginate($option['page']);
                 }
 
-            } else {//for get()
-                $data = $data->orderBy('id','desc')->get();
+                // Obtener Data
+            } else {
+                $data = $data->orderBy('id', 'desc')->get();
             }
 
             if ($data) {
@@ -91,10 +96,10 @@ class PostService
             } else {
                 throw new Exception('my exception');
             }
+
         } catch (PDOException $e) {
             $this->fnException($e);
-        } catch
-        (Exception $e) {
+        } catch (Exception $e) {
             $this->fnException($e);
         }
         return $this->rpta;
@@ -138,7 +143,7 @@ class PostService
             if ($data) {
                 $this->fnSuccess($data);
             } else {
-                throw new Exception('excepcion');
+                throw new Exception('my exception');
             }
         } catch (PDOException $e) {
             $this->fnException($e);
@@ -336,19 +341,19 @@ class PostService
         }
     }
 
-    function getNextAndPrevious($id,$id_category)
+    function getNextAndPrevious($id, $id_category)
     {
         try {
             $previous = (new Post())
-                ->select(['id', 'title','id_category'])
+                ->select(['id', 'title', 'id_category'])
                 ->where('state', 'A')
                 ->where('id', '<', $id)
-                ->where('id_category',$id_category)
+                ->where('id_category', $id_category)
                 ->orderBy('id')->get()->max();
-            $next = (new Post())->select(['id', 'title','id_category'])
+            $next = (new Post())->select(['id', 'title', 'id_category'])
                 ->where('state', 'A')
                 ->where('id', '>', $id)
-                ->where('id_category',$id_category)
+                ->where('id_category', $id_category)
                 ->orderBy('id')->first();
             $data = compact('previous', 'next');
             if ($data) {
@@ -364,23 +369,6 @@ class PostService
         return $this->rpta;
     }
 
-//    function getTags()
-//    {
-//        try {
-//            $data = (new Post())->
-//            if ($data) {
-//                $this->fnSuccess($data);
-//            } else {
-//                throw new Exception('my exception');
-//            }
-//        } catch (PDOException $e) {
-//            $this->fnException($e);
-//        } catch (Exception $e) {
-//            $this->fnException($e);
-//        }
-//        return $this->rpta;
-//    }
-
     //CMS POST
 
     function store($request)
@@ -388,12 +376,20 @@ class PostService
         try {
             $data = (new Post());
             $data->fill($request->all());
+            $file_name = '';
             if ($request->hasFile('image')) {
                 $ext = explode('.', $request->image->getClientOriginalName())[1];
-                $file_name = FECHA_DETALLE . '_' . $request->slug . '.' . $ext;
-                Image::make($request->image)->save(PATH_POSTS . $file_name);
+                $file_name = strtolower($request->slug) . '.' . $ext;
+                Image::make($request->image)->save(PATH_POSTS . '1000/' . $file_name);
                 $data->image = $file_name;
             }
+            if ($request->hasFile('image300')) {
+                Image::make($request->image300)->save(PATH_POSTS . '300/' . $file_name);
+            }
+//            if ($request->hasFile('image')) {
+//                Image::make($request->image51)->save(PATH_POSTS . '51/' . $file_name);
+//            }
+
             if ($data->save()) {
                 $this->fnSuccess($request, 'created successfully', 'very good');
             } else {
@@ -436,10 +432,19 @@ class PostService
                 File::delete(PATH_POSTS . $data->image);
                 // New Image Set
                 $ext = explode('.', $request->image->getClientOriginalName())[1];
-                $file_name = FECHA_DETALLE . '_' . $request->slug . '.' . $ext;
-                Image::make($request->image)->save(PATH_POSTS . $file_name);
+                $file_name = strtolower($request->slug) . '.' . $ext;
+                Image::make($request->image)->save(PATH_POSTS . '1000/' . $file_name);
                 $data->image = $file_name;
             }
+            if ($request->hasFile('image300')) {
+                File::delete(PATH_POSTS . '300/' . $data->image);
+                // New Image Set
+                $ext = explode('.', $request->image300->getClientOriginalName())[1];
+                $file_name = strtolower($request->slug) . '.' . $ext;
+                Image::make($request->image300)->save(PATH_POSTS . '300/' . $file_name);
+                $data->image = $file_name;
+            }
+
             if ($data->save()) {
                 $this->fnSuccess($data, 'updated successfully', 'very good');
             } else {

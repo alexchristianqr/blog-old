@@ -3,7 +3,7 @@
     <section id="view-email">
         <div class="row">
             <div class="col-xs-12 col-md-4 col-md-offset-4">
-                <form method="POST" action="{{ route('login') }}">
+                <form method="POST" action="{{ url('login') }}">
                     <h3>RECUPERAR CLAVE</h3>
                     {{ csrf_field() }}
                     <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">

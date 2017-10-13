@@ -31,7 +31,7 @@
         <!-- /.dropdown-messages -->
     </li>
     <!-- /.dropdown -->
-    <li class="dropdown" >
+    <li class="dropdown hidden"  >
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
             <i class="fa fa-tasks fa-fw"></i> <i class="fa fa-caret-down"></i>
         </a>
@@ -114,7 +114,7 @@
         <!-- /.dropdown-tasks -->
     </li>
     <!-- /.dropdown -->
-    <li class="dropdown" >
+    <li class="dropdown hidden"  >
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
             <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
         </a>
@@ -184,12 +184,10 @@
             </li>
             <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
             </li>
-            <li><a href="{{ route('register') }}"><i class="fa fa-plus fa-fw"></i> Nuevo Usuario</a>
-            </li>
             <li><a href="{{ url('/') }}" target="_blank"><i class="fa fa-mixcloud fa-fw"></i> Sitio Web</a>
             </li>
             <li class="divider"></li>
-            <li><a href="{{ route('logout') }}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+            <li><a href="{{ url('/logout') }}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
             </li>
         </ul>
         <!-- /.dropdown-user -->

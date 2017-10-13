@@ -27,13 +27,11 @@ class PostController extends Controller
         $rpta = $this->service->getPost($id);
         $rpta2 = $this->service->getMiniPosts();
         $rpta3 = $this->service->getPrePosts();
-        $rpta4 = $this->service->getGroups($id_category, $request);
         $data_prev_next = $this->service->getNextAndPrevious($id, $id_category);
-        if ($rpta['load'] && $rpta2['load'] && $rpta3['load'] && $rpta4['load'] && $data_prev_next['load']) {
+        if ($rpta['load'] && $rpta2['load'] && $rpta3['load'] && $data_prev_next['load']) {
             $data = $rpta['data'];
             $data_mini_posts = $rpta2['data'];
             $data_pre_posts = $rpta3['data'];
-            $data_groups = $rpta4['data'];
             $next = $data_prev_next['data']['next'];
             $previous = $data_prev_next['data']['previous'];
 
@@ -46,7 +44,7 @@ class PostController extends Controller
                 }
             }
             if ($request->ajax()) {
-                return response()->json(compact('data_groups'));
+                return response()->json();
             } else {
                 return view('post', compact('data', 'data_mini_posts', 'data_pre_posts', 'previous', 'next', 'tags'));
             }
@@ -55,10 +53,9 @@ class PostController extends Controller
         }
     }
 
-    function index(PostRequest $request)
+    function index()
     {
-        $request['state'] = 'A';
-        $rpta = $this->service->getPosts(true, $request, ['simplePaginate' => true, 'forFilters' => true]);
+        $rpta = $this->service->getPosts(null, ['flag' => true, 'simplePaginate' => true, 'state' => 'A', 'page' => 2]);
         $rpta2 = $this->service->getMiniPosts();
         $rpta3 = $this->service->getPrePosts();
         if ($rpta['load'] && $rpta2['load'] && $rpta3['load']) {
@@ -73,14 +70,14 @@ class PostController extends Controller
 
     function searchRepositories(PostRequest $request)
     {
-        $text_search = trim($request["query"]);
+        $search = trim($request["query"]);
         if (isset($request["query"]) && strlen($request["query"]) >= 3) {
-            $rpta = $this->service->getPosts(true, null, ["forSearch" => true, "search" => $text_search], 6);
+            $rpta = $this->service->getPosts(null, ['flag'=>true,'search' => $search, 'page' => 6]);
             $data = $rpta["data"];
         } else {
             $data = [];
         }
-        return view('search', compact('data', 'text_search'));
+        return view('search', compact('data', 'search'));
     }
 
     function sendMailSubscription(PostRequest $request)

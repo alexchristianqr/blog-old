@@ -19,7 +19,6 @@
         <section id="view-post">
             <input type="hidden" id="id_post" value="{{ $data->id }}">
 
-
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
@@ -48,7 +47,7 @@
 
                     <!-- Content Post -->
                     <section>
-                        <div class="thumbnail"><img src="{{ ASSET_POSTS.$data->image }}" alt=""></div>
+                        <div class="thumbnail"><img src="{{ ASSET_POSTS.'1000/'.$data->image }}" alt=""></div>
                         <p>{{ $data->introduction }}</p>
                         {!!  $data->content !!}
                     </section>

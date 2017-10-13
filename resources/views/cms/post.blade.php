@@ -3,9 +3,9 @@
     <section id="section-cms-post">
 
         @if(isset($data))
-            {!! Form::model($data, ['url' => ['cms/update-post', $data->id], 'method' => 'put','role'=>'form', 'files'=>'true']) !!}
+            {!! Form::model($data, ['url' => ['cms/update-post', $data->id], 'method' => 'PUT','role'=>'form', 'files'=>'true']) !!}
         @else
-            {!! Form::open(['url' => 'cms/store-post','method'=>'post','role'=>'form', 'files'=>'true']) !!}
+            {!! Form::open(['url' => 'cms/store-post','method'=>'POST','role'=>'form', 'files'=>'true']) !!}
         @endif
 
         <div class="row">
@@ -72,16 +72,29 @@
                                 <p class="text-muted">Escribe una introduccion.</p>
                                 {!! Form::textarea('introduction',old('introduction'),['class'=>'form-control','rows'=>'6','maxlength'=>'300','required']) !!}
                             </div>
-                            <div class="form-group">
-                                <div class="panel panel-body">
-                                    @isset($data)
-                                        <div class="thumbnail"><img src="{{ ASSET_POSTS.$data->image }}" alt="">
+                            @isset($data)
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="">w1000 x 400</label>
+                                            <div class="thumbnail"><img src="{{ ASSET_POSTS.'1000/'.$data->image }}" alt=""></div>
                                         </div>
-                                    @endisset
-                                    <label for="" class="control-label">Load Image Reference</label>
-                                    <p class="text-muted">Cargar imagen referencial.</p>
-                                    {!! Form::file('image',['class'=>'form-control']) !!}
+                                        <div class="col-md-6">
+                                            <label for="">w300 x 300</label>
+                                            <div class="thumbnail"><img src="{{ ASSET_POSTS.'300/'.$data->image }}" alt=""></div>
+                                        </div>
+                                    </div>
                                 </div>
+                            @endisset
+                            <div class="form-group">
+                                <label for="" class="control-label">Load Image w1000 x 400</label>
+                                <p class="text-muted">Cargar imagen referencial.</p>
+                                {!! Form::file('image',['class'=>'form-control']) !!}
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="control-label">Load Image w300 x 300</label>
+                                <p class="text-muted">Cargar imagen referencial.</p>
+                                {!! Form::file('image300',['class'=>'form-control']) !!}
                             </div>
                         </div>
                     </div>
@@ -106,8 +119,7 @@
                                             @if(isset($data))
                                             <!--for Edit-->
                                                 @if($value->id == $data->id_category)
-                                                    <option value="{{ $value->id }}"
-                                                            selected>{{ $value->name }}</option>
+                                                    <option value="{{ $value->id }}" selected>{{ $value->name }}</option>
                                                 @else
                                                     <option value="{{ $value->id }}">{{ $value->name }}</option>
                                                 @endif
@@ -142,16 +154,12 @@
                                                         </label>
                                                     @else
                                                         <label for="{{ $value->id }}">
-                                                            <input id="{{ $value->id }}" class="tag-chk"
-                                                                   value="{{ $value->id }}"
-                                                                   type="checkbox">{{ $value->name }}
+                                                            <input id="{{ $value->id }}" class="tag-chk" value="{{ $value->id }}" type="checkbox">{{ $value->name }}
                                                         </label>
                                                     @endif
                                                 @else
                                                     <label for="{{ $value->id }}">
-                                                        <input id="{{ $value->id }}" class="tag-chk"
-                                                               value="{{ $value->id }}"
-                                                               type="checkbox">{{ $value->name }}
+                                                        <input id="{{ $value->id }}" class="tag-chk" value="{{ $value->id }}" type="checkbox">{{ $value->name }}
                                                     </label>
                                                 @endif
                                             </div>
@@ -176,10 +184,8 @@
                                     @else
                                         <?php $checkedA = '';$checkedI = 'checked';?>
                                     @endif
-                                    <label for="chk1"><input title="activo" id="chk1" name="state" type="radio"
-                                                             value="A" {{ $checkedA }} required> Active</label>
-                                    <label for="chk2"><input title="inactivo" id="chk2" name="state" type="radio"
-                                                             value="I" {{ $checkedI }} required> Inactive</label>
+                                    <label for="chk1"><input title="activo" id="chk1" name="state" type="radio" value="A" {{ $checkedA }} required> Active</label>
+                                    <label for="chk2"><input title="inactivo" id="chk2" name="state" type="radio" value="I" {{ $checkedI }} required> Inactive</label>
                                 @else
                                     @if(isset($data))
                                         @if($data->state == 'A')
@@ -187,15 +193,11 @@
                                         @else
                                             <?php $checkedA = ''; $checkedI = 'checked'; ?>
                                         @endif
-                                        <label for="chk1"><input title="activo" id="chk1" name="state" type="radio"
-                                                                 value="A" {{ $checkedA }} required> Active</label>
-                                        <label for="chk2"><input title="inactivo" id="chk2" name="state" type="radio"
-                                                                 value="I" {{ $checkedI }} required>Inactive</label>
+                                        <label for="chk1"><input title="activo" id="chk1" name="state" type="radio" value="A" {{ $checkedA }} required> Active</label>
+                                        <label for="chk2"><input title="inactivo" id="chk2" name="state" type="radio" value="I" {{ $checkedI }} required> Inactive</label>
                                     @else
-                                        <label for="chk1"><input title="activo" id="chk1" name="state" type="radio"
-                                                                 value="A" checked required> Active</label>
-                                        <label for="chk2"><input title="inactivo" id="chk2" name="state" type="radio"
-                                                                 value="I" required> Inactive</label>
+                                        <label for="chk1"><input title="activo" id="chk1" name="state" type="radio" value="A" checked required> Active</label>
+                                        <label for="chk2"><input title="inactivo" id="chk2" name="state" type="radio" value="I" required> Inactive</label>
                                     @endif
                                 @endif
                             </div>
@@ -248,6 +250,13 @@
                 </div>
             </div>
         </div>
+            {{--<script>--}}
+                {{--window.onbeforeunload = confirmExit;--}}
+                {{--function confirmExit()--}}
+                {{--{--}}
+                    {{--return "Ha intentado salir de esta pagina. Si ha realizado algun cambio en los campos sin hacer clic en el boton Guardar, los cambios se perderan. Seguro que desea salir de esta pagina? ";--}}
+                {{--}--}}
+            {{--</script>--}}
         {!! Form::close() !!}
     </section>
 @endsection

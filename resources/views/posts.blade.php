@@ -9,7 +9,7 @@
                     <header>
                         <div class="title">
                             <h2>BLOG</h2>
-                            <p>cursos, tutorial, post, noticias y más.</p>
+                            <p>CURSOS, TEORIAS E INFORMACION</p>
                         </div>
                     </header>
                 </article>
@@ -30,12 +30,12 @@
                         </a>
                     </div>
                 </header>
-                    <a href="{{ url('post/show',['id' => $value->id,'id_category'=>$value->id_category]) }}" >
-                        <div class="thumbnail">
-                            <img src="{{ ASSET_POSTS.$value->image }}">
-                        </div>
-                    </a><!-- Imagen -->
-                    <p>{{ $value->introduction }}<span>...</span></p><!-- Descripcion -->
+                <a href="{{ url('post/show',['id' => $value->id,'id_category'=>$value->id_category]) }}">
+                    <div class="thumbnail" style="border: none">
+                        <img src="{{ ASSET_POSTS.'1000/'.$value->image }}">
+                    </div>
+                </a><!-- Imagen -->
+                <p>{{ $value->introduction }}<span>...</span></p><!-- Descripcion -->
                 <footer>
                     <ul class="actions">
                         <li>
@@ -43,16 +43,21 @@
                         </li>
                     </ul>
                     <ul class="stats">
-                        <li><a class="icon fa-thumbs-up" title="a {{ $value->util }} persona(s) les resulta útil este Post."><span>{{ $value->util }}</span></a></li>
-                        <li><a class="icon fa-thumbs-down" title="a {{ $value->inutil }} persona(s) les resulta poco útil este Post."><span>{{ $value->inutil }}</span></a></li>
+                        <li><a class="icon fa-thumbs-up" title="a {{ $value->util }} persona(s) les resulta útil este Post."><span>{{ $value->util }}</span></a>
+                        </li>
+                        <li><a class="icon fa-thumbs-down"
+                               title="a {{ $value->inutil }} persona(s) les resulta poco útil este Post."><span>{{ $value->inutil }}</span></a>
+                        </li>
                     </ul>
                 </footer>
             </article>
-        @endforeach
+    @endforeach
 
-        <!-- Paginado  -->
+    <!-- Pagination  -->
         <div class="text-center">
-            {!! $data->render() !!}
+            @if($data->hasPages())
+                {!! $data->render() !!}
+            @endif
         </div>
 
     </section>

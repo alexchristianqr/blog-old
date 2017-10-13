@@ -1,12 +1,16 @@
 @extends('layouts.web.master')
 @section('content')
     <div class="container-fluid errorPage">
-        <div class="error-template">
-            <h1>Oops!</h1>
-            <h2>pagina no encontrada.</h2>
-            <div class="error-actions">
-                <a href="{{ url('/') }}" class="button btn-block-error">HOME</a>
-                <a href="{{ url('personal/contact') }}" class="button btn-block-error">CONTACTO</a>
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <div class="error-template">
+                    <h2>Oops!</h2>
+                    <h4>página no encontrada.</h4>
+                    <div class="error-actions">
+                        <a href="{{ url('/') }}" class="button btn-block-error">BLOG</a>
+                        <a href="{{ url('/contact') }}" class="button btn-block-error">CONTACTO</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -1,122 +1,5 @@
-/*
- *   Styles Core of project - mode Develop
- */
-
-#section-show-post h1 {
-    margin: .67em 0;
-    font-size: 2em;
-}
-
-hr {
-    height: 0;
-    -webkit-box-sizing: content-box;
-    -moz-box-sizing: content-box;
-    box-sizing: content-box;
-}
-
-pre {
-    overflow: auto;
-}
-
-code,
-kbd,
-pre,
-samp {
-    font-family: monospace, monospace;
-    font-size: 1em;
-}
-
-img {
-    vertical-align: middle;
-}
-
-hr {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    border: 0;
-    border-top: 1px solid #eee;
-}
-
-[role="button"] {
-    cursor: pointer;
-}
-
-#section-show-post h1,
-#section-show-post h2,
-#section-show-post h3,
-#section-show-post h4,
-#section-show-post h5,
-#section-show-post h6,
-#section-show-post .h1,
-#section-show-post .h2,
-#section-show-post .h3,
-#section-show-post .h4,
-#section-show-post .h5,
-#section-show-post .h6 {
-    font-family: "Source Sans Pro", sans-serif;
-    font-weight: 500;
-    line-height: 1.1;
-    color: rgb(82, 82, 82);
-    letter-spacing: 0;
-    text-transform: none;
-}
-
-#section-show-post h1,
-#section-show-post .h1,
-#section-show-post h2,
-#section-show-post .h2,
-#section-show-post h3,
-#section-show-post .h3 {
-    margin-top: 20px;
-    margin-bottom: 10px;
-}
-
-#section-show-post h4,
-#section-show-post .h4,
-#section-show-post h5,
-#section-show-post .h5,
-#section-show-post h6,
-#section-show-post .h6 {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-#section-show-post h1,
-#section-show-post .h1 {
-    font-size: 36px;
-}
-
-#section-show-post h2,
-#section-show-post .h2 {
-    font-size: 30px;
-}
-
-#section-show-post h3,
-#section-show-post .h3 {
-    font-size: 24px;
-}
-
-#section-show-post h4,
-#section-show-post .h4 {
-    font-size: 18px;
-}
-
-#section-show-post h5,
-#section-show-post .h5 {
-    font-size: 14px;
-}
-
-#section-show-post h6,
-#section-show-post .h6 {
-    font-size: 12px;
-}
-
-#section-show-post p {
-margin: 0 0 10px;
-}
-
 /* html, body */
-@media screen {
+@media {
 
     /* PHONE */
     @media (max-width: 480px) {
@@ -221,8 +104,13 @@ margin: 0 0 10px;
         }
     }
 
-    .post p::first-letter {
-        text-transform: uppercase;
+    small,
+    .small {
+        font-size: 85%;
+    }
+
+    p {
+        margin: 0 0 10px;
     }
 
     .show-post p::first-letter {
@@ -287,13 +175,7 @@ margin: 0 0 10px;
 }
 
 /* #sidebar */
-@media screen {
-    #sidebar > * {
-        border-top: none;
-        margin: 0;
-        padding: 3em 0 0 0;
-    }
-
+@media {
     @media screen and (max-width: 1280px) {
         #sidebar {
             border-top: none;
@@ -1144,8 +1026,7 @@ margin: 0 0 10px;
     }
 }
 
-/* .pagination (bootstrap3) */
-
+/* #view-posts .pagination */
 @media {
 
     #view-posts .pagination {
@@ -1432,7 +1313,7 @@ margin: 0 0 10px;
     }
 }
 
-/* Wrapper-posted */
+/* .wrapper-posted */
 @media {
     #wrapper-posted {
         display: -moz-flex;
@@ -1493,24 +1374,116 @@ margin: 0 0 10px;
     }
 }
 
-/* #article-show-post */
+/* .tags */
+@media {
+    .tags {
+        list-style: none;
+        margin: 0;
+        overflow: hidden;
+        padding: 0;
+    }
+
+    .tags li {
+        float: left;
+    }
+
+    .tag {
+        background: #eee;
+        border-radius: 3px 0 0 3px;
+        color: #999;
+        display: inline-block;
+        height: 26px;
+        line-height: 26px;
+        padding: 0 20px 0 23px;
+        position: relative;
+        margin: 0 10px 10px 0;
+        text-decoration: none;
+        -webkit-transition: color 0.2s;
+        border-bottom: transparent;
+    }
+
+    .tag::before {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: inset 0 1px rgba(0, 0, 0, 0.25);
+        content: '';
+        height: 6px;
+        left: 10px;
+        position: absolute;
+        width: 6px;
+        top: 10px;
+    }
+
+    .tag::after {
+        background: #fff;
+        border-bottom: 13px solid transparent;
+        border-left: 10px solid #eee;
+        border-top: 13px solid transparent;
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    .tag:hover {
+        background-color: #2ebaae;;
+        color: #fff !important;
+    }
+
+    .tag:hover::after {
+        border-left-color: #2ebaae;
+    }
+}
+
+/* .post */
 @media {
 
-    #view-post .post > section > pre{
+    .post > section > pre,
+    .post > section > blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+
+    .post > section > pre {
+        overflow: auto;
+    }
+
+    .post > section > code,
+    .post > section > kbd,
+    .post > section > pre,
+    .post > section > samp {
+        font-family: monospace, monospace;
+        font-size: 1em;
+    }
+
+    .post > section > code,
+    .post > section > pre {
+        display: block;
+        font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
         background-color: #f5f5f5;
-        font-family: Consolas, Monaco, Courier New, Courier, monospace;
         border: 0;
         border-left: 5px solid #646464;
         width: auto;
         overflow: auto;
-        padding: 1em 1em 1em 1.5em;
+        padding: 9.5px;
         font-size: 0.8em;
-        margin-bottom: 2em;
+        margin: 0 0 10px;
+        word-break: break-all;
+        word-wrap: break-word;
     }
 
-    #view-post .post > section > span img,
-    #view-post .post > section > p img,
-    #view-post .post > section > img {
+    .post > section > pre code {
+        padding: 0;
+        font-size: inherit;
+        color: inherit;
+        white-space: pre-wrap;
+        background-color: transparent;
+        border-radius: 0;
+    }
+
+    .post > section > span img,
+    .post > section > p img,
+    .post > section > img {
         display: block;
         /*padding: 4px;*/
         margin-bottom: 2em;
@@ -1526,12 +1499,17 @@ margin: 0 0 10px;
         margin-left: auto;
     }
 
-    #view-post .post > section > h1,
-    #view-post .post > section > h2,
-    #view-post .post > section > h3,
-    #view-post .post > section > h4,
-    #view-post .post > section > h5,
-    #view-post .post > section > h6{
+    .post > section > h1 {
+        margin: .67em 0;
+        font-size: 2em;
+    }
+
+    .post > section > h1,
+    .post > section > h2,
+    .post > section > h3,
+    .post > section > h4,
+    .post > section > h5,
+    .post > section > h6 {
         font-family: "Source Sans Pro", sans-serif;
         font-weight: 500;
         line-height: 1.1;
@@ -1540,58 +1518,68 @@ margin: 0 0 10px;
         text-transform: none;
     }
 
-    #view-post .post > section > h1,
-    #view-post .post > section > .h1,
-    #view-post .post > section > h2,
-    #view-post .post > section > .h2,
-    #view-post .post > section > h3,
-    #view-post .post > section > .h3 {
+    .post > section > h1,
+    .post > section > .h1,
+    .post > section > h2,
+    .post > section > .h2,
+    .post > section > h3,
+    .post > section > .h3 {
         margin-top: 20px;
         margin-bottom: 10px;
     }
 
-    #view-post .post > section > h4,
-    #view-post .post > section > .h4,
-    #view-post .post > section > h5,
-    #view-post .post > section > .h5,
-    #view-post .post > section > h6,
-    #view-post .post > section > .h6 {
+    .post > section > h4,
+    .post > section > .h4,
+    .post > section > h5,
+    .post > section > .h5,
+    .post > section > h6,
+    .post > section > .h6 {
         margin-top: 10px;
         margin-bottom: 10px;
     }
 
-    #view-post .post > section > h1,
-    #view-post .post > section > .h1 {
+    .post > section > h1,
+    .post > section > .h1 {
         font-size: 36px;
     }
 
-    #view-post .post > section > h2,
-    #view-post .post > section > .h2 {
+    .post > section > h2,
+    .post > section > .h2 {
         font-size: 30px;
     }
 
-    #view-post .post > section > h3,
-    #view-post .post > section > .h3 {
+    .post > section > h3,
+    .post > section > .h3 {
         font-size: 24px;
     }
 
-    #view-post .post > section > h4,
-    #view-post .post > section > .h4 {
+    .post > section > h4,
+    .post > section > .h4 {
         font-size: 18px;
     }
 
-    #view-post .post > section > h5,
-    #view-post .post > section > .h5 {
+    .post > section > h5,
+    .post > section > .h5 {
         font-size: 14px;
     }
 
-    #view-post .post > section > h6,
-    #view-post .post > section > .h6 {
+    .post > section > h6,
+    .post > section > .h6 {
         font-size: 12px;
     }
 
-    #view-post .post > section > b,
-    #view-post .post > section > strong {
+    .post > section > b,
+    .post > section > strong,
+    .post > section > span b,
+    .post > section > span strong,
+    .post > section > span table b,
+    .post > section > span table strong,
+    .post > section > p b,
+    .post > section > p strong,
+    .post > section > p table b,
+    .post > section > p table strong,
+    .post > section  table b,
+    .post > section  table strong {
         margin: 1em 0 1em 0;
         padding: 0 0.25em 0 0.25em;
         background-color: #fafafa;
@@ -1599,67 +1587,13 @@ margin: 0 0 10px;
         border-radius: 4px;
     }
 
-    #view-post .post > section > p {
-        font-size: 100%;
-        margin: 2em 0 2em 0;
+    .post > section > p:first-letter {
+        text-transform: uppercase;
     }
 
-}
+    .post > section > p {
+        font-size: 100%;
+        margin: 0 0 10px;
+    }
 
-.tags {
-    list-style: none;
-    margin: 0;
-    overflow: hidden;
-    padding: 0;
-}
-
-.tags li {
-    float: left;
-}
-
-.tag {
-    background: #eee;
-    border-radius: 3px 0 0 3px;
-    color: #999;
-    display: inline-block;
-    height: 26px;
-    line-height: 26px;
-    padding: 0 20px 0 23px;
-    position: relative;
-    margin: 0 10px 10px 0;
-    text-decoration: none;
-    -webkit-transition: color 0.2s;
-    border-bottom: transparent;
-}
-
-.tag::before {
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: inset 0 1px rgba(0, 0, 0, 0.25);
-    content: '';
-    height: 6px;
-    left: 10px;
-    position: absolute;
-    width: 6px;
-    top: 10px;
-}
-
-.tag::after {
-    background: #fff;
-    border-bottom: 13px solid transparent;
-    border-left: 10px solid #eee;
-    border-top: 13px solid transparent;
-    content: '';
-    position: absolute;
-    right: 0;
-    top: 0;
-}
-
-.tag:hover {
-    background-color: #2ebaae;;
-    color: #fff !important;
-}
-
-.tag:hover::after {
-    border-left-color: #2ebaae;
 }

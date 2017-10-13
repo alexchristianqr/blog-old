@@ -1,74 +1,114 @@
-@extends('layouts.admin.app')
+{{--@extends('layouts.admin.app')--}}
+@extends('layouts.cms.master')
+{{--@extends('layouts.web.master',['title'=>'Register | Team'])--}}
 @section('content')
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
-                <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('register') }}">
-                        {{ csrf_field() }}
-
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Name</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
+    <section id="view-team-register">
+        <form method="POST">
+            {{ csrf_field() }}
+            <div class="col-xs-12 col-md-12">
+                <header>
+                    <h2>Register Team</h2>
+                    <hr>
+                </header>
+                <section>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="" class="control-label">Name</label>
+                                <p>Nombres Completo</p>
+                                <input type="text" class="form-control">
                             </div>
                         </div>
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email"
-                                       value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="" class="control-label">Lastname</label>
+                                <p>Apellidos</p>
+                                <input type="text" class="form-control">
                             </div>
                         </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="" class="control-label">Dni</label>
+                                <p>Documento de Identidad</p>
+                                <input type="text" class="form-control">
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control"
-                                       name="password_confirmation" required>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="" class="control-label">Address</label>
+                                <p>Direccion</p>
+                                <input type="text" class="form-control">
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Register
-                                </button>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="" class="control-label">Birth Date</label>
+                                <p>Fecha de Nacimiento</p>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label for="">Day</label>
+                                        <select name="" id="" class="form-control">
+                                            @for($i=1;$i<=31;$i++)
+                                                <option value="{{ $i }}">{{ $i }}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="">Month</label>
+                                        <select name="" id="" class="form-control">
+                                            @for($i=1;$i<=12;$i++)
+                                                <option value="{{ $i }}">{{ $i }}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="">Year</label>
+                                        <select name="" id="" class="form-control">
+                                            @for($i=2010;$i<=2017;$i++)
+                                                <option value="{{ $i }}">{{ $i }}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </form>
-                </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="" class="control-label">Address</label>
+                                <p>Direccion</p>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="" class="control-label">Password</label>
+                                <p>Contraseña</p>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="" class="control-label">Confirm Password</label>
+                                <p>Confirmar Contraseña</p>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <footer>
+                    <hr>
+                    <div class="form-group text-right">
+                        <a href="{{ url('/login') }}" class="btn btn-danger"><i class="fa fa-arrow-left fa-fw"></i>Volver</a>
+                        <button type="submit" class="btn btn-success"><i class="fa fa-check fa-fw"></i>Register</button>
+                    </div>
+                </footer>
             </div>
-        </div>
-    </div>
+        </form>
+    </section>
 @endsection

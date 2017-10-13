@@ -5,10 +5,6 @@
 <!-- csrf_token -->
 <meta name="csrf_token" content="{{ csrf_token() }}">
 
-<script type="text/javascript">
-
-</script>
-
 @if(env('APP_ENV') == 'local')
     <link rel="stylesheet" href="{{ asset('bower_components/font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('bower_components/bootstrap/dist/css/bootstrap.min.css') }}">

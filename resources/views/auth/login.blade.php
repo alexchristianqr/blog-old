@@ -3,7 +3,7 @@
     <section id="view-login">
         <div class="row" style="padding-bottom: 5em">
             <div class="col-xs-12 col-md-4 col-md-offset-4">
-                <form method="POST" action="{{ route('post.login') }}" autocomplete="on">
+                <form method="POST" action="{{ url('post_login') }}" autocomplete="on">
                     {{ csrf_field() }}
                     <div style="text-align: center"><h3>Team</h3></div>
                     <div title="" class="thumbnail" style="border:0 solid transparent">
@@ -42,7 +42,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group text-center">
+                    <div class="form-group text-center" hidden>
                         <a title="iniciar sesion con google" href="{{ route('socialite.login',['driver'=>'google']) }}"
                            class="btn btn-circle btn-default btn-google"><i class="fa fa-google"></i> </a>
                         <a title="iniciar session con facebook" href="{{ route('socialite.login',['driver'=>'facebook']) }}"
@@ -52,7 +52,8 @@
                     </div>
                     <div class="form-group text-center">
                         <button title="iniciar sesion" type="submit" class="button button-main big btn-block">Login</button>
-                        <button title="registrate" type="submit" class="button big btn-block">Sign In</button>
+                        <a title="registrate" href="{{ url('/auth/register') }}" class="button big btn-block">Sign In</a>
+                        {{--<button title="registrate" type="submit" class="button big btn-block">Sign In</button>--}}
                     </div>
                 </form>
             </div>

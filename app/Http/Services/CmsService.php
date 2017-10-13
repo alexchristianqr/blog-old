@@ -132,7 +132,7 @@ class cmsService
             if ($request->hasFile('image')) {
                 $ext = explode('.', $request->image->getClientOriginalName())[1];
                 $file_name = str_replace(' ', '_', $request->name) . '.' . $ext;
-                Image::make($request->image)->save(PATH_USERS .FECHA_DETALLE. $file_name);
+                Image::make($request->image)->save(PATH_USERS . FECHA_DETALLE . $file_name);
                 $data->image = $file_name;
             }
             if ($data->save()) {
@@ -153,7 +153,7 @@ class cmsService
             if ($data) {
                 $this->fnSuccess($data);
             } else {
-                throw new Exception('exception');
+                throw new Exception('my exception');
             }
         } catch (PDOException $e) {
             $this->fnException($e);
@@ -175,20 +175,19 @@ class cmsService
                 File::delete(PATH_USERS . $data->image);
                 // New Image Set
                 $ext = explode('.', $request->image->getClientOriginalName())[1];
-                $file_name = str_replace(' ', '_', $request->name) . '.' . $ext;
-                Image::make($request->image)->save(PATH_USERS . FECHA_DETALLE.$file_name);
+                $file_name = FECHA_DETALLE . '_' . str_replace(' ', '-', $request->name) . '.' . $ext;
+                Image::make($request->image)->save(PATH_USERS . $file_name);
                 $data->image = $file_name;
             }
             if ($data->save()) {
                 $this->fnSuccess($data, 'updated successfully', 'very good');
             } else {
-                throw new Exception('exception');
+                throw new Exception('my exception');
             }
         } catch (PDOException $e) {
             $this->fnException($e);
         }
         return $this->rpta;
     }
-
 
 }

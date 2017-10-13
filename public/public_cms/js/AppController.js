@@ -30,22 +30,22 @@ define([
                         Ctrl.fnCleanSpace($(this).val(), $('#txtSlug'));
                     });
                     // get Checkeds si espara Crear
-                    var chkbxs=[],chkbxs2=[],$inputCheckbox = $('.tag-chk');
-                    if(!$inputCheckbox.is(':checked')){
-                        $('.tag-chk').each(function (k,v) {
-                            chkbxs.push({id:$(v).val(),value:false});
+                    var chkbxs = [], chkbxs2 = [], $inputCheckbox = $('.tag-chk');
+                    if (!$inputCheckbox.is(':checked')) {
+                        $('.tag-chk').each(function (k, v) {
+                            chkbxs.push({id: $(v).val(), value: false});
                             $('[name="id_tag"]').val(JSON.stringify(chkbxs));
                         });
                     }
                     // recorremos Checkeds si es edicion
                     $inputCheckbox.on('click', function () {
                         var $this = $(this);
-                        chkbxs2= $.parseJSON($('[name="id_tag"]').val());
+                        chkbxs2 = $.parseJSON($('[name="id_tag"]').val());
                         if ($this.is(':checked')) {
                             $this.prop('checked', true);
-                            $.each(chkbxs2,function (k,v) {
-                                if(v.id == $this.val()){
-                                    chkbxs2[k].value= true;
+                            $.each(chkbxs2, function (k, v) {
+                                if (v.id == $this.val()) {
+                                    chkbxs2[k].value = true;
                                     return false;
                                 }
                             });
@@ -53,13 +53,20 @@ define([
                             $this.prop('checked', false);
                             $.each(chkbxs2, function (k, v) {
                                 if (v.id == $this.val()) {
-                                    chkbxs2[k].value= false;
+                                    chkbxs2[k].value = false;
                                     return false;
                                 }
                             });
                         }
                         $('[name="id_tag"]').val(JSON.stringify(chkbxs2));
                     });
+                    // var modified = null;
+                    // $("input, select, textarea").on('change', function () {
+                    //     modified = true;
+                    // });
+                    // window.onbeforeunload = function () {
+                    //     return modified;
+                    // };
                 }
                 // If Exist Modal for Tables
                 if ($('#modalCreateUpdateTable').length) {

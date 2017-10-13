@@ -8,7 +8,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-md-12">
                             <div class="input-group">
-                                <input type="search" name="query" placeholder="buscar" class="form-control" value="{{ old('query',$text_search) }}" maxlength="25" minlength="3" autofocus required />
+                                <input type="search" name="query" placeholder="buscar" class="form-control" value="{{ old('query',$search) }}" maxlength="25" minlength="3" autofocus required />
                                 <div class="input-group-btn" style="font-size: inherit">
                                     <button type="submit" class="button-main"><i class="fa fa-search"></i></button>
                                 </div>

@@ -25,7 +25,7 @@
     <div class="container-main">
         <div class="container">
             <div class="col-md-12">
-                @include('layouts.notify')
+                @includeWhen(!isset($flag),'layouts.notify')
             </div>
             @yield('content')
         </div>

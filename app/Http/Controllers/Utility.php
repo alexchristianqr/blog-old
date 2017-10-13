@@ -67,7 +67,7 @@ trait Utility
     {
         if (!is_null($exception)) {
             if ($exception->getCode() > 0) {//is PDOException
-                $this->rpta = ['load' => false, 'title' => $title, 'message' => $exception->getPrevious()->errorInfo[2], 'level' => $level];
+                $this->rpta = ['load' => false, 'title' => $title, 'message' => $exception->getMessage(), 'level' => $level];
             } else {//is Exception
                 $this->rpta = ['load' => false, 'title' => $title, 'message' => $exception->getMessage(), 'level' => $level];
             }

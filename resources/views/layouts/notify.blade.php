@@ -1,6 +1,6 @@
-@if (session()->has('flash_notification.message'))
+@if(session()->has('flash_notification.message'))
     <?php $color = session('flash_notification.level') ?>
-    <div id="alert-flash" >
+    <div id="alert-flash">
         <div class="row">
             <div class="alert alert-{{ $color }}" style="position: relative;">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -25,21 +25,21 @@
     </script>
 @endif
 
-@if (count($errors) > 0)
-    <div id="alert-error" >
-        <div class="row">
-            <div class="alert alert-danger">
-                <ul style="padding: 0.2em;">
-                    @foreach ($errors->all() as $error)
-                        <li style="display: block;padding: 0.15em;"><i class="fa fa-times fa-fw" style="vertical-align: text-top;"></i>&nbsp;&nbsp;{{ $error }}</li>
-                    @endforeach
-                </ul>
+@isset($errors)
+    @if(count($errors))
+        <div id="alert-error">
+            <div class="row">
+                <div class="alert alert-danger">
+                    <ul style="padding: 0.2em;">
+                        @foreach ($errors->all() as $error)
+                            <li style="display: block;padding: 0.15em;"><i class="fa fa-times fa-fw" style="vertical-align: text-top;"></i>&nbsp;&nbsp;{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-    <script type="text/javascript">
-        setTimeout(function () {document.getElementById('alert-error').style.display = 'none';}, 10000);
-    </script>
-@endif
-
-
+        <script type="text/javascript">
+            setTimeout(function () {document.getElementById('alert-error').style.display = 'none';}, 10000);
+        </script>
+    @endif
+@endisset

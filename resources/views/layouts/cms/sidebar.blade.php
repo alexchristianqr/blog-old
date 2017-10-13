@@ -18,7 +18,7 @@
                     </ul>
                 </li>
                 <li class="href">
-                    <a><i class="fa fa-html5 fa-fw"></i>Gestion Post<span class="fa arrow"></span></a>
+                    <a><i class="fa fa-html5 fa-fw"></i>Gestion Site Web<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
                             <a href="{{  url('cms/posts?state=A') }}">
@@ -28,6 +28,11 @@
                         <li>
                             <a href="{{ url('cms/post') }}">
                                 <span><i class="fa fa-plus fa-fw"></i>Create Post</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('cms/portfolio') }}">
+                                <span><i class="fa fa-plus fa-fw"></i>Portfolio</span>
                             </a>
                         </li>
                     </ul>
