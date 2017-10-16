@@ -15,11 +15,11 @@ class Post extends Model
         "id_tag",
         "title",
         "image_post",
-        "description_title",
+        "subtitle",
         "slug",
-        "introduction",
+        "description",
         "content",
-        "state"
+        "status"
     ];
 
 }

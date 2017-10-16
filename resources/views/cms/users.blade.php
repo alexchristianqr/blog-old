@@ -12,11 +12,11 @@
                         <div class="col-md-12">
                             <div class="form-inline">
                                 <input type="text" class="form-control" placeholder="Search Post">
-                                <select title="estado" name="state" id="" class="form-control">
+                                <select title="estado" name="status" id="" class="form-control">
                                     <option value="" disabled selected>Status</option>
                                     @foreach($states as $key => $value)
                                         @if($value->id <= 2)
-                                            @if(request()->get('state') == $value->alias)
+                                            @if(request()->get('status') == $value->alias)
                                                 <option value="{{ $value->alias }}"
                                                         selected>{{ $value->name }}</option>
                                             @else
@@ -55,9 +55,9 @@
                                     <td>{{ $value->name }}</td>
                                     <td>{{ $value->email }}</td>
                                     <td>{{ $value->name_type_user }}</td>
-                                    <td title="{{ $value->state == 'A' ? 'activo' : 'inactivo' }}"
+                                    <td title="{{ $value->status == 'A' ? 'activo' : 'inactivo' }}"
                                         class="text-center"><i
-                                                class="fa fa-circle {{ $value->state == 'A' ? 'text-primary' : 'text-danger' }}"></i>
+                                                class="fa fa-circle {{ $value->status == 'A' ? 'text-primary' : 'text-danger' }}"></i>
                                     </td>
                                     <td>{{ \Carbon\Carbon::parse($value->created_at)->format(FECHA_DEFAULT_FORMAT) }}</td>
                                     <td>

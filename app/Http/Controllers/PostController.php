@@ -55,7 +55,7 @@ class PostController extends Controller
 
     function index()
     {
-        $rpta = $this->service->getPosts(null, ['flag' => true, 'simplePaginate' => true, 'state' => 'A', 'page' => 2]);
+        $rpta = $this->service->getPosts(null, ['flag' => true, 'simplePaginate' => true, 'status' => 'A', 'page' => 2]);
         $rpta2 = $this->service->getMiniPosts();
         $rpta3 = $this->service->getPrePosts();
         if ($rpta['load'] && $rpta2['load'] && $rpta3['load']) {

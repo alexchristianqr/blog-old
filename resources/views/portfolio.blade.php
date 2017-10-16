@@ -9,10 +9,7 @@
     @if(env('APP_ENV') == 'local')
         <link rel="stylesheet" href="{{ asset('bower_components/font-awesome/css/font-awesome.min.css') }}">
         <link rel="stylesheet" href="{{ asset('public_portfolio/assets/css/main.css') }}"/>
-        {{--<noscript>--}}
-        {{--<link rel="stylesheet" href="{{ asset('public_portfolio/assets/css/noscript.css') }}"/>--}}
-        {{--</noscript>--}}
-        <link rel="stylesheet" href="{{ asset('public_portfolio/css/styles.dev.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('public_portfolio/css/styles.css') }}"/>
     @else
         <link rel="stylesheet" href="{{ asset('public_portfolio/css/styles.min.css') }}">
     @endif
@@ -53,7 +50,7 @@
 @if(env("APP_ENV") == 'local')
     <script src="{{ asset('bower_components/requirejs/require.js') }}" data-main="{{ asset('public_portfolio/main_portfolio.js') }}"></script>
 @else
-    <script src="{{ asset('public_portfolio/js/app.min.js') }}"></script>
+    <script src="{{ asset('public_portfolio/js/app.min.js?cache=' . str_limit(time(), 6, '') }}"></script>
 @endif
 
 </body>

@@ -11,7 +11,7 @@ module.exports = function (grunt) {
                 src: [
                     '../bower_components/font-awesome/css/font-awesome.min.css',
                     'assets/css/main.css',//core css principal
-                    'css/styles.dev.css'//core css cspersonalizada y Urls añadidas
+                    'css/styles.css'//core css cspersonalizada y Urls añadidas
                 ]
             }
         },

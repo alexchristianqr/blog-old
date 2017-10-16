@@ -1,9 +1,8 @@
-
 <div class="navbar-default sidebar" role="navigation" style="background-color: #fff">
     <div class="sidebar-nav navbar-collapse" style="background-color: #fff">
         <ul class="nav" id="side-menu" style="background-color: #fff">
                 <li class="href">
-                    <a><i class="fa fa-user fa-fw"></i>Gestion Users<span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-user fa-fw"></i>Gestion Users<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
                             <a href="{{ url('cms/users') }}">
@@ -18,10 +17,10 @@
                     </ul>
                 </li>
                 <li class="href">
-                    <a><i class="fa fa-html5 fa-fw"></i>Gestion Site Web<span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-html5 fa-fw"></i>Gestion Site Web<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="{{  url('cms/posts?state=A') }}">
+                            <a href="{{  url('cms/posts?status=A') }}">
                                 <span><i class="fa fa-files-o fa-fw"></i>Posts</span>
                             </a>
                         </li>
@@ -38,7 +37,7 @@
                     </ul>
                 </li>
                 <li class="href">
-                    <a><i class="fa fa-html5 fa-fw"></i>Gestion Tables<span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-html5 fa-fw"></i>Gestion Tables<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
                             <a href="{{ url('cms/tables') }}">

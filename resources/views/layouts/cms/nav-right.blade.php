@@ -8,9 +8,7 @@
                 <a href="#">
                     <div>
                         <strong>John Smith</strong>
-                        <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
+                        <span class="pull-right text-muted"><em>Yesterday</em></span>
                     </div>
                     <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
                 </a>
@@ -20,9 +18,7 @@
                 <a href="#">
                     <div>
                         <strong>John Smith</strong>
-                        <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
+                        <span class="pull-right text-muted"><em>Yesterday</em></span>
                     </div>
                     <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
                 </a>
@@ -177,18 +173,16 @@
     <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
             <span class="text-capitalize">{{ auth()->user()->name }}</span>
-            &nbsp;&nbsp;&nbsp;<i class="fa fa-caret-down"></i>
+            &nbsp;&nbsp;<i class="fa fa-caret-down"></i>
         </a>
         <ul class="dropdown-menu dropdown-user">
-            <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-            </li>
-            <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-            </li>
-            <li><a href="{{ url('/') }}" target="_blank"><i class="fa fa-mixcloud fa-fw"></i> Sitio Web</a>
-            </li>
+            {{--<li><a href="#"><i class="fa fa-user fa-fw"></i>User Profile</a>--}}
+            {{--</li>--}}
+            {{--<li><a href="#"><i class="fa fa-gear fa-fw"></i>Settings</a>--}}
+            {{--</li>--}}
+            <li><a href="{{ url('/') }}" target="_blank"><i class="fa fa-mixcloud fa-fw"></i>Sitio Web</a></li>
             <li class="divider"></li>
-            <li><a href="{{ url('/logout') }}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-            </li>
+            <li><a href="{{ url('/logout') }}"><i class="fa fa-sign-out fa-fw"></i>Logout</a></li>
         </ul>
         <!-- /.dropdown-user -->
     </li>

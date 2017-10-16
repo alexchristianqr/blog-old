@@ -23,7 +23,7 @@
                                                     </h3>
                                                     <time class="published">
                                                         <span title="usuario y/o invitado" class="name"><span class="to-lowercase"><i class="fa fa-user"></i>&nbsp;</span>{{ $value->user_name }}</span><br>
-                                                        <span title="fecha de creación"><i class="fa fa-calendar-o"></i>&nbsp;{{ Jenssegers\Date\Date::parse($value->date_publication)->format('d F Y') }}</span>
+                                                        <span title="fecha de creación"><i class="fa fa-calendar-o"></i>&nbsp;{{ Jenssegers\Date\Date::parse($value->date_publication)->format('F d, Y') }}</span>
                                                     </time>
                                                     <a class="author"><img class="img-profile" src="{{ ASSET_USERS.$value->user_image }}"></a>
                                                 </header>

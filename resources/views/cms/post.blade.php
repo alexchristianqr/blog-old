@@ -17,7 +17,7 @@
                     </header>
                     <div class="form-group">
                         <div class="pull-left">
-                            <a title="lista" href="{{ url('cms/posts?state=A') }}" class="btn btn-success"><i class="fa fa-list-ul fa-fw"></i>List</a>
+                            <a title="lista" href="{{ url('cms/posts?status=A') }}" class="btn btn-success"><i class="fa fa-list-ul fa-fw"></i>List</a>
                         </div>
                         <div class="pull-right">
                             <button title="{{ isset($data)?'actualizar post':'crear post' }}" type="submit"
@@ -58,9 +58,9 @@
                                 {!! Form::text('title',old('title'),['class'=>'form-control','required','id'=>'txtTitle']) !!}
                             </div>
                             <div class="form-group">
-                                <label for="" class="control-label">Description Title</label>
-                                <p class="text-muted">Especifica una descripcion corta del titulo.</p>
-                                {!! Form::text('description_title',old('description_title'),['class'=>'form-control','maxlength'=>'100','required']) !!}
+                                <label for="" class="control-label">SubTitle</label>
+                                <p class="text-muted">Especifica un subtitulo del titulo.</p>
+                                {!! Form::text('subtitle',old('subtitle'),['class'=>'form-control','maxlength'=>'100','required']) !!}
                             </div>
                             <div class="form-group">
                                 <label for="" class="control-label">Slug</label>
@@ -68,31 +68,31 @@
                                 {!! Form::text('slug',old('slug'),['class'=>'form-control','required','id'=>'txtSlug','readonly']) !!}
                             </div>
                             <div class="form-group">
-                                <label for="" class="control-label">Introduction</label>
-                                <p class="text-muted">Escribe una introduccion.</p>
-                                {!! Form::textarea('introduction',old('introduction'),['class'=>'form-control','rows'=>'6','maxlength'=>'300','required']) !!}
+                                <label for="" class="control-label">Description</label>
+                                <p class="text-muted">Escribe una descripción.</p>
+                                {!! Form::textarea('description',old('description'),['class'=>'form-control','rows'=>'6','maxlength'=>'300','required']) !!}
                             </div>
                             @isset($data)
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label for="">w1000 x 400</label>
+                                            <label for="">1000 x 400</label>
                                             <div class="thumbnail"><img src="{{ ASSET_POSTS.'1000/'.$data->image }}" alt=""></div>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="">w300 x 300</label>
+                                            <label for="">300 x 300</label>
                                             <div class="thumbnail"><img src="{{ ASSET_POSTS.'300/'.$data->image }}" alt=""></div>
                                         </div>
                                     </div>
                                 </div>
                             @endisset
                             <div class="form-group">
-                                <label for="" class="control-label">Load Image w1000 x 400</label>
+                                <label for="" class="control-label">Load Image 1000 x 400</label>
                                 <p class="text-muted">Cargar imagen referencial.</p>
                                 {!! Form::file('image',['class'=>'form-control']) !!}
                             </div>
                             <div class="form-group">
-                                <label for="" class="control-label">Load Image w300 x 300</label>
+                                <label for="" class="control-label">Load Image 300 x 300</label>
                                 <p class="text-muted">Cargar imagen referencial.</p>
                                 {!! Form::file('image300',['class'=>'form-control']) !!}
                             </div>
@@ -139,7 +139,7 @@
                                             <p class="text-muted">Selecciona los tags al que pertenece.</p>
                                         </div>
                                         <div class="pull-right">
-                                            <a href="{{ url('/cms/tables?search=&table=tag&state=A') }}" class="btn btn-info btn-sm"><i class="fa fa-plus fa-fw"></i>Add New Tag</a>
+                                            <a href="{{ url('/cms/tables?search=&table=tag&status=A') }}" class="btn btn-info btn-sm"><i class="fa fa-plus fa-fw"></i>Add New Tag</a>
                                         </div>
                                     </div>
                                 </div>
@@ -178,26 +178,26 @@
                                 <label for="" class="control-label">Preference Post</label>
                                 <p class="text-muted">Preferencia de activacion del estado.</p>
                                 <?php $checkedA = ''; $checkedI = '';?>
-                                @if(!is_null(old('state')))
-                                    @if(old('state') == 'A')
+                                @if(!is_null(old('status')))
+                                    @if(old('status') == 'A')
                                         <?php $checkedA = 'checked';$checkedI = '';?>
                                     @else
                                         <?php $checkedA = '';$checkedI = 'checked';?>
                                     @endif
-                                    <label for="chk1"><input title="activo" id="chk1" name="state" type="radio" value="A" {{ $checkedA }} required> Active</label>
-                                    <label for="chk2"><input title="inactivo" id="chk2" name="state" type="radio" value="I" {{ $checkedI }} required> Inactive</label>
+                                    <label for="chk1"><input title="activo" id="chk1" name="status" type="radio" value="A" {{ $checkedA }} required> Active</label>
+                                    <label for="chk2"><input title="inactivo" id="chk2" name="status" type="radio" value="I" {{ $checkedI }} required> Inactive</label>
                                 @else
                                     @if(isset($data))
-                                        @if($data->state == 'A')
+                                        @if($data->status == 'A')
                                             <?php $checkedA = 'checked'; $checkedI = ''; ?>
                                         @else
                                             <?php $checkedA = ''; $checkedI = 'checked'; ?>
                                         @endif
-                                        <label for="chk1"><input title="activo" id="chk1" name="state" type="radio" value="A" {{ $checkedA }} required> Active</label>
-                                        <label for="chk2"><input title="inactivo" id="chk2" name="state" type="radio" value="I" {{ $checkedI }} required> Inactive</label>
+                                        <label for="chk1"><input title="activo" id="chk1" name="status" type="radio" value="A" {{ $checkedA }} required> Active</label>
+                                        <label for="chk2"><input title="inactivo" id="chk2" name="status" type="radio" value="I" {{ $checkedI }} required> Inactive</label>
                                     @else
-                                        <label for="chk1"><input title="activo" id="chk1" name="state" type="radio" value="A" checked required> Active</label>
-                                        <label for="chk2"><input title="inactivo" id="chk2" name="state" type="radio" value="I" required> Inactive</label>
+                                        <label for="chk1"><input title="activo" id="chk1" name="status" type="radio" value="A" checked required> Active</label>
+                                        <label for="chk2"><input title="inactivo" id="chk2" name="status" type="radio" value="I" required> Inactive</label>
                                     @endif
                                 @endif
                             </div>

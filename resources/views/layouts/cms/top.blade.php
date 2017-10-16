@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{ asset('bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('bower_components/metisMenu/dist/metisMenu.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public_cms/css/sb-admin-2.css') }}">
-    <link rel="stylesheet" href="{{ asset('public_cms/css/styles.dev.css') }}">
+    <link rel="stylesheet" href="{{ asset('public_cms/css/styles.css') }}">
 @else
     <link href="{{asset('public_cms/css/styles.min.css')}}" rel="stylesheet">
 @endif

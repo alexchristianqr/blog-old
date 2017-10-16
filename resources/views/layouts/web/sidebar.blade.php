@@ -22,7 +22,7 @@
                             <h3><a href="#">{{ $value->title }}</a></h3>
                             <time class="published">
                                 <i class="fa fa-calendar-times-o fa-fw"></i>&nbsp;
-                                <span>{{ Jenssegers\Date\Date::parse($value->date_publication)->format('d F Y') }}</span>
+                                <span>{{ Jenssegers\Date\Date::parse($value->date_publication)->format('F d, Y') }}</span>
                             </time>
                             <a href="#" class="author"><img class="img-profile" src="{{ ASSET_USERS.$value->user_image }}" alt="imagen"></a>
                         </header>
@@ -71,7 +71,7 @@
                                 </h3>
                                 <time class="published">
                                     <i class="fa fa-calendar fa-fw"></i>
-                                    <span>{{ Jenssegers\Date\Date::parse($value->created_at)->format('d F Y') }}</span>
+                                    <span>{{ Jenssegers\Date\Date::parse($value->created_at)->format('F d, Y') }}</span>
                                 </time>
                             </header>
                             <a href="{{ url('post/show',['id' => $value->id_post,'id_category' => $value->id_category]) }}"
@@ -104,11 +104,10 @@
                                     <a href="{{ url('post/show',['id' => $value->id_post,'id_category' => $value->id_category]) }}">{{ $value->title }}</a>
                                 </h3>
                                 <time class="published">
-                                    <i class="fa fa-calendar fa-fw"></i>{{ Jenssegers\Date\Date::parse($value->created_at)->format('d F Y') }}
+                                    <i class="fa fa-calendar fa-fw"></i>{{ Jenssegers\Date\Date::parse($value->created_at)->format('F d, Y') }}
                                 </time>
                             </header>
-                            <a href="{{ url('post/show',['id' => $value->id_post,'id_category' => $value->id_category]) }}"
-                               class="image">
+                            <a href="{{ url('post/show',['id' => $value->id_post,'id_category' => $value->id_category]) }}" class="image">
                                 <div class="thumbnail">
                                     <img src="{{ ASSET_POSTS.'300/' . $value->image }}"/>
                                 </div>

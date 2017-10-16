@@ -26,7 +26,7 @@ class User extends Authenticatable
         'avatar',
         'provider',
         'id_provider',
-        'state',
+        'status',
         'unpassword',
         'remember_token'
     ];

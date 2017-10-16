@@ -12,6 +12,6 @@ class Portfolio extends Model
         "image",
         "width_article",
         "measure",
-        "state"
+        "status"
     ];
 }

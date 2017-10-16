@@ -3,12 +3,13 @@
  */
 define([
     'jquery',
-    'underscore',
     'js/app/helps/Utility',
 ], function ($) {
 
     var $btnUp = $('#btnUp');
+
     if ($('body')) {
+
         var Ctrl = {
             start: function () {
                 Ctrl.init();
@@ -52,8 +53,11 @@ define([
                 }
             }
         };
+
         Ctrl.start();
+
     }
+
     return Ctrl;
 
 });

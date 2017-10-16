@@ -45,7 +45,7 @@ class LoginController extends Controller
         $remember = $request->has('remember') ? true : false;
         if ($this->guard()->attempt($credentials, $remember)) {
             if (auth()->once($credentials)) {
-                switch (auth()->user()->state) {
+                switch (auth()->user()->status) {
                     case 'I':
                         auth()->logout();
                         $msg = "Your session has expired because your account is Inactive.";

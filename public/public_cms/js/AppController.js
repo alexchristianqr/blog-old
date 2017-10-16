@@ -171,7 +171,7 @@ define([
             },
             fnDeletePosts: function () {
                 event.preventDefault();
-                if (confirm("Esta seguro(a) de eliminar el/los elemento(s) seleccionado(s) ?")) {
+                if (confirm("Esta seguro(a) de eliminar el o los elemento(s) seleccionado(s)?")) {
                     $.ajax({
                         headers: csrf_token,
                         url: rootURL + 'cms/post/change-state',

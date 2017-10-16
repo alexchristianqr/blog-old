@@ -1,15 +1,11 @@
 @extends('layouts.web.app',['title'=>'Post','body'=>'single','id_wrapper'=>'wrapper-posted'])
 @section('head')
-    <meta http-equiv="Expires" content="0">
-    <meta http-equiv="Last-Modified" content="0">
-    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-
-    <meta property="og:url"           content="{{ request()->getUri() }}" />
-    <meta property="og:type"          content="website" />
-    <meta property="og:title"         content="{{ $data->title }}" />
-    <meta property="og:description"   content="{{ $data->introduction }}" />
-    <meta property="og:image"         content="{{ ASSET_POSTS.'1000/'.$data->image }}" />
+    <meta property="fb:app_id" content="1559888187404310"/>
+    <meta property="og:url" content="{{ request()->getUri() }}"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="{{ strtoupper($data->title) }}"/>
+    <meta property="og:description" content="{{ $data->introduction }}"/>
+    <meta property="og:image" content="{{ ASSET_POSTS.'1000/'.$data->image }}"/>
 @endsection
 @section('content')
     <section id="view-post">
@@ -22,11 +18,10 @@
             <header>
                 <div class="title">
                     <h2><a>{{ $data->title }}</a></h2>
-                    <p>{{ $data->description_title }}</p>
+                    <p>{{ $data->subtitle }}</p>
                 </div>
                 <div class="meta">
-                    <time class="published"
-                          datetime="2015-11-01">{{ Jenssegers\Date\Date::parse($data->created_at)->format('d F Y') }}</time>
+                    <time class="published" datetime="2015-11-01">{{ Jenssegers\Date\Date::parse($data->created_at)->format('F d, Y') }}</time>
                     <a href="#" class="author">
                         <span class="name">{{ $data->user_name }}</span>
                         <img class="img-profile" src="{{ ASSET_USERS.$data->user_image }}" alt="auto">
@@ -36,8 +31,8 @@
 
             <!-- Content Post -->
             <section>
-                <div class="thumbnail" style="border: none"><img src="{{ ASSET_POSTS.'1000/'.$data->image }}" alt=""></div>
-                <p>{{ $data->introduction }}</p>
+                <div class="thumbnail" style="border: none"><img src="{{ ASSET_POSTS.'1000/'.$data->image }}"></div>
+                <p>{{ $data->description }}</p>
                 {!!  $data->content !!}
             </section>
 
@@ -46,22 +41,20 @@
                 <div class="end-publicado" style="margin-top: 1.5em;margin-bottom: 1.5em">
                     <ul id="community">
                         <li>
-                            <a href id="btnUtil" style="border-style: none;" data-community="util"
-                               title="cantidad de persona(s) que les resulta útil este Post.">
-                                <div style="margin-bottom: 1em;"><i class="fa fa-thumbs-o-up fa-3x"></i></div>
-                                <div><span class="badge">0</span></div>
+                            <a href id="btnUtil" style="border-style: none;" data-community="util" title="cantidad de persona(s) que les resulta útil este Post.">
+                                <div style="margin-bottom: 1em;"><i class="fa fa-thumbs-o-up fa-2x"></i></div>
+                                <div><span class="">0</span></div>
                             </a>
                         </li>
                         <li>
-                            <a href id="btnInutil" style="border-style: none;" data-community="inutil"
-                               title="cantidad de persona(s) que les resulta poco útil este Post.">
-                                <div style="margin-bottom: 1em;"><i class="fa fa-thumbs-o-down fa-3x"></i></div>
-                                <div><span class="badge">0</span></div>
+                            <a href id="btnInutil" style="border-style: none;" data-community="inutil" title="cantidad de persona(s) que les resulta poco útil este Post.">
+                                <div style="margin-bottom: 1em;"><i class="fa fa-thumbs-o-down fa-2x"></i></div>
+                                <div><span class="">0</span></div>
                             </a>
                         </li>
                     </ul>
                     <div class="text-center">
-                        <p style="color: #aaa;"><span>¿Te resulto útil el Post?</span></p>
+                        <p style="color: #aaa;">¿Te ha resultado útil este documento?</p>
                     </div>
                 </div>
             </footer>

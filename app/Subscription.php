@@ -10,6 +10,6 @@ class Subscription extends Model
     protected $fillable = [
         "email",
         "remember_token",
-        "state"
+        "status"
     ];
 }

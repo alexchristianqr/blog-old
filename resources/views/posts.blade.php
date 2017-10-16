@@ -20,10 +20,10 @@
                         <h2>
                             <a href="{{ url('post/show',['id' => $value->id,'id_category'=>$value->id_category]) }}">{{ $value->title  }}</a>
                         </h2>
-                        <p>{{ $value->description_title }}</p>
+                        <p>{{ $value->subtitle }}</p>
                     </div>
                     <div class="meta">
-                        <time class="published">{{ Jenssegers\Date\Date::parse($value->created_at)->format('d F Y') }}</time>
+                        <time class="published">{{ Jenssegers\Date\Date::parse($value->created_at)->format('F d, Y') }}</time>
                         <a href="#" class="author">
                             <span class="name">{{ $value->user_name }}</span>
                             <img class="img-profile" src="{{ ASSET_USERS.$value->user_image }}">
@@ -35,7 +35,7 @@
                         <img src="{{ ASSET_POSTS.'1000/'.$value->image }}">
                     </div>
                 </a><!-- Imagen -->
-                <p>{{ $value->introduction }}<span>...</span></p><!-- Descripcion -->
+                <p>{{ $value->description }}<span>...</span></p><!-- Descripcion -->
                 <footer>
                     <ul class="actions">
                         <li>
@@ -43,10 +43,11 @@
                         </li>
                     </ul>
                     <ul class="stats">
-                        <li><a class="icon fa-thumbs-up" title="a {{ $value->util }} persona(s) les resulta útil este Post."><span>{{ $value->util }}</span></a>
+                        <li>
+                            <a href="#" class="icon fa-thumbs-up" title="a {{ $value->util }} persona(s) les resulta útil este Post."><span>{{ $value->util }}</span></a>
                         </li>
-                        <li><a class="icon fa-thumbs-down"
-                               title="a {{ $value->inutil }} persona(s) les resulta poco útil este Post."><span>{{ $value->inutil }}</span></a>
+                        <li>
+                            <a href="#" class="icon fa-thumbs-down" title="a {{ $value->inutil }} persona(s) les resulta poco útil este Post."><span>{{ $value->inutil }}</span></a>
                         </li>
                     </ul>
                 </footer>

@@ -15,7 +15,7 @@
                     </header>
                     <div class="form-group">
                         <div class="pull-left">
-                            <a title="lista" href="{{ url('cms/users?state=A') }}" class="btn btn-success"><i
+                            <a title="lista" href="{{ url('cms/users?status=A') }}" class="btn btn-success"><i
                                         class="fa fa-list-ul fa-fw"></i>List</a>
                         </div>
                         <div class="pull-right">
@@ -133,34 +133,34 @@
                         <label class="control-label">Status</label>
                         <p class="text-muted">Preferencia del estado.</p>
                     <?php $checkedA = '';$checkedI = '';?>
-                    @if(!is_null(old('state')))
+                    @if(!is_null(old('status')))
                         <!--for Update-->
-                            @if(old('state') == 'A')
+                            @if(old('status') == 'A')
                                 <?php $checkedA = 'checked';$checkedI = '';?>
                             @else
                                 <?php $checkedA = '';$checkedI = 'checked';?>
                             @endif
-                            <label for="chk1"><input title="activo" id="chk1" name="state" type="radio" value="A"
+                            <label for="chk1"><input title="activo" id="chk1" name="status" type="radio" value="A"
                                                      {{ $checkedA }} required> Active</label>
-                            <label for="chk2"><input title="inactivo" id="chk2" name="state" type="radio" value="I"
+                            <label for="chk2"><input title="inactivo" id="chk2" name="status" type="radio" value="I"
                                                      {{ $checkedI }} required> Inactive</label>
                         @else
                         <!--for Edit-->
                             @if(isset($data))
-                                @if($data->state == 'A')
+                                @if($data->status == 'A')
                                     <?php $checkedA = 'checked';$checkedI = '';?>
                                 @else
                                     <?php $checkedA = '';$checkedI = 'checked';?>
                                 @endif
-                                <label for="chk1"><input title="activo" id="chk1" name="state" type="radio" value="A"
+                                <label for="chk1"><input title="activo" id="chk1" name="status" type="radio" value="A"
                                                          {{ $checkedA }} required> Active</label>
-                                <label for="chk2"><input title="inactivo" id="chk2" name="state" type="radio" value="I"
+                                <label for="chk2"><input title="inactivo" id="chk2" name="status" type="radio" value="I"
                                                          {{ $checkedI }} required> Inactive</label>
                             @else
                             <!--for Register-->
-                                <label for="chk1"><input title="activo" id="chk1" name="state" type="radio" value="A"
+                                <label for="chk1"><input title="activo" id="chk1" name="status" type="radio" value="A"
                                                          checked required> Active</label>
-                                <label for="chk2"><input title="inactivo" id="chk2" name="state" type="radio" value="I"
+                                <label for="chk2"><input title="inactivo" id="chk2" name="status" type="radio" value="I"
                                                          required> Inactive</label>
                             @endif
                         @endif

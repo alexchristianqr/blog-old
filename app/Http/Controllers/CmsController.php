@@ -42,8 +42,8 @@ class CmsController extends Controller
         $rpta = $this->service->getPosts($request, ['flag' => true, 'page' => 5]);
         if ($rpta['load']) {
             $data = $rpta['data'];
-            $categories = $this->getTable('category', ['state', 'A']);
-            $states = $this->getTable('states');
+            $categories = $this->getTable('category', ['status', 'A']);
+            $states = $this->getTable('levels');
             return view('cms.posts', compact('data', 'categories', 'states'));
         } else {
             return redirect()->back()->withInput()->withErrors($rpta['message']);
@@ -53,8 +53,8 @@ class CmsController extends Controller
     function cmsPost()
     {
         //for Show
-        $categories = $this->getTable('category', ['state', 'A']);
-        $tags = $this->getTable('tag', ['state', 'A']);
+        $categories = $this->getTable('category', ['status', 'A']);
+        $tags = $this->getTable('tag', ['status', 'A']);
         $team = $this->cms->getUsers(null, ['auth' => true, 'authid' => auth()->user()->getAuthIdentifier()])['data'];
         return view('cms.post', compact('categories', 'team', 'tags'));
     }
@@ -65,7 +65,7 @@ class CmsController extends Controller
         $rpta = $this->service->store($request);
         $this->fnFlashMessage($rpta['title'], $rpta['message'], $rpta['level']);
         if ($rpta['load']) {
-            return redirect()->to('cms/posts?state=A');
+            return redirect()->to('cms/posts?status=A');
         } else {
             return redirect()->back()->withInput()->withErrors($rpta['message']);
         }
@@ -77,8 +77,8 @@ class CmsController extends Controller
         $rpta = $this->service->edit($id);
         if ($rpta['load']) {
             $data = $rpta['data'];
-            $categories = $this->getTable('category', ['state', 'A']);
-            $tags = $this->getTable('tag', ['state', 'A']);
+            $categories = $this->getTable('category', ['status', 'A']);
+            $tags = $this->getTable('tag', ['status', 'A']);
             $team = $this->cms->getUsers(null, ['auth' => true, 'authid' => auth()->user()->getAuthIdentifier()])['data'];
             $array_tags = json_decode($data->id_tag);
             foreach ($tags as $key => $item) {
@@ -98,7 +98,7 @@ class CmsController extends Controller
         $rpta = $this->service->update($id, $request);
         $this->fnFlashMessage($rpta['title'], $rpta['message'], $rpta['level']);
         if ($rpta['load']) {
-            return redirect()->to('cms/posts?state=A');
+            return redirect()->to('cms/posts?status=A');
         } else {
             return redirect()->back()->withInput()->withErrors($rpta['message']);
         }
@@ -120,8 +120,8 @@ class CmsController extends Controller
 
     function cmsTables(CmsRequest $request)
     {
-        $tables = $this->getTable('tables', ['state', 'A']);
-        $states = $this->getTable('states');
+        $tables = $this->getTable('tables', ['status', 'A']);
+        $states = $this->getTable('levels');
         if ($request->has('table')) {
             $rpta = $this->cms->getTables($request, ['forPaginate' => true, 'limit' => 10]);
             if ($rpta['load']) {
@@ -178,7 +178,7 @@ class CmsController extends Controller
         if ($rpta['load']) {
             $data = $rpta['data'];
             $type_users = $this->getTable('type_user');
-            $states = $this->getTable('states');
+            $states = $this->getTable('levels');
             return view('cms.users', compact('data', 'type_users', 'states'));
         } else {
             return redirect()->back()->withInput()->withErrors($rpta['message']);
@@ -188,7 +188,7 @@ class CmsController extends Controller
     function cmsUser()
     {
         $type_users = $this->getTable('type_user');
-        $states = $this->getTable('states');
+        $states = $this->getTable('levels');
         return view('cms.user', compact('type_users', 'states'));
     }
 

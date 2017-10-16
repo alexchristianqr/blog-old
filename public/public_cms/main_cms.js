@@ -7,7 +7,7 @@ var rootURL = location.origin + '/',
 
 require.config({
     paths: {
-        'jquery': '../bower_components/jquery/dist/jquery.min',
+        'jquery': '../bower_components/jquery/dist/jquery.min',//v2.2.4
         'underscore': '../bower_components/underscore/underscore-min',
         'bootstrap': '../bower_components/bootstrap/dist/js/bootstrap.min',
         'bootstrap-datetimepicker': '../bower_components/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker',
@@ -15,8 +15,7 @@ require.config({
         'autocomplete': '../bower_components/devbridge-autocomplete/dist/jquery.autocomplete.min',
         'moment': '../bower_components/moment/min/moment-with-locales',
         'metisMenu': '../bower_components/metisMenu/dist/metisMenu',
-        'raphael': '../bower_components/eve-raphael/eve',
-        'standalone': '../bower_components/fastselect/dist/fastselect.standalone'
+        'raphael': '../bower_components/eve-raphael/eve'
     },
     shim: {
         'bootstrap': ['jquery'],

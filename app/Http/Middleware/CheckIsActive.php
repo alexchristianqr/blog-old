@@ -15,13 +15,8 @@ class CheckIsActive
      */
     public function handle($request, Closure $next)
     {
-//        if(!$request->user()->state == 'A'){
-//        //logout, redirect wherever you want, etc.
-//            return redirect()->to('login');
-//        }
-
         if (auth()->check()) {
-            if (auth()->user()->state != 'A') {
+            if (auth()->user()->status != 'A') {
                 auth()->logout();
                 return redirect()->to('login')->withErrors('warning', 'Your session has expired because your account is deactivated.');
             }

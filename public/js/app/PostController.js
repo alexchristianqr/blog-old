@@ -3,18 +3,11 @@
  */
 define([
     'jquery',
-    'underscore',
     'js/app/helps/Utility'
-], function ($, _, Utility) {
+], function ($, Utility) {
 
     var Ctrl;
     var Section = $('#view-post').length;
-    var vm = {
-        request: {
-            limite: parseInt(Utility.limite),
-            pagina: parseInt(Utility.pagina)
-        }
-    };
     var cont_util = 0,
         cont_inutil = 0,
         bool_util = true,
@@ -22,6 +15,7 @@ define([
         cookie_community = $.cookie('cookie_community');
 
     if (Section) {
+
         Ctrl = {
             start: function () {
                 Ctrl.init();
@@ -51,8 +45,8 @@ define([
                     if (r.load) {
                         cont_util = r.data.util;
                         cont_inutil = r.data.inutil;
-                        $('#btnUtil span.badge').text(cont_util);
-                        $('#btnInutil span.badge').text(cont_inutil);
+                        $('#btnUtil span').text(cont_util);
+                        $('#btnInutil span').text(cont_inutil);
                         if (cookie_community == true) {
                             $('#btnUtil').addClass('disabled');
                             $('#btnInutil').addClass('disabled');
@@ -65,18 +59,18 @@ define([
             fnUtil: function () {
                 event.preventDefault();
                 var $this = $(this),
-                    $badge = $this.find('span.badge'),
+                    $badge = $this.find('span'),
                     $community = $this.data('community'),
                     value = parseInt($badge.text()) || 0;
                 if ($this.hasClass('disabled')) {
                     return false;
                 }
                 if (bool_util) {
-                    $this.addClass('badge-blue');
+                    // $this.addClass('badge-blue');
                     cont_util = value + 1;
                     $('#btnInutil').addClass('disabled');
                 } else {
-                    $this.removeClass('badge-blue');
+                    // $this.removeClass('badge-blue');
                     cont_util = value - 1;
                     $('#btnInutil').removeClass('disabled');
                 }
@@ -87,18 +81,18 @@ define([
             fnInutil: function () {
                 event.preventDefault();
                 var $this = $(this),
-                    $badge = $this.find('span.badge'),
+                    $badge = $this.find('span'),
                     $community = $this.data('community');
                 if ($this.hasClass('disabled')) {
                     return false;
                 }
                 var value = parseInt($badge.text()) || 0;
                 if (bool_inutil) {
-                    $this.addClass('badge-red');
+                    // $this.addClass('badge-red');
                     cont_inutil = value + 1;
                     $('#btnUtil').addClass('disabled');
                 } else {
-                    $this.removeClass('badge-red');
+                    // $this.removeClass('badge-red');
                     cont_inutil = value - 1;
                     $('#btnUtil').removeClass('disabled');
                 }
@@ -134,7 +128,9 @@ define([
                 });
             }
         };
+
         Ctrl.start();
+
     }
 
     return Ctrl;

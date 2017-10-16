@@ -5,7 +5,4 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
     </button>
-    {{--<a class="navbar-brand text-left" style="width: 100%">--}}
-            {{--<span class="text-muted fa-2x">C</span>&nbsp;<span class="text-muted fa-2x">M</span>&nbsp;<span class="text-muted fa-2x">S</span>--}}
-    {{--</a>--}}
 </div>

@@ -43,7 +43,7 @@ class OAuthController
                     Auth::login($authUser, true);
                     return redirect()->to('/cms/home');//user authenticated
                 } else {//find user exist
-                    switch ($data->state) {//validate type state
+                    switch ($data->status) {//validate type state
                         case 'I':
                             Auth::logout();
                             $msg = "El estado esta como INACTIVO, contácte al administrador.";

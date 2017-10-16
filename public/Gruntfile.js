@@ -15,7 +15,7 @@ module.exports = function (grunt) {
                     'lib/prismjs/prism-line-numbers.css',
                     'css/bootstrap.dev.css',
                     'assets/css/main.css',//core s principal
-                    'css/styles.dev.css'//core css cspersonalizada y Urls añadidas
+                    'css/styles.css'//core css cspersonalizada y Urls añadidas
                 ]
             }
         },

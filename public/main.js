@@ -64,13 +64,11 @@ require([
     //shared Whatsapp
     $('.ssk-whatsapp').on('click', function () {
         event.preventDefault();
-
         function popupCenter(url, title, w, h) {
             var left = (screen.width / 2) - (w / 2);
             var top = 100;
             return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
         }
-
         return popupCenter('https://api.whatsapp.com/send?phone=51955588297&text=' + encodeURI('Continuar para iniciar la conversacion con www.aquispe.com'), 'AQUISPE.COM', 600, 450);
     });
 

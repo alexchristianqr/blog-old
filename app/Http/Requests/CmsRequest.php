@@ -31,7 +31,7 @@ class CmsRequest extends FormRequest
                 //for Post Status
                 if ($this->getPathInfo() == "/cms/post/change-state") {
                     return [
-                        'state' => 'required'
+                        'status' => 'required'
                     ];
                     //for User
                 }elseif($this->getPathInfo() == "/cms/update-user/" . $this->request->get('id_user')){
@@ -40,7 +40,7 @@ class CmsRequest extends FormRequest
                         'email' => 'required',
                         'image' => 'sometimes',
                         'id_type_user' => 'required',
-                        'state' => 'required',
+                        'status' => 'required',
                     ];
                     //for Post
                 } else {
@@ -50,11 +50,11 @@ class CmsRequest extends FormRequest
                         "id_user" => 'required',
                         "id_tag" => 'sometimes',
                         "title" => 'required',
-                        "description_title" => 'required',
+                        "subtitle" => 'required',
                         "slug" => 'required',
-                        "introduction" => 'required',
+                        "description" => 'required',
                         "content" => 'required',
-                        "state" => 'required',
+                        "status" => 'required',
                     ];
                 }
             case "POST":
@@ -72,7 +72,7 @@ class CmsRequest extends FormRequest
                         'id_type_user' => 'required',
                         'password' => 'required',
                         'repassword' => 'required',
-                        'state' => 'required',
+                        'status' => 'required',
                     ];
                     //for Post
                 } else {
@@ -86,7 +86,7 @@ class CmsRequest extends FormRequest
                         "slug" => 'required',
                         "introduction" => 'required',
                         "content" => 'required',
-                        "state" => 'required',
+                        "status" => 'required',
                     ];
                 }
             default://DELETE

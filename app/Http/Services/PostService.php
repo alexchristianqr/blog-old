@@ -29,9 +29,9 @@ class PostService
     {
         try {
             $data = (new Post())
-                ->select(['post.id', 'users.name AS user_name', 'users.image AS user_image', 'post.id_category', 'post.title', 'post.description_title', 'post.content', 'post.created_at', 'post.image', 'post.introduction', 'post.id_tag'])
+                ->select(['post.*', 'users.name AS user_name', 'users.image AS user_image'])
                 ->join('users', 'users.id', '=', 'post.id_user')
-                ->where('post.state', 'A')
+                ->where('post.status', 'A')
                 ->where('post.id', $id)
                 ->first();
             if ($data) {
@@ -51,7 +51,7 @@ class PostService
     {
         try {
             $data = (new Post())
-                ->select(['post.id', 'post.id_category', 'users.name AS user_name', 'users.image AS user_image', 'post.title', 'post.description_title', 'post.content', 'post.created_at', 'post.image', 'post.introduction', 'post.util', 'post.inutil', 'post.state'])
+                ->select(['post.*',  'users.name AS user_name', 'users.image AS user_image'])
                 ->distinct()
                 ->join('users', 'users.id', '=', 'post.id_user');
 
@@ -61,9 +61,9 @@ class PostService
                 // Para Buscar
                 if (isset($option['search'])) {
                     $search = $option["search"];
-                    $data->where('post.state', '=', 'A')
+                    $data->where('post.status', '=', 'A')
                         ->where(function ($query) use ($search) {
-                            $query->orWhere('post.title', 'like', '%' . $search . '%')->orWhere('post.description_title', 'like', '%' . $search . '%')->orWhere('post.introduction', 'like', '%' . $search . '%')->orWhere('post.content', 'like', '%' . $search . '%');
+                            $query->orWhere('post.title', 'like', '%' . $search . '%')->orWhere('post.subtitle', 'like', '%' . $search . '%')->orWhere('post.description', 'like', '%' . $search . '%')->orWhere('post.content', 'like', '%' . $search . '%');
                         });
                 }
 
@@ -71,12 +71,12 @@ class PostService
                 if (isset($request) != null) {
                     if ($request->has('search')) $data = $data->where('post.title', 'like', '%' . $request->get('search') . '%');
                     if ($request->has('category')) $data = $data->where('post.id_category', $request->get('category'));
-                    if ($request->has('state')) $data = $data->where('post.state', $request->get('state'));
+                    if ($request->has('status')) $data = $data->where('post.status', $request->get('status'));
                 }
 
                 // Filtros personalizados
-                if (isset($option['state'])) {
-                    $data = $data->where('post.state', '=', $option['state']);
+                if (isset($option['status'])) {
+                    $data = $data->where('post.status', '=', $option['status']);
                 }
 
                 // Tipo de Paginado
@@ -109,11 +109,12 @@ class PostService
     {
         try {
             $data = (new Post())
-                ->select(['post.id', 'users.name AS user_name', 'users.image AS user_image', 'post.id_category', 'post.title', 'post.description_title', 'post.content', 'post.created_at', 'post.image', 'post.introduction'])
+//                ->select(['post.id', 'users.name AS user_name', 'users.image AS user_image', 'post.id_category', 'post.title', 'post.description_title', 'post.content', 'post.created_at', 'post.image', 'post.introduction'])
+                ->select(['post.*', 'users.name AS user_name', 'users.image AS user_image'])
                 ->join('users', 'users.id', '=', 'post.id_user')
                 ->where('post.title', 'like', '%' . $text_search . '%')
-                ->orWhere('post.description_title', 'like', '%' . $text_search . '%')
-                ->orWhere('post.introduction', 'like', '%' . $text_search . '%')
+                ->orWhere('post.subtitle', 'like', '%' . $text_search . '%')
+                ->orWhere('post.description', 'like', '%' . $text_search . '%')
                 ->orWhere('post.content', 'like', '%' . $text_search . '%')
                 ->paginate($page);
             if ($data) {
@@ -136,8 +137,8 @@ class PostService
                 ->select(['mp.id_post', 'p.id_category', 'u.name AS user_name', 'u.image AS user_image', 'p.title', 'p.created_at', 'p.image'])
                 ->join('post AS p', 'p.id', '=', 'mp.id_post')
                 ->leftJoin('users AS u', 'u.id', '=', 'p.id_user')
-                ->where('p.state', 'A')
-                ->where('mp.state', 'A')
+                ->where('p.status', 'A')
+                ->where('mp.status', 'A')
                 ->orderBy('mp.order', 'desc')
                 ->get();
             if ($data) {
@@ -159,7 +160,7 @@ class PostService
             $data = DB::table('pre_post AS pr')
                 ->select(['pr.id', 'u.name AS user_name', 'u.image AS user_image', 'pr.title', 'pr.date_publication', 'pr.image'])
                 ->join('users AS u', 'u.id', '=', 'pr.id_user')
-                ->where('pr.state', 'A')
+                ->where('pr.status', 'A')
                 ->orderBy('pr.order', 'desc')
                 ->get();
             if ($data) {
@@ -175,51 +176,17 @@ class PostService
         return $this->rpta;
     }
 
-    function getGroups($id_category, $request)
-    {
-        try {
-            $data = (new Post())
-                ->select(['post.id', 'users.name AS user_name', 'users.image AS user_image', 'post.title', 'post.id_category', 'post.created_at', 'post.util'])
-                ->join('users', 'users.id', '=', 'post.id_user')
-                ->join('category', 'category.id', '=', 'post.id_category')
-                ->where('category.state', 'A')
-                ->where('post.state', 'A')
-                ->where('post.id_category', $id_category);
-            if ($request->ajax()) {
-                $total = $data->count();
-                $data = $data->forPage($request->pagina, $request->limite)->get();
-                $pagina = (int)$request->pagina;
-            } else {
-                $data = $data->limit(2)->get();
-            }
-            if ($data) {
-                if ($request->ajax()) {
-                    $this->fnSuccess(compact('data', 'total', 'pagina'));
-                } else {
-                    $this->fnSuccess($data);
-                }
-            } else {
-                throw new Exception('my exception');
-            }
-        } catch (PDOException $e) {
-            $this->fnException($e);
-        } catch (Exception $e) {
-            $this->fnException($e);
-        }
-        return $this->rpta;
-    }
-
     function sendMailSubscription($request)
     {
         try {
             if (isset($request->email)) {
-                $data = (new Subscription())->where('email', $request->email)->whereIn('state', ['A', 'P'])->first();
+                $data = (new Subscription())->where('email', $request->email)->whereIn('status', ['A', 'P'])->first();
                 if ($data) {
-                    if ($data->state == 'A') {
+                    if ($data->status == 'A') {
                         $mensaje = '<span>Hola <b>' . $request->email . '</b>,</span><br>
                                     <span>Usted ya forma parte de nuestros Usuarios Newsletter.</span>';
                         return response()->view('layouts.template.subscribed', compact('mensaje'));
-                    } elseif ($data->state == 'P') {
+                    } elseif ($data->status == 'P') {
                         $mensaje = '<span>Hola <b>' . $request->email . '</b>,</span><br>
                                     <span>Usted ya tiene un correo pendiente por confirmar con el sunto <b>AQUISPE.COM - NEWSLETTER</b>.</span>';
                         return response()->view('layouts.template.subscribed', compact('mensaje'));
@@ -260,7 +227,7 @@ class PostService
         try {
             $data = (new Subscription())->where('remember_token', $remember_token)->first();
             if ($data) {
-                (new Subscription())->where('remember_token', $remember_token)->update(['state' => 'A']);
+                (new Subscription())->where('remember_token', $remember_token)->update(['status' => 'A']);
                 $mensaje = '<span>Hola <b>' . $data->email . '</b></span><br><span>Usted ya forma parte de nuestros Usuarios Newsletter.</span>';
                 return response()->view('layouts.template.subscribed', compact('mensaje'));
             } else {
@@ -346,12 +313,12 @@ class PostService
         try {
             $previous = (new Post())
                 ->select(['id', 'title', 'id_category'])
-                ->where('state', 'A')
+                ->where('status', 'A')
                 ->where('id', '<', $id)
                 ->where('id_category', $id_category)
                 ->orderBy('id')->get()->max();
             $next = (new Post())->select(['id', 'title', 'id_category'])
-                ->where('state', 'A')
+                ->where('status', 'A')
                 ->where('id', '>', $id)
                 ->where('id_category', $id_category)
                 ->orderBy('id')->first();
@@ -464,7 +431,7 @@ class PostService
             if (is_array($request['ids'])) {//for Ids is Array
                 for ($i = 0; $i < count($request['ids']); $i++) {
                     $model = (new Post())->findOrFail($request['ids'][$i]);
-                    $model->state = $request['state'];
+                    $model->status = $request['status'];
                     if ($model->save()) {
                         $this->fnSuccess($request['ids'], 'updated successfully', 'very good');
                     } else {
@@ -473,7 +440,7 @@ class PostService
                 }
             } else {//for Id is String
                 $model = (new Post())->findOrFail($request['ids']);
-                $model->state = $request['state'];
+                $model->status = $request['status'];
                 if ($model->save()) {
                     $this->fnSuccess($model, 'updated successfully', 'very good');
                 } else {

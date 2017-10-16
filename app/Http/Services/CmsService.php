@@ -27,7 +27,7 @@ class cmsService
     {
         try {
             $data = DB::table($request->table);
-            if ($request->has('state')) $data = $data->where('state', $request->state);
+            if ($request->has('status')) $data = $data->where('status', $request->status);
             if (isset($option['forPaginate']) == true) {
                 $data = $data->paginate($option['limit']);
             } else {
@@ -36,7 +36,7 @@ class cmsService
             if ($data) {
                 $this->fnSuccess($data);
             } else {
-                throw new Exception('excepcion');
+                throw new Exception('my exception');
             }
         } catch (PDOException $e) {
             $this->fnException($e);
@@ -52,7 +52,7 @@ class cmsService
             if ($data) {
                 $this->fnSuccess($data, 'created successfully', 'very good');
             } else {
-                throw new Exception('exception');
+                throw new Exception('my exception');
             }
         } catch (PDOException $e) {
             $this->fnException($e);
@@ -64,11 +64,11 @@ class cmsService
     {
         try {
             $request['updated_at'] = FECHA_HORA;
-            $data = DB::table($table)->where('id', $id)->update($request->only(['name', 'alias', 'state', 'updated_at']));
+            $data = DB::table($table)->where('id', $id)->update($request->only(['name', 'alias', 'status', 'updated_at']));
             if ($data) {
                 $this->fnSuccess($data, 'updated successfully', 'very good');
             } else {
-                throw new Exception('exception');
+                throw new Exception('my exception');
             }
         } catch (PDOException $e) {
             $this->fnException($e);
@@ -83,7 +83,7 @@ class cmsService
             if ($data) {
                 $this->fnSuccess($data);
             } else {
-                throw new Exception('exception');
+                throw new Exception('my exception');
             }
         } catch (PDOException $e) {
             $this->fnException($e);
@@ -97,11 +97,11 @@ class cmsService
     {
         try {
             $data = (new User())
-                ->select(['users.id', 'users.id_type_user', 'tu.name AS name_type_user', 'users.name', 'users.email', 'users.state', 'users.created_at'])
+                ->select(['users.*', 'tu.name AS name_type_user'])
                 ->join('type_user AS tu', 'tu.id', '=', 'users.id_type_user');
 
             if (!is_null($request)) {
-                if ($request->has('state')) $data = $data->where('users.state', $request->state);
+                if ($request->has('status')) $data = $data->where('users.status', $request->status);
             }
 
             if (isset($option['forPaginate']) == true) {

@@ -1,14 +1,14 @@
 @if(env('APP_ENV') == 'local')
     <script src="{{ asset('bower_components/requirejs/require.js') }}" data-main="{{ asset('public_cms/main_cms.js') }}"></script>
 @else
-    <script src="{{ asset('public_cms/js/app.min.js?cache=' . str_limit(time(), 6, '')) }}"></script>
+    <script src="{{ asset('public_cms/js/app.min.js').'?cache=' . str_limit(time(), 6, '') }}"></script>
 
 @endif
 <script src="{{ asset('lib/tinymce/tinymce.min.js') }}"></script>
 <script>
     window.onload = function () {
         if (document.getElementById('section-cms-post'))
-            // Editor Text Html
+        // Editor Text Html
             tinymce.init({
                 /* replace textarea having class .tinymce with tinymce editor */
                 selector: "textarea#editor",

@@ -13,7 +13,7 @@ module.exports = function (grunt) {
                     '../bower_components/bootstrap/dist/css/bootstrap.min.css',
                     '../bower_components/metisMenu/dist/metisMenu.min.css',
                     'css/sb-admin-2.css',
-                    'css/styles.dev.css'
+                    'css/styles.css'
                 ]
             }
         },

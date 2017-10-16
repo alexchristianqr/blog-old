@@ -32,11 +32,11 @@
                                         @endif
                                     @endforeach
                                 </select>
-                                <select title="estado" name="state" id="" class="form-control">
+                                <select title="estado" name="status" id="" class="form-control">
                                     <option value="" disabled selected>Status</option>
                                     @foreach($states as $key => $value)
                                         @if($value->id <= 2)
-                                            @if(request()->get('state') == $value->alias)
+                                            @if(request()->get('status') == $value->alias)
                                                 <option value="{{ $value->alias }}" selected>{{ $value->name }}</option>
                                             @else
                                                 <option value="{{ $value->alias }}">{{ $value->name }}</option>
@@ -44,13 +44,10 @@
                                         @endif
                                     @endforeach
                                 </select>
-                                <button title="filtrar" type="submit" class="btn btn-primary"><i
-                                            class="fa fa-filter fa-fw"></i>Filter
+                                <button title="filtrar" type="submit" class="btn btn-primary"><i class="fa fa-filter fa-fw"></i>Filter
                                 </button>
-                                <a title="limpiar filtro(s)" href="{{ url('cms/tables') }}" class="btn btn-info"><i
-                                            class="fa fa-recycle fa-fw"></i>Clean</a>
-                                <button title="eliminar registro(s)" type="button" id="btnDelete"
-                                        class="btn btn-danger hidden" disabled><i class="fa fa-times fa-fw"></i>Delete
+                                <a title="limpiar filtro(s)" href="{{ url('cms/tables') }}" class="btn btn-info"><i class="fa fa-recycle fa-fw"></i>Clean</a>
+                                <button title="eliminar registro(s)" type="button" id="btnDelete" class="btn btn-danger hidden" disabled><i class="fa fa-times fa-fw"></i>Delete
                                 </button>
                             </div>
                         </div>
@@ -77,9 +74,9 @@
                                         <td><input class="chkOnly" type="checkbox"></td>
                                         <td>{{ $value->name }}</td>
                                         <td>{{ $value->alias}}</td>
-                                        <td title="{{ $value->state == 'A' ? 'activo' : 'inactivo' }}"
+                                        <td title="{{ $value->status == 'A' ? 'activo' : 'inactivo' }}"
                                             class="text-center"><i
-                                                    class="fa fa-circle {{ $value->state == 'A' ? 'text-primary' : 'text-danger' }}"></i>
+                                                    class="fa fa-circle {{ $value->status == 'A' ? 'text-primary' : 'text-danger' }}"></i>
                                         </td>
                                         <td class="text-center">
                                             {{--<div class="text-center">--}}
