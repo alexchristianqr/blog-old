@@ -7,7 +7,8 @@
                 <form method="GET" action="{{ url('search') }}" class="form-horizontal">
                     <div class="form-group">
                         <div class="col-xs-12 col-md-12">
-                            <input type="search" name="query" placeholder="buscar" class="form-control" value="{{ old('query',$search) }}" maxlength="25" minlength="3" autofocus required/>
+                            <input type="search" name="query" placeholder="buscar" class="form-control"
+                                   value="{{ old('query',$search) }}" maxlength="25" minlength="3" autofocus required/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -19,23 +20,29 @@
                                             <article class="content-search">
                                                 <header>
                                                     <h3>
-                                                        <a title="post" href="{{ url('post/show',['id' => $value->id,'id_category'=>$value->id_category]) }}">{{ $value->title }}</a>
+                                                        <a title="post"
+                                                           href="{{ url('post/show',['id' => $value->id,'id_category'=>$value->id_category]) }}">{{ $value->title }}</a>
                                                     </h3>
                                                     <time class="published">
-                                                        <span title="usuario y/o invitado" class="name"><span class="to-lowercase"><i class="fa fa-user"></i>&nbsp;</span>{{ $value->user_name }}</span><br>
+                                                        <span title="usuario y/o invitado" class="name"><span
+                                                                    class="to-lowercase"><i class="fa fa-user"></i>&nbsp;</span>{{ $value->user_name }}</span><br>
                                                         <span title="fecha de creación"><i class="fa fa-calendar-o"></i>&nbsp;{{ Jenssegers\Date\Date::parse($value->date_publication)->format('F d, Y') }}</span>
                                                     </time>
-                                                    <a class="author"><img class="img-profile" src="{{ ASSET_USERS.$value->user_image }}"></a>
+                                                    <a class="author"><img class="img-profile"
+                                                                           src="{{ ASSET_USERS.$value->user_image }}"></a>
                                                 </header>
                                             </article>
                                         </div>
                                     </div>
                                 @endforeach
-                                <div class="col-xs-12 col-md-12">
-                                    <div class="text-right">
-                                        {!! $data->appends($_GET)->render() !!}
+                                @if($data->hasPages())
+                                <!-- Pagination  -->
+                                    <div class="col-xs-12 col-md-12">
+                                        <div class="text-right">
+                                            {!! $data->appends($_GET)->render() !!}
+                                        </div>
                                     </div>
-                                </div>
+                                @endif
                             @else
                                 <div class="col-xs-12 col-md-12">
                                     <div class="form-group">

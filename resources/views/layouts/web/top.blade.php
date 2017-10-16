@@ -9,20 +9,12 @@
 <meta http-equiv="Pragma" content="no-cache">
 
 <meta property="fb:app_id" content="1559888187404310"/>
-@if(request()->getRequestUri() == '/')
-    <meta property="og:url" content="{{ request()->getUri() }}"/>
-    <meta property="og:type" content="website"/>
-    <meta property="og:title" content="aquispe.com"/>
-    <meta property="og:description" content="aquispe.com es un sitio blog, cuyo principal objetivo es el Aprendizaje" />
-    <meta property="og:image" content="{{ ASSET_POSTS.'1000/routing-laravel-framework.jpg' }}"/>
-@else
-    @yield('head')
-@endif
+@yield('head')
 
 <!-- Store CSRF token for AJAX calls -->
 <meta name="csrf_token" content="{{ csrf_token() }}">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Raleway:400,800,900">
-<link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" />
+<link rel="icon" type="image/png" href="{{ asset('favicon.png') }}"/>
 
 @if(env('APP_ENV') == 'local')
     <link rel="stylesheet" href="{{ asset('bower_components/font-awesome/css/font-awesome.min.css') }}">

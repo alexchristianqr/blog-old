@@ -4,7 +4,7 @@
     <meta property="og:url" content="{{ request()->getUri() }}"/>
     <meta property="og:type" content="website"/>
     <meta property="og:title" content="{{ strtoupper($data->title) }}"/>
-    <meta property="og:description" content="{{ $data->introduction }}"/>
+    <meta property="og:description" content="{{ $data->description }}"/>
     <meta property="og:image" content="{{ ASSET_POSTS.'1000/'.$data->image }}"/>
 @endsection
 @section('content')

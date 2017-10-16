@@ -1,4 +1,12 @@
 @extends('layouts.web.app',['title'=>'Blog','id_wrapper'=>'wrapper'])
+@section('head')
+    <meta property="og:url" content="{{ request()->getUri() }}"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="AQUISPE.COM"/>
+    <meta property="og:description"
+          content="Es un sitio web blog cuyo principal objetivo es #ElAprendizajeCompartido tiene un enfoque de #RápidaComprensión para el lector y/o estudiante, está orientado más a temas de Programación o relacionado todo a Tecnología de manera gratuita y basada en documentacion oficial."/>
+    <meta property="og:image" content="{{ ASSET_POSTS.'1000/routing-laravel-framework.jpg' }}"/>
+@endsection
 @section('content')
     <section id="view-posts">
 
@@ -39,27 +47,30 @@
                 <footer>
                     <ul class="actions">
                         <li>
-                            <a href="{{ url('post/show',['id' => $value->id,'id_category'=>$value->id_category]) }}" class="button big btn-block">ver post</a>
+                            <a href="{{ url('post/show',['id' => $value->id,'id_category'=>$value->id_category]) }}"
+                               class="button big btn-block">ver post</a>
                         </li>
                     </ul>
                     <ul class="stats">
                         <li>
-                            <a href="#" class="icon fa-thumbs-up" title="a {{ $value->util }} persona(s) les resulta útil este Post."><span>{{ $value->util }}</span></a>
+                            <a href="#" class="icon fa-thumbs-up"
+                               title="a {{ $value->util }} persona(s) les resulta útil este Post."><span>{{ $value->util }}</span></a>
                         </li>
                         <li>
-                            <a href="#" class="icon fa-thumbs-down" title="a {{ $value->inutil }} persona(s) les resulta poco útil este Post."><span>{{ $value->inutil }}</span></a>
+                            <a href="#" class="icon fa-thumbs-down"
+                               title="a {{ $value->inutil }} persona(s) les resulta poco útil este Post."><span>{{ $value->inutil }}</span></a>
                         </li>
                     </ul>
                 </footer>
             </article>
-    @endforeach
+        @endforeach
 
-    <!-- Pagination  -->
-        <div class="text-center">
-            @if($data->hasPages())
+        @if($data->hasPages())
+        <!-- Pagination  -->
+            <div class="text-center">
                 {!! $data->render() !!}
-            @endif
-        </div>
+            </div>
+        @endif
 
     </section>
 @endsection

@@ -16,7 +16,6 @@
 <!-- Button Up-->
 <a id="btnUp" class="fade in hidden"><i class="fa fa-chevron-up"></i></a>
 
-
 <!-- Wrapper -->
 <div id="{{ isset($id_wrapper) ? $id_wrapper : '' }}">
 
