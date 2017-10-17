@@ -1,6 +1,5 @@
 @extends('layouts.web.app',['title'=>'Post','body'=>'single','id_wrapper'=>'wrapper-posted'])
 @section('head')
-    <meta property="fb:app_id" content="1559888187404310"/>
     <meta property="og:url" content="{{ request()->getUri() }}"/>
     <meta property="og:type" content="website"/>
     <meta property="og:title" content="{{ strtoupper($data->title) }}"/>
@@ -68,16 +67,14 @@
                                 @if($previous)
                                     <li style="float: left;">
                                         <div class="form-group">
-                                            <a href="{{ url( 'post/show',[$previous->id,$previous->id_category] ) }}"
-                                               class="button fit previous">{{ $previous->title }}</a>
+                                            <a href="{{ url( 'post/show',[$previous->id,$previous->id_category] ) }}" class="button fit previous">{{ $previous->title }}</a>
                                         </div>
                                     </li>
                                 @endif
                                 @if($next)
                                     <li style="float: right;">
                                         <div class="form-group">
-                                            <a href="{{ url( 'post/show',[$next->id,$next->id_category] ) }}"
-                                               class="button fit next">{{ $next->title }}</a>
+                                            <a href="{{ url( 'post/show',[$next->id,$next->id_category] ) }}" class="button fit next">{{ $next->title }}</a>
                                         </div>
                                     </li>
                                 @endif
@@ -89,10 +86,10 @@
             @endif
 
             @isset($tags)
-                <section id="section-tag">
+                <section>
                     <div class="blurb">
-                        <h2>Tags Relacionados</h2>
-                        <hr>
+                        <h3>Tags Relacionados</h3>
+                        <br>
                     </div>
                     <div class="form-group">
                         <ul class="tags">

@@ -2,7 +2,6 @@
     <script src="{{ asset('bower_components/requirejs/require.js') }}" data-main="{{ asset('public_cms/main_cms.js') }}"></script>
 @else
     <script src="{{ asset('public_cms/js/app.min.js').'?cache=' . str_limit(time(), 6, '') }}"></script>
-
 @endif
 <script src="{{ asset('lib/tinymce/tinymce.min.js') }}"></script>
 <script>

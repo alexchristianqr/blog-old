@@ -244,4 +244,60 @@ class CmsController extends Controller
         }
     }
 
+    //CMS PORTFOLIO
+
+    function cmsPortfolios(CmsRequest $request)
+    {
+        $request->request->add(['status'=>'A']);
+        $rpta = $this->cms->getPortfolios($request, ['forPaginate' => true, 'limit' => 6]);
+        if ($rpta['load']) {
+            $data = $rpta['data'];
+            $states = $this->getTable('levels');
+            return view('cms.portfolios', compact('data',  'states'));
+        } else {
+            return redirect()->back()->withInput()->withErrors($rpta['message']);
+        }
+    }
+
+    function cmsPortfolio()
+    {
+            return view('cms.portfolio');
+    }
+
+    function cmsStorePortfolio(CmsRequest $request)
+    {
+        //for Store
+        $rpta = $this->cms->storePortfolio($request);
+        if ($rpta['load']) {
+            $this->fnFlashMessage($rpta['title'], $rpta['message'], $rpta['level']);
+            return redirect()->to('cms/portfolios?status=A');
+        } else {
+            return redirect()->back()->withInput()->withErrors($rpta['message']);
+        }
+    }
+
+    function cmsEditPortfolio($id)
+    {
+        //for Edit
+        $rpta = $this->cms->editPortfolio($id);
+        if ($rpta['load']) {
+            $data = $rpta['data'];
+            return view('cms.portfolio', compact('data'));
+        } else {
+            return redirect()->back()->withInput()->withErrors($rpta['message']);
+        }
+    }
+
+    function cmsUpdatePortfolio($id, CmsRequest $request)
+    {
+        //for Update
+        $rpta = $this->cms->updatePortfolio($id, $request);
+        $this->fnFlashMessage($rpta['title'], $rpta['message'], $rpta['level']);
+        if ($rpta['load']) {
+            return redirect()->to('cms/portfolios?status=A');
+        } else {
+            return redirect()->back()->withInput()->withErrors($rpta['message']);
+        }
+    }
+
 }

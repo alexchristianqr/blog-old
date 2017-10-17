@@ -48,7 +48,7 @@
                                 <th class="text-center"></th>
                             </tr>
                             </thead>
-                            <tbody class="tbody-small">
+                            <tbody class="small">
                             @foreach($data as $key => $value)
                                 <tr>
                                     <td><input type="checkbox"></td>

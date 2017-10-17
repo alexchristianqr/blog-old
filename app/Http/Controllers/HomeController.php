@@ -39,7 +39,7 @@ class HomeController extends Controller
 
     function personalPortfolio()
     {
-        $data = (new Portfolio())->all();
+        $data = (new Portfolio())->all()->where('status','A');
         if ($data) {
             return view('portfolio', compact('data'));
         } else {

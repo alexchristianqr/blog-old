@@ -24,7 +24,8 @@
                                 <i class="fa fa-calendar-times-o fa-fw"></i>&nbsp;
                                 <span>{{ Jenssegers\Date\Date::parse($value->date_publication)->format('F d, Y') }}</span>
                             </time>
-                            <a href="#" class="author"><img class="img-profile" src="{{ ASSET_USERS.$value->user_image }}" alt="imagen"></a>
+                            <a href="#" class="author"><img class="img-profile"
+                                                            src="{{ ASSET_USERS.$value->user_image }}" alt="imagen"></a>
                         </header>
                         <a class="image">
                             <div class="thumbnail thumbnail-minipost">
@@ -37,7 +38,7 @@
         </section>
     @endisset
 
-    <!-- Subscription -->
+<!-- Subscription -->
     <section class="blurb">
         <h3>SUSCRIBETE</h3>
         <br>
@@ -48,10 +49,13 @@
             </p>
         </div>
         <div class="form-group">
-            <input type="email" name="email" placeholder="e-mail" title="email para la suscripcion" class="form-control" required/>
+            <input type="email" name="email" placeholder="e-mail" title="email para la suscripcion" class="form-control"
+                   required/>
         </div>
         <div class="form-group">
-            <button title="recibir proximas publicaciones y/o novedades por email." type="submit" class="button btn-block big">SUSCRIBIRME</button>
+            <button title="recibir proximas publicaciones y/o novedades por email." type="submit"
+                    class="button btn-block big">SUSCRIBIRME
+            </button>
         </div>
         {!! Form::close() !!}
     </section>
@@ -90,7 +94,7 @@
         </section>
     @endif
 
-    <!-- Posts List Recomendados -->
+<!-- Posts List Recomendados -->
     @if(isset($data_mini_posts))
         <section class="blurb">
             <h3>RECOMENDADOS</h3>
@@ -107,7 +111,8 @@
                                     <i class="fa fa-calendar fa-fw"></i>{{ Jenssegers\Date\Date::parse($value->created_at)->format('F d, Y') }}
                                 </time>
                             </header>
-                            <a href="{{ url('post/show',['id' => $value->id_post,'id_category' => $value->id_category]) }}" class="image">
+                            <a href="{{ url('post/show',['id' => $value->id_post,'id_category' => $value->id_category]) }}"
+                               class="image">
                                 <div class="thumbnail">
                                     <img src="{{ ASSET_POSTS.'300/' . $value->image }}"/>
                                 </div>
@@ -122,19 +127,37 @@
         </section>
     @endif
 
-    <!-- About -->
-    <section class="blurb hidden">
+<!-- About -->
+    <section class="blurb">
         <h3>INFORMACION</h3>
         <br>
         <p>
-            <span>Soy participe de las ideas y comprometedor en proyectos por ello si tines alguna idea o sugerencia no dudes en contactarme.</span>
+            <span>Es un sitio web blog cuyo principal objetivo es <b>#ElAprendizajeCompartido</b> tiene un enfoque de <b>#RápidaComprensión</b> para el lector y/o estudiante, está orientado más a temas de Programación o relacionado todo a Tecnología de manera gratuita y basada en documentación oficial.</span>
         </p>
         <ul class="actions">
-            <li><a href="#" class="button">LEER MAS</a></li>
+            <li><a href="#" class="button" data-toggle="modal" data-target="#myModal">LEER MAS</a></li>
         </ul>
     </section>
 
     <!-- Footer -->
     @include('layouts.web.firma')
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">INFORMACION</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <span>Es un sitio web blog cuyo principal objetivo es <b>#ElAprendizajeCompartido</b> tiene un enfoque de <b>#RápidaComprensión</b> para el lector y/o estudiante, está orientado más a temas de Programación o relacionado todo a Tecnología de manera gratuita y basada en documentación oficial.</span>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <a href class="button" data-dismiss="modal">Cerrar</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </section>

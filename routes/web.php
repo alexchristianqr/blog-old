@@ -34,6 +34,12 @@ Route::group(['middleware' => ['isActive', 'auth']], function () {
     Route::post('cms/update-table/{table}/{id}', 'CmsController@cmsUpdateTable');//put
     Route::put('cms/update-user/{id}', 'CmsController@cmsUpdateUser');
 
+    Route::get('cms/portfolios', 'CmsController@cmsPortfolios');
+    Route::get('cms/portfolio', 'CmsController@cmsPortfolio');
+    Route::post('cms/store-portfolio', 'CmsController@cmsStorePortfolio');
+    Route::get('cms/edit-portfolio/{id}', 'CmsController@cmsEditPortfolio');
+    Route::put('cms/update-portfolio/{id}', 'CmsController@cmsUpdatePortfolio');
+
     //LOGOUT
     Route::get('logout', 'Auth\LoginController@logout');
 

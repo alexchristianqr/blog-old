@@ -26,12 +26,17 @@
                         </li>
                         <li>
                             <a href="{{ url('cms/post') }}">
-                                <span><i class="fa fa-plus fa-fw"></i>Create Post</span>
+                                <span><i class="fa fa-plus fa-fw"></i>New Post</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('cms/portfolios') }}">
+                                <span><i class="fa fa-list fa-fw"></i>Portfolios</span>
                             </a>
                         </li>
                         <li>
                             <a href="{{ url('cms/portfolio') }}">
-                                <span><i class="fa fa-plus fa-fw"></i>Portfolio</span>
+                                <span><i class="fa fa-plus fa-fw"></i>New Portfolio</span>
                             </a>
                         </li>
                     </ul>

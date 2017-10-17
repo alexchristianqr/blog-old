@@ -34,12 +34,20 @@ class CmsRequest extends FormRequest
                         'status' => 'required'
                     ];
                     //for User
-                }elseif($this->getPathInfo() == "/cms/update-user/" . $this->request->get('id_user')){
+                }elseif($this->getPathInfo() == "/cms/update-user/" . $this->request->get('id_user')) {
                     return [
                         'name' => 'required',
                         'email' => 'required',
                         'image' => 'sometimes',
                         'id_type_user' => 'required',
+                        'status' => 'required',
+                    ];
+                    //for Portfolio
+                }elseif($this->getPathInfo() == "/cms/update-portfolio/". $this->request->get('id')){
+                    return [
+                        'title' => 'required',
+                        'width' => 'required',
+                        'img' => 'sometimes',
                         'status' => 'required',
                     ];
                     //for Post
@@ -73,6 +81,13 @@ class CmsRequest extends FormRequest
                         'password' => 'required',
                         'repassword' => 'required',
                         'status' => 'required',
+                    ];
+                }elseif($this->getPathInfo() == "/cms/store-portfolio"){
+                    return [
+                        'title' => 'required',
+                        'width' => 'required',
+                        'img' => 'required',
+                        "status" => 'required',
                     ];
                     //for Post
                 } else {

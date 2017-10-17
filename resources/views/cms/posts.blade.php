@@ -53,7 +53,7 @@
                 <div class="panel">
                     <div class="panel-body">
                         <div class="table-responsive">
-                            <table class="table small">
+                            <table class="table">
                                 <thead>
                                     <tr>
                                         <th width="2%"><input id="chkAll" data-toggle="all" type="checkbox"></th>
@@ -66,7 +66,7 @@
                                         <th width="10%" class="text-center"></th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="small">
                                 @if(count($data))
                                     @foreach($data as $key => $value)
                                         <tr data-id="{{ $value->id }}">

@@ -28,14 +28,12 @@
             </div>
         @foreach($data as $value)
             <!-- Thumb Items -->
-                @for($i = 1; $i <= 2; $i++)
-                    <article class="item thumb" data-width="{{ $value->width_article }}">
+                    <article class="item thumb" data-width="{{ $value->width }}">
                         <h2>{{ $value->title }}</h2>
-                        <a href="{{ asset('images/app/'.$value->image) }}" class="image">
-                            <img src="{{ asset('images/app/'.$value->image) }}">
+                        <a href="{{ ASSET_PORTFOLIOS.$value->image }}" class="image">
+                            <img src="{{ ASSET_PORTFOLIOS.$value->image }}">
                         </a>
                     </article>
-                @endfor
             @endforeach
         </div>
     </div>
@@ -50,7 +48,7 @@
 @if(env("APP_ENV") == 'local')
     <script src="{{ asset('bower_components/requirejs/require.js') }}" data-main="{{ asset('public_portfolio/main_portfolio.js') }}"></script>
 @else
-    <script src="{{ asset('public_portfolio/js/app.min.js?cache=' . str_limit(time(), 6, '') }}"></script>
+    <script src="{{ asset('public_portfolio/js/app.min.js') }}"></script>
 @endif
 
 </body>

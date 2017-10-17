@@ -26,13 +26,14 @@ define('FECHA', $carbon->format(FECHA_DEFAULT_FORMAT));
 define('FECHA_HORA', $carbon->now()->format(FECHA_DEFAULT_FORMAT . ' H:i:s'));
 define('FECHA_DETALLE', $carbon->now()->format('YmdHis'));
 define('FECHA_1MES', $carbon->now()->addMonth(1)->format(FECHA_DEFAULT_FORMAT));
-define('DIR_IMG_USERS', asset('images/users') . '/');
 
 define('PATH_POSTS', public_path() . '/images/posts/');
 define('PATH_USERS', public_path() . '/images/users/');
+define('PATH_PORTFOLIOS', public_path() . '/images/portfolios/');
 
 define('ASSET_POSTS', asset('/images/posts') . '/');
 define('ASSET_USERS', asset('/images/users') . '/');
+define('ASSET_PORTFOLIOS', asset('/images/portfolios') . '/');
 define('ASSET_APP', asset('/images/app') . '/');
 
 trait Utility
