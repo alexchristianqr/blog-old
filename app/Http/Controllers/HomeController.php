@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CmsRequest;
+use App\Http\Services\cmsService;
 use App\Http\Services\PostService;
-use App\Portfolio;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -39,7 +41,7 @@ class HomeController extends Controller
 
     function personalPortfolio()
     {
-        $data = (new Portfolio())->all()->where('status','A');
+        $data = DB::table('portfolio')->where('status', 'A')->get();
         if ($data) {
             return view('portfolio', compact('data'));
         } else {
@@ -59,6 +61,39 @@ class HomeController extends Controller
         } else {
             return response()->view('errors.aviso');
         }
+    }
+
+    function socialiteRegister(Request $request)
+    {
+        $data = $request->session()->get('data');
+        session(['temp_data_socialite' => $data]);
+        return view('auth.register', compact('data'));
+    }
+
+    function socialiteStore(CmsRequest $request)
+    {
+//        dd($request);
+        //for Store
+        if ($request->password === $request->confirm_password) {
+            $request->request->add(['id_type_user' => 4]);
+            $request->request->add(['status' => 'I']);
+
+            if ($request->id_type_user == 4) {
+                $rpta = (new CmsService())->storeUser($request);
+                if ($rpta['load']) {
+                    $this->fnFlashMessage($rpta['title'], $rpta['message'], $rpta['level']);
+                    return redirect()->to('/login');
+                } else {
+                    return redirect()->back()->withInput()->withErrors($rpta['message']);
+                }
+            } else {
+                return redirect()->to('/login');
+            }
+
+        } else {
+            return redirect()->back()->withInput()->withErrors('Las contraseñas ingresadas son incorrectas.');
+        }
+
     }
 
 }

@@ -7,9 +7,6 @@
 
 <!-- /#wrapper -->
 <div id="wrapper">
-
-    @include('layouts.cms.modals')
-
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 10px; background-color: #fff">
         @include('layouts.cms.nav-left')

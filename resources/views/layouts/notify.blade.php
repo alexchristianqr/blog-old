@@ -21,7 +21,7 @@
         </div>
     </div>
     <script type="text/javascript">
-        setTimeout(function () {document.getElementById('alert-flash').style.display = 'none';}, 5000);
+        setTimeout(function () {document.getElementById('alert-flash').style.display = 'none';}, 120000);
     </script>
 @endif
 
@@ -39,7 +39,7 @@
             </div>
         </div>
         <script type="text/javascript">
-            setTimeout(function () {document.getElementById('alert-error').style.display = 'none';}, 10000);
+            setTimeout(function () {document.getElementById('alert-error').style.display = 'none';}, 120000);
         </script>
     @endif
 @endisset

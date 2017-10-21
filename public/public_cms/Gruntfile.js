@@ -31,7 +31,7 @@ module.exports = function (grunt) {
             }
         },
         jshint: {
-            all: ['Gruntfile.js', 'js/*.js', 'main_cms.js']
+            all: ['Gruntfile.js', 'js/**/*.js', 'main_cms.js']
         }
     });
 

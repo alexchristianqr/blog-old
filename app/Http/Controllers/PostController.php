@@ -10,8 +10,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
 use App\Http\Services\PostService;
-use App\Post;
-use function foo\func;
 
 class PostController extends Controller
 {
@@ -22,27 +20,24 @@ class PostController extends Controller
         $this->service = $postService;
     }
 
-    function show($id, $id_category, PostRequest $request)
+    function show($id, PostRequest $request)
     {
         $rpta = $this->service->getPost($id);
         $rpta2 = $this->service->getMiniPosts();
         $rpta3 = $this->service->getPrePosts();
-        $data_prev_next = $this->service->getNextAndPrevious($id, $id_category);
-        if ($rpta['load'] && $rpta2['load'] && $rpta3['load'] && $data_prev_next['load']) {
+        if ($rpta['load'] && $rpta2['load'] && $rpta3['load']) {
             $data = $rpta['data'];
+            $data_prev_next = $this->service->getNextAndPrevious($id, $data->id_category);
             $data_mini_posts = $rpta2['data'];
             $data_pre_posts = $rpta3['data'];
             $next = $data_prev_next['data']['next'];
             $previous = $data_prev_next['data']['previous'];
-
-            if (!empty($data->id_tag)) {
-                $array_tags = json_decode($data->id_tag);
-                $tags = [];
+            $array_tags = json_decode($data->id_tag);
+            $tags = [];
+            if (!empty($data->id_tag))
                 foreach ($array_tags as $item) {
-                    if ($item->value == true)
-                        array_push($tags, \DB::table('tag')->select()->where('id', $item->id)->first());
+                    if ($item->value == true) array_push($tags, \DB::table('tag')->where('id', $item->id)->first());
                 }
-            }
             if ($request->ajax()) {
                 return response()->json();
             } else {
@@ -72,7 +67,7 @@ class PostController extends Controller
     {
         $search = trim($request["query"]);
         if (isset($request["query"]) && strlen($request["query"]) >= 3) {
-            $rpta = $this->service->getPosts(null, ['flag'=>true,'search' => $search, 'page' => 6]);
+            $rpta = $this->service->getPosts(null, ['flag' => true, 'search' => $search, 'page' => 6]);
             $data = $rpta["data"];
         } else {
             $data = [];

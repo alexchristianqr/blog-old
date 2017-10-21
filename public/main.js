@@ -41,15 +41,14 @@ require([
     'menu',
     'metisMenu',
     'socialsharekit',
-    'js/app/helps/sb-admin-2',
-    'js/app/AppController',
-    'js/app/PostController'
+    'js/sb-admin-2',
+    'js/app'
 ], function ($) {
 
-    //csrf_token
+    // X-CSRF-TOKEN
     $.extend(csrf_token, {'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')});
 
-    //initialize Social Share Kit
+    // Social Share Kit
     var url = $('meta[property="og:url"]').attr('content'),
         image = $('meta[property="og:image"]').attr('content'),
         title = $('meta[property="og:title"]').attr('content'),
@@ -58,18 +57,23 @@ require([
     SocialShareKit.init({
         twitter: obj,
         facebook: obj,
-        google: obj
+        google: obj,
     });
+    function popupCenter(url, target, w, h) {
+        var left = (screen.width / 2) - (w / 2);
+        var top = 100;
+        return window.open(url, target, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+    }
 
-    //shared Whatsapp
+    // Whatsapp
     $('.ssk-whatsapp').on('click', function () {
         event.preventDefault();
-        function popupCenter(url, title, w, h) {
-            var left = (screen.width / 2) - (w / 2);
-            var top = 100;
-            return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
-        }
-        return popupCenter('https://api.whatsapp.com/send?phone=51955588297&text=' + encodeURI('Continuar para iniciar la conversacion con www.aquispe.com'), 'AQUISPE.COM', 600, 450);
+        return window.open('https://api.whatsapp.com/send?phone=51955588297&text=' + encodeURI('Continuar para iniciar la conversacion con http://aquispe.com'),'_blank');
+    });
+    // Github
+    $('.ssk-github').on('click', function () {
+        event.preventDefault();
+        return window.open('https://github.com/acqrdeveloper','_blank');
     });
 
     //config link .active

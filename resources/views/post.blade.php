@@ -67,14 +67,14 @@
                                 @if($previous)
                                     <li style="float: left;">
                                         <div class="form-group">
-                                            <a href="{{ url( 'post/show',[$previous->id,$previous->id_category] ) }}" class="button fit previous">{{ $previous->title }}</a>
+                                            <a href="{{ url( 'post/show',['id' => $previous->slug]) }}" class="button fit previous">{{ $previous->title }}</a>
                                         </div>
                                     </li>
                                 @endif
                                 @if($next)
                                     <li style="float: right;">
                                         <div class="form-group">
-                                            <a href="{{ url( 'post/show',[$next->id,$next->id_category] ) }}" class="button fit next">{{ $next->title }}</a>
+                                            <a href="{{ url( 'post/show',['id' => $next->slug]) }}" class="button fit next">{{ $next->title }}</a>
                                         </div>
                                     </li>
                                 @endif
@@ -94,8 +94,7 @@
                     <div class="form-group">
                         <ul class="tags">
                             @foreach($tags as $value)
-                                <li><a href="{{ url('/search?query='.$value->name) }}"
-                                       class="tag">{{ $value->name }}</a>
+                                <li><a href="{{ url('/search?query='.$value->name) }}" class="tag">{{ $value->name }}</a>
                             @endforeach
                         </ul>
                     </div>

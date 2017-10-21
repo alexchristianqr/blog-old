@@ -42,18 +42,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group text-center" hidden>
+                    <div class="form-group text-center">
+                        <button title="iniciar sesion" type="submit" class="button button-main big btn-block">Login</button>
+                        <a title="registrate" href="{{ url('/socialite/register') }}" class="button big btn-block">Sign In</a>
+                    </div>
+                    <div class="form-group text-center">
                         <a title="iniciar sesion con google" href="{{ route('socialite.login',['driver'=>'google']) }}"
                            class="btn btn-circle btn-default btn-google"><i class="fa fa-google"></i> </a>
                         <a title="iniciar session con facebook" href="{{ route('socialite.login',['driver'=>'facebook']) }}"
                            class="btn btn-circle btn-default btn-facebook"><i class="fa fa-facebook"></i> </a>
                         <a title="iniciar sesion con github" href="{{ route('socialite.login',['driver'=>'github']) }}"
                            class="btn btn-circle btn-default btn-github"><i class="fa fa-github"></i> </a>
-                    </div>
-                    <div class="form-group text-center">
-                        <button title="iniciar sesion" type="submit" class="button button-main big btn-block">Login</button>
-                        <a title="registrate" href="{{ url('/auth/register') }}" class="button big btn-block">Sign In</a>
-                        {{--<button title="registrate" type="submit" class="button big btn-block">Sign In</button>--}}
                     </div>
                 </form>
             </div>

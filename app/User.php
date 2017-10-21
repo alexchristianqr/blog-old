@@ -17,17 +17,21 @@ class User extends Authenticatable
 
     protected $fillable = [
         'id_type_user',
+        'id_provider',
+        'id_sector',
+        'age',
+        'country',
+        'observation',
         'name',
         'lastname',
         'nick',
         'email',
         'image',
         'password',
+        'unpassword',
         'avatar',
         'provider',
-        'id_provider',
         'status',
-        'unpassword',
         'remember_token'
     ];
 

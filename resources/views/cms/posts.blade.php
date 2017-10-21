@@ -1,6 +1,7 @@
 @extends('layouts.cms.app')
 @section('content')
-    <section id="section-cms-posts">
+    @isset(session('session_roles')->role_post_list)
+        <section id="section-cms-posts">
         <div class="row">
             <form action="{{ url('cms/posts') }}" method="GET" role="form">
                 <div class="panel">
@@ -55,16 +56,16 @@
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
-                                    <tr>
-                                        <th width="2%"><input id="chkAll" data-toggle="all" type="checkbox"></th>
-                                        <th width="18%">Title</th>
-                                        <th width="43%">Description</th>
-                                        <th width="12%">Updated</th>
-                                        <th class="text-center" width="5%">Util</th>
-                                        <th class="text-center" width="5%">Inutil</th>
-                                        <th class="text-center" width="5%">Status</th>
-                                        <th width="10%" class="text-center"></th>
-                                    </tr>
+                                <tr>
+                                    <th width="2%"><input id="chkAll" data-toggle="all" type="checkbox"></th>
+                                    <th width="18%">Title</th>
+                                    <th width="43%">Description</th>
+                                    <th width="12%">Updated</th>
+                                    <th class="text-center" width="5%">Util</th>
+                                    <th class="text-center" width="5%">Inutil</th>
+                                    <th class="text-center" width="5%">Status</th>
+                                    <th width="10%" class="text-center"></th>
+                                </tr>
                                 </thead>
                                 <tbody class="small">
                                 @if(count($data))
@@ -73,17 +74,18 @@
                                             <td><input class="chkOnly" type="checkbox"></td>
                                             <td>{{ $value->title }}</td>
                                             <td>{{ $value->subtitle }}</td>
-                                            <td class="small">{{ Carbon\Carbon::parse($value->updated_at)->format('Y-m-d H:i:s') }}</td>
+                                            <td class="small">{{ $value->updated_at }}</td>
                                             <td class="text-center">{{ $value->util }}</td>
                                             <td class="text-center">{{ $value->inutil }}</td>
-                                            <td title="{{ $value->status == 'A' ? 'activo' : 'inactivo' }}" class="text-center"><i class="fa fa-circle {{ $value->status == 'A' ? 'text-primary' : 'text-danger' }}"></i>
-                                            </td>
+                                            <td title="{{ $value->status == 'A' ? 'activo' : 'inactivo' }}" class="text-center"><i class="fa fa-circle {{ $value->status == 'A' ? 'text-primary' : 'text-danger' }}"></i></td>
                                             <td>
                                                 <div class="text-center">
-                                                    <a href="{{ url('cms/edit-post',['id' => $value->id]) }}" class="btn btn-success btn-sm">
-                                                        <i class="fa fa-pencil"></i>
-                                                    </a>
-                                                    <a href="{{ url('cms/preview',['id' => $value->id]) }}" title="vista preview" class="btn btn-default btn-sm">
+                                                    @isset(session('session_roles')->role_post_edit)
+                                                        <a href="{{ url('cms/edit-post',['id' => $value->id]) }}" class="btn btn-success btn-sm">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </a>
+                                                    @endisset
+                                                    <a href="{{ url('cms/preview',['id' => $value->slug]) }}" title="vista preview" class="btn btn-default btn-sm">
                                                         <i class="fa fa-eye"></i>
                                                     </a>
                                                 </div>
@@ -92,9 +94,10 @@
                                     @endforeach
                                 @else
                                     <tr>
-                                        <td colspan="7" class="text-center text-warning">
+                                        <td colspan="8" class="text-center text-warning">
                                             <div style="padding: 2em 2em 0 2em">
-                                                <i class="fa fa-exclamation-triangle fa-fw"></i>No hay Registros!
+                                                <i class="fa fa-exclamation-triangle"></i>
+                                                <p>No hay Registros!</p>
                                             </div>
                                         </td>
                                     </tr>
@@ -112,4 +115,5 @@
             </form>
         </div>
     </section>
+    @endisset
 @endsection

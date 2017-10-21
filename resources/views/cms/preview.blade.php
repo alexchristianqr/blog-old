@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>preview</title>
+    <title>Preview | Post</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Raleway:400,800,900">
     <link rel="stylesheet" href="{{ asset('css/styles.min.css') }}">
 </head>
@@ -40,14 +39,14 @@
                             <time class="published" datetime="2015-11-01">{{ Jenssegers\Date\Date::parse($data->created_at)->format('d F Y') }}</time>
                             <a href="#" class="author">
                                 <span class="name">{{ $data->user_name }}</span>
-                                <img class="img-profile" src="{{ DIR_IMG_USERS.$data->user_image }}" alt="auto">
+                                <img class="img-profile" src="{{ ASSET_USERS.$data->user_image }}" alt="auto">
                             </a>
                         </div>
                     </header>
 
                     <!-- Content Post -->
                     <section>
-                        <div class="thumbnail"><img src="{{ ASSET_POSTS.'1000/'.$data->image }}" alt=""></div>
+                        <div class="thumbnail" style="border: none"><img src="{{ ASSET_POSTS.'1000/'.$data->image }}" alt=""></div>
                         <p>{{ $data->introduction }}</p>
                         {!!  $data->content !!}
                     </section>

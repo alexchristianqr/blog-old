@@ -1,21 +1,69 @@
 /**
- * Created by aquispe on 07/09/2017.
+ * Created by aquispe on 18/10/2017.
  */
 define([
     'jquery',
-    'js/app/helps/Utility'
+    'js/Utility',
 ], function ($, Utility) {
 
     var Ctrl;
-    var Section = $('#view-post').length;
-    var cont_util = 0,
-        cont_inutil = 0,
-        bool_util = true,
-        bool_inutil = true,
-        cookie_community = $.cookie('cookie_community');
+    var ViewPost = $('#view-post').length;
+    var Body = $('body').length;
 
-    if (Section) {
+    if (Body) {
+        var $btnUp = $('#btnUp');
+        Ctrl = {
+            start: function () {
+                Ctrl.init();
+            },
+            init: function () {
+                // Initialize
+                if (window.scrollY >= 100) {
+                    $btnUp.removeClass('hidden').fadeIn();
+                } else {
+                    $btnUp.addClass('hidden').fadeOut();
+                }
+                $btnUp.on('click', function () {
+                    event.preventDefault();
+                    $("body, html").animate({scrollTop: '0'}, 800);
+                    $btnUp.removeClass('hidden');
+                });
+                $(window).on('scroll', function () {
+                    event.preventDefault();
+                    if ($(this).scrollTop() >= 200) {
+                        $btnUp.removeClass('hidden').fadeIn();
+                    } else {
+                        $btnUp.addClass('hidden').fadeOut();
+                    }
+                });
+                // Show/Hide Password
+                $('.btnEyesPassword').on('click', Ctrl.fnButtonEyesPwd);
+            },
+            fnButtonEyesPwd: function () {
+                event.preventDefault();
+                var eye = $('.btnEyesPassword > i'), password = $('[name="password"]');
+                if (password.val() != "") {
+                    if (eye.hasClass('fa fa-eye-slash')) {
+                        eye.attr('class', 'fa fa-eye');
+                        password.attr('type', 'password');
+                    } else {
+                        eye.attr('class', 'fa fa-eye-slash');
+                        password.attr('type', 'text');
+                    }
+                } else {
+                    event.preventDefault();
+                }
+            }
+        };
+        Ctrl.start();
+    }
 
+    if (ViewPost) {
+        var cont_util = 0,
+            cont_inutil = 0,
+            bool_util = true,
+            bool_inutil = true,
+            cookie_community = $.cookie('cookie_community');
         Ctrl = {
             start: function () {
                 Ctrl.init();
@@ -128,9 +176,7 @@ define([
                 });
             }
         };
-
         Ctrl.start();
-
     }
 
     return Ctrl;

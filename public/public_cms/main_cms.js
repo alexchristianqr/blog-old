@@ -30,7 +30,7 @@ require([
     'bootstrap',
     'metisMenu',
     'js/sb-admin-2',
-    'js/AppController'
+    'js/app'
 ], function ($) {
 
     $.extend(csrf_token, {'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')});

@@ -9,8 +9,9 @@
 <div class="ssk-group ssk-sticky ssk-right ssk-center ssk-count ssk-lg ssk-developer">
     <a href="" class="ssk ssk-facebook"></a>
     <a href="" class="ssk ssk-google-plus"></a>
-    <a href="" class="ssk ssk-whatsapp"></a>
     <a href="" class="ssk ssk-linkedin"></a>
+    <a href="" class="ssk ssk-whatsapp"></a>
+    <a href="" class="ssk ssk-github"></a>
 </div>
 
 <!-- Button Up-->

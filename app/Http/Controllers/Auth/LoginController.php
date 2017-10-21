@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,11 +37,13 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => 'logout']);
+//        $this->middleware('guest', ['except' => 'logout']);
     }
 
     public function fnDoLogin(Request $request)
     {
+        session(['super_administrator' => false]);
+
         $credentials = $request->only(['email', 'password']);
         $remember = $request->has('remember') ? true : false;
         if ($this->guard()->attempt($credentials, $remember)) {
@@ -52,13 +55,40 @@ class LoginController extends Controller
                         return redirect()->to('login')->withInput()->withErrors($msg);
                         break;
                     default:
+
                         $request->session()->regenerate();
                         $this->clearLoginAttempts($request);
-                        return $this->authenticated($request, $this->guard()->user()) ?: redirect()->intended('cms/home');
+
+                        $type_user = (new User)->join('type_user', 'type_user.id', '=', 'users.id_type_user')->where('users.id_type_user', auth()->user()->id_type_user)->first(['type_user.id', 'type_user.name', 'type_user.roles']);
+
+                        if(count(json_decode($type_user->roles))){
+                            $rols = $type_user->roles;
+                        }else{
+                            $rols='{}';
+                        }
+                        $session_roles = json_decode($rols);
+
+                        // Create Sessions
+                        session(['session_roles' => $session_roles]);
+                        session(['session_type_user' => $type_user]);
+
+                        // Session Super-Administrator
+                        if ($type_user->id == 1)
+                            session(['super_administrator' => true]);
+
+                        // Redirect Login
+                        return $this->authenticated($request, $this->guard()->user()) ?: redirect()->to('cms/home');
                         break;
                 }
             }
         }
         return redirect()->back()->withInput()->withErrors(trans('auth.failed'));
+    }
+
+    public function fnDoLogout(Request $request)
+    {
+        $this->guard()->logout();
+        $request->session()->invalidate();
+        return redirect()->to('/login');
     }
 }

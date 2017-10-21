@@ -38,6 +38,7 @@ define('ASSET_APP', asset('/images/app') . '/');
 
 trait Utility
 {
+
     //variables Respuesta y de uso para los estilos de Excel.
     public $rpta = [], $service, $appkey,
         $textAlignHCenter = ['alignment' => ['horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER]],
@@ -226,37 +227,12 @@ trait Utility
         return (int)$maxID + 1;
     }
 
-    function fnSendMail($view, $request, $func)
-    {
-        Mail::send($view, ['remember_token' => $request->remember_token], $func);
-        /*
-        $message->sender($address, $name = null);
-        $message->to($address, $name = null);
-        $message->cc($address, $name = null);
-        $message->bcc($address, $name = null);
-        $message->replyTo($address, $name = null);
-        $message->subject($subject);
-        $message->priority($level);
-        $message->attach($pathToFile, array $options = []);
-        // Attach a file from a raw $data string...
-        $message->attachData($data, $name, array $options = []);
-        // Get the underlying SwiftMailer message instance...
-        $message->getSwiftMessage();
-        */
-
-    }
-
-    function getTable($table, $oneWhere = null, $join = null)
+    function getTable($table, $oneWhere = null)
     {
         if (is_array($oneWhere)) {
             return DB::table($table)->where($oneWhere[0], $oneWhere[1])->get();
         }
-        if (is_array($join)) {
-            return DB::table($table)
-                ->join($join['table'], $join['first'], $join['ope'], $join['second'])
-                ->distinct()
-                ->get();
-        }
         return DB::table($table)->get();
     }
+
 }

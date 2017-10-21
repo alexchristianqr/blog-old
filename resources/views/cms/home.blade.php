@@ -10,8 +10,31 @@
                             <p>En esta session explicaremos paso a paso el uso del sistema </p>
                             <br>
                             <label for="" class="control-label">Inicio</label>
-                            <div class="thumbnail">
-                                <img src="{{ asset('images/one.jpg') }}" alt="">
+                            <hr>
+                            <div class="col-md-10 col-md-offset-1">
+                                <div class="thumbnail">
+                                    <img src="{{ ASSET_APP.'modulo_users.jpg' }}" alt="">
+                                </div>
+                            </div>
+                            <div class="col-md-10 col-md-offset-1">
+                                <div class="thumbnail">
+                                    <img src="{{ ASSET_APP.'modulo_user.jpg' }}" alt="">
+                                </div>
+                            </div>
+                            <div class="col-md-10 col-md-offset-1">
+                                <div class="thumbnail">
+                                    <img src="{{ ASSET_APP.'modulo_posts.jpg' }}" alt="">
+                                </div>
+                            </div>
+                            <div class="col-md-10 col-md-offset-1">
+                                <div class="thumbnail">
+                                    <img src="{{ ASSET_APP.'modulo_post.jpg' }}" alt="">
+                                </div>
+                            </div>
+                            <div class="col-md-10 col-md-offset-1">
+                                <div class="thumbnail">
+                                    <img src="{{ ASSET_APP.'modulo_tablas.jpg' }}" alt="">
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -26,7 +26,7 @@
                 <header>
                     <div class="title">
                         <h2>
-                            <a href="{{ url('post/show',['id' => $value->id,'id_category'=>$value->id_category]) }}">{{ $value->title  }}</a>
+                            <a href="{{ url('post/show',['id' => $value->slug]) }}">{{ $value->title  }}</a>
                         </h2>
                         <p>{{ $value->subtitle }}</p>
                     </div>
@@ -38,7 +38,7 @@
                         </a>
                     </div>
                 </header>
-                <a href="{{ url('post/show',['id' => $value->id,'id_category'=>$value->id_category]) }}">
+                <a href="{{ url('post/show',['id' => $value->slug]) }}">
                     <div class="thumbnail" style="border: none">
                         <img src="{{ ASSET_POSTS.'1000/'.$value->image }}">
                     </div>
@@ -47,8 +47,7 @@
                 <footer>
                     <ul class="actions">
                         <li>
-                            <a href="{{ url('post/show',['id' => $value->id,'id_category'=>$value->id_category]) }}"
-                               class="button big btn-block">ver post</a>
+                            <a href="{{ url('post/show',['id' => $value->slug]) }}" class="button big btn-block">ver post</a>
                         </li>
                     </ul>
                     <ul class="stats">
@@ -64,11 +63,10 @@
                 </footer>
             </article>
         @endforeach
-
         @if($data->hasPages())
-        <!-- Pagination  -->
+        <!-- Pagination Simple -->
             <div class="text-center">
-                {!! $data->render() !!}
+                {!! $data->appends($_GET)->render() !!}
             </div>
         @endif
 

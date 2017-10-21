@@ -25,14 +25,14 @@ class PostService
 
     use Utility;
 
-    function getPost($id)
+    function getPost($slug)
     {
         try {
             $data = (new Post())
                 ->select(['post.*', 'users.name AS user_name', 'users.image AS user_image'])
                 ->join('users', 'users.id', '=', 'post.id_user')
                 ->where('post.status', 'A')
-                ->where('post.id', $id)
+                ->where('post.slug', $slug)
                 ->first();
             if ($data) {
                 $this->fnSuccess($data);
@@ -51,7 +51,7 @@ class PostService
     {
         try {
             $data = (new Post())
-                ->select(['post.*',  'users.name AS user_name', 'users.image AS user_image'])
+                ->select(['post.*', 'users.name AS user_name', 'users.image AS user_image'])
                 ->distinct()
                 ->join('users', 'users.id', '=', 'post.id_user');
 
@@ -75,15 +75,16 @@ class PostService
                 }
 
                 // Filtros personalizados
-                if (isset($option['status'])) {
-                    $data = $data->where('post.status', '=', $option['status']);
-                }
+                if (isset($option['status'])) $data = $data->where('post.status', $option['status']);
+
+                // Si no es Super Administrator
+                if (!session('super_administrator')) if (isset($option['id_user'])) $data = $data->where('post.id_user', $option['id_user']);
 
                 // Tipo de Paginado
                 if (isset($option['simplePaginate']) == true) {
-                    $data = $data->orderBy('id', 'desc')->simplePaginate($option['page']);
+                    $data = $data->orderBy('id', 'desc')->simplePaginate($option['page'], ['*'], 'page_posts');
                 } else {
-                    $data = $data->orderBy('id', 'desc')->paginate($option['page']);
+                    $data = $data->orderBy('updated_at', 'desc')->paginate($option['page']);
                 }
 
                 // Obtener Data
@@ -109,7 +110,6 @@ class PostService
     {
         try {
             $data = (new Post())
-//                ->select(['post.id', 'users.name AS user_name', 'users.image AS user_image', 'post.id_category', 'post.title', 'post.description_title', 'post.content', 'post.created_at', 'post.image', 'post.introduction'])
                 ->select(['post.*', 'users.name AS user_name', 'users.image AS user_image'])
                 ->join('users', 'users.id', '=', 'post.id_user')
                 ->where('post.title', 'like', '%' . $text_search . '%')
@@ -133,14 +133,12 @@ class PostService
     function getMiniPosts()
     {
         try {
-            $data = DB::table('mini_post AS mp')
-                ->select(['mp.id_post', 'p.id_category', 'u.name AS user_name', 'u.image AS user_image', 'p.title', 'p.created_at', 'p.image'])
-                ->join('post AS p', 'p.id', '=', 'mp.id_post')
-                ->leftJoin('users AS u', 'u.id', '=', 'p.id_user')
-                ->where('p.status', 'A')
-                ->where('mp.status', 'A')
-                ->orderBy('mp.order', 'desc')
-                ->get();
+            $data = (new Post())
+                ->select(['post.*', 'u.name AS user_name', 'u.image AS user_image'])
+                ->join('users AS u', 'u.id', '=', 'post.id_user')
+                ->where('post.status', 'A')
+                ->orderBy('post.util', 'desc')
+                ->simplePaginate(5, ['*'], 'page_recommended');
             if ($data) {
                 $this->fnSuccess($data);
             } else {
@@ -288,7 +286,6 @@ class PostService
                 $message->to('aquispe.developer@gmail.com');
                 $message->subject('AQUISPE.COM - MENSAJE USUARIO');
             });
-
             if (count(Mail::failures()) > 0) {
                 throw new Exception("my exception");
             } else {
@@ -308,20 +305,22 @@ class PostService
         }
     }
 
-    function getNextAndPrevious($id, $id_category)
+    function getNextAndPrevious($slug, $id_category)
     {
         try {
+            $id = (new Post())->where('post.slug', $slug)->first(['id'])->id;
             $previous = (new Post())
-                ->select(['id', 'title', 'id_category'])
                 ->where('status', 'A')
                 ->where('id', '<', $id)
                 ->where('id_category', $id_category)
-                ->orderBy('id')->get()->max();
-            $next = (new Post())->select(['id', 'title', 'id_category'])
+                ->orderBy('id')
+                ->get(['title', 'slug'])->max();
+            $next = (new Post())
                 ->where('status', 'A')
                 ->where('id', '>', $id)
                 ->where('id_category', $id_category)
-                ->orderBy('id')->first();
+                ->orderBy('id')
+                ->first(['title', 'slug']);
             $data = compact('previous', 'next');
             if ($data) {
                 $this->fnSuccess($data);
@@ -343,19 +342,18 @@ class PostService
         try {
             $data = (new Post());
             $data->fill($request->all());
+            $data->slug = strtolower($request->slug);
             $file_name = '';
             if ($request->hasFile('image')) {
                 $ext = explode('.', $request->image->getClientOriginalName())[1];
-                $file_name = strtolower($request->slug) . '.' . $ext;
+                $rext = $ext === 'jpeg' ? 'jpg' : $ext;
+                $file_name = strtolower($request->slug) . '.' . $rext;
                 Image::make($request->image)->save(PATH_POSTS . '1000/' . $file_name);
                 $data->image = $file_name;
             }
             if ($request->hasFile('image300')) {
                 Image::make($request->image300)->save(PATH_POSTS . '300/' . $file_name);
             }
-//            if ($request->hasFile('image')) {
-//                Image::make($request->image51)->save(PATH_POSTS . '51/' . $file_name);
-//            }
 
             if ($data->save()) {
                 $this->fnSuccess($request, 'created successfully', 'very good');
@@ -391,15 +389,16 @@ class PostService
     {
         try {
             $data = (new Post())->findOrFail($id);
-            // Fusionar obligatoriamente
             $data->fill($request->all());
+            $data->slug = strtolower($request->slug);
             // Validate File
             if ($request->hasFile('image')) {
                 // Delete Current Image
-                File::delete(PATH_POSTS . $data->image);
+                File::delete(PATH_POSTS . '1000/' . $data->image);
                 // New Image Set
                 $ext = explode('.', $request->image->getClientOriginalName())[1];
-                $file_name = strtolower($request->slug) . '.' . $ext;
+                $rext = $ext === 'jpeg' ? 'jpg' : $ext;
+                $file_name = strtolower($request->slug) . '.' . $rext;
                 Image::make($request->image)->save(PATH_POSTS . '1000/' . $file_name);
                 $data->image = $file_name;
             }
@@ -407,7 +406,8 @@ class PostService
                 File::delete(PATH_POSTS . '300/' . $data->image);
                 // New Image Set
                 $ext = explode('.', $request->image300->getClientOriginalName())[1];
-                $file_name = strtolower($request->slug) . '.' . $ext;
+                $rext = $ext === 'jpeg' ? 'jpg' : $ext;
+                $file_name = strtolower($request->slug) . '.' . $rext;
                 Image::make($request->image300)->save(PATH_POSTS . '300/' . $file_name);
                 $data->image = $file_name;
             }
@@ -428,7 +428,8 @@ class PostService
     function changeState($request)
     {
         try {
-            if (is_array($request['ids'])) {//for Ids is Array
+            if (is_array($request['ids'])) {
+                //for Ids is Array
                 for ($i = 0; $i < count($request['ids']); $i++) {
                     $model = (new Post())->findOrFail($request['ids'][$i]);
                     $model->status = $request['status'];
@@ -438,7 +439,8 @@ class PostService
                         throw new Exception('my exception');
                     }
                 }
-            } else {//for Id is String
+                //for Id is String
+            } else {
                 $model = (new Post())->findOrFail($request['ids']);
                 $model->status = $request['status'];
                 if ($model->save()) {
