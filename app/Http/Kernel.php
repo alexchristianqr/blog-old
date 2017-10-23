@@ -17,8 +17,10 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
-        \App\Http\Middleware\CheckConnectDatabase::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+
+        // Check Connection Database in All Project
+        \App\Http\Middleware\CheckConnectDatabase::class,
     ];
 
     /**
@@ -57,6 +59,8 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+
+        // Check Status of Auth in Routes Laravel
         'checkIsActive' => \App\Http\Middleware\CheckIsActive::class,
     ];
 }

@@ -58,8 +58,9 @@ Route::group(['middleware' => ['guest','web']], function () {
     Route::get('auth/socialite/{provider}', 'Auth\OAuthController@redirectToProvider')->name('socialite.login');
     Route::get('auth/socialite/callback/{provider}', 'Auth\OAuthController@handleProviderCallback');
     Route::get('login', 'Auth\LoginController@showLoginForm');
-    Route::post('post_login', 'Auth\LoginController@fnDoLogin');
+    Route::post('post/login', 'Auth\LoginController@fnDoLogin');
 
+    // SOCIALITE
     Route::get('socialite/register', 'HomeController@socialiteRegister');
     Route::post('socialite/store', 'HomeController@socialiteStore');
 
@@ -70,11 +71,11 @@ Route::group(['middleware' => ['guest','web']], function () {
     Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
     // MENU
-    Route::get('service', 'HomeController@personalService');
-    Route::get('profile', 'HomeController@personalProfile');
-    Route::get('contact', 'HomeController@personalContact');
-    Route::get('portfolio', 'HomeController@personalPortfolio');
     Route::get('/', 'PostController@index');
+    Route::get('portfolio', 'HomeController@personalPortfolio');
+    Route::get('profile', 'HomeController@personalProfile');
+    Route::get('service', 'HomeController@personalService');
+    Route::get('contact', 'HomeController@personalContact');
 
     // POST
     Route::get('post/show/{id}', 'PostController@show');
