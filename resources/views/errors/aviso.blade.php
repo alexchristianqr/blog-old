@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-xs-12 col-md-12">
                 <div class="error-template">
-                    <h2>Oops!</h2>
+                    <h3>Oops!</h3>
                     <h4>página no cargada.</h4>
                     <div class="error-actions">
                         <a href="{{ url('/') }}" class="button btn-block-error">BLOG</a>

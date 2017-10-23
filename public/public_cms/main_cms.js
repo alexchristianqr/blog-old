@@ -15,12 +15,14 @@ require.config({
         'autocomplete': '../bower_components/devbridge-autocomplete/dist/jquery.autocomplete.min',
         'moment': '../bower_components/moment/min/moment-with-locales',
         'metisMenu': '../bower_components/metisMenu/dist/metisMenu',
-        'raphael': '../bower_components/eve-raphael/eve'
+        'raphael': '../bower_components/eve-raphael/eve',
+        'jqueryzoom': '../node_modules/jquery-zoom/jquery.zoom.min'
     },
     shim: {
         'bootstrap': ['jquery'],
         'bootstrap-datetimepicker': ['jquery', 'bootstrap'],
         'bootpag': ['jquery'],
+        'jqueryzoom': ['jquery'],
         'metisMenu': ['jquery', 'bootstrap', 'raphael']
     }
 });
@@ -29,6 +31,7 @@ require([
     'jquery',
     'bootstrap',
     'metisMenu',
+    'jqueryzoom',
     'js/sb-admin-2',
     'js/app'
 ], function ($) {
@@ -47,5 +50,6 @@ require([
         }
     }
 
-});
+    $('.thumbnail').zoom(); // add zoom
 
+});

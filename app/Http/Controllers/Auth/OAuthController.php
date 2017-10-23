@@ -47,9 +47,9 @@ class OAuthController
                     // Validate Status
                     switch ($data_user->status) {
                         case 'I':
+                            $request->session()->regenerate();
                             Auth::logout();
-                            $msg = "El estado esta como INACTIVO, contácte al administrador.";
-                            return redirect()->to('/login')->withErrors($msg);//user
+                            return redirect()->to('/login')->withErrors('Your session has expired because your account is deactivated.');//user
                             break;
                         default:
 
@@ -72,7 +72,7 @@ class OAuthController
                             session(['session_type_user' => $data_type_user]);
 
                             // Session Super-Administrator
-                            if ($data_type_user->id == 1) session(['super_administrator' => true]);
+                            if ($data_type_user->id === 1) session(['super_administrator' => true]);
 
                             Auth::login($data_user, true);
                             return redirect()->to('/cms/home');//user authenticated
@@ -81,7 +81,7 @@ class OAuthController
                 }
 
             } else {
-                $msg = "Driver Socialite not Executed.";
+                $msg = "Driver socialite not executed.";
                 return redirect()->to('/login')->withInput()->withErrors($msg);
             }
 

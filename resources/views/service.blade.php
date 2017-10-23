@@ -1,4 +1,4 @@
-@extends('layouts.web.app',['title'=>'Servicio','id_wrapper'=>'wrapper'])
+@extends('layouts.web.app',['title'=>'service','id_wrapper'=>'wrapper'])
 @section('content')
     <section id="view-service">
         <article class="post post-header">

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     @include('layouts.cms.top')
+
 </head>
 <body>
 
@@ -28,6 +29,5 @@
 </div>
 
 @include('layouts.cms.bottom')
-
 </body>
 </html>

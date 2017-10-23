@@ -1,4 +1,4 @@
-@extends('layouts.web.app',['title'=>'Perfil','id_wrapper'=>'wrapper'])
+@extends('layouts.web.app',['title'=>'profile','id_wrapper'=>'wrapper'])
 @section('content')
     <section id="view-profile">
         <article class="post post-header">

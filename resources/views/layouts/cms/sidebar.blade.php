@@ -1,6 +1,21 @@
 <div class="navbar-default sidebar" role="navigation" style="background-color: #fff">
     <div class="sidebar-nav navbar-collapse" style="background-color: #fff">
         <ul class="nav" id="side-menu" style="background-color: #fff">
+            <li class="href">
+                <a href="#"><i class="fa fa-dashboard fa-fw"></i>Home<span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="{{ url('cms/home') }}">
+                            <span><i class="fa fa-exclamation-circle fa-fw"></i>About</span>
+                        </a>
+                    </li>
+                    {{--<li>--}}
+                        {{--<a href="{{ url('cms/about') }}">--}}
+                            {{--<span><i class="fa fa-info-circle fa-fw"></i>About</span>--}}
+                        {{--</a>--}}
+                    {{--</li>--}}
+                </ul>
+            </li>
             @isset(session('session_roles')->role_user)
                 <li class="href">
                     <a href="#"><i class="fa fa-user fa-fw"></i>Manage Users<span class="fa arrow"></span></a>
@@ -71,21 +86,6 @@
                     </ul>
                 </li>
             @endif
-            <li class="href">
-                <a href="#"><i class="fa fa-dashboard fa-fw"></i>Home<span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                    <li>
-                        <a href="{{ url('cms/home') }}">
-                            <span><i class="fa fa-file fa-fw"></i>Information</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ url('cms/about') }}">
-                            <span><i class="fa fa-info-circle fa-fw"></i>About</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
         </ul>
     </div>
     <!-- /.sidebar-collapse -->

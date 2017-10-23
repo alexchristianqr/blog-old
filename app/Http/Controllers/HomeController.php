@@ -11,11 +11,16 @@ use Illuminate\Support\Facades\DB;
 class HomeController extends Controller
 {
 
+    public function __construct(PostService $postService)
+    {
+        $this->middleware(['guest','web'])->except('logout');
+        $this->service = $postService;
+    }
+
     function personalService()
     {
-        $Post = new PostService();
-        $rpta = $Post->getMiniPosts();
-        $rpta2 = $Post->getPrePosts();
+        $rpta = $this->service->getMiniPosts();
+        $rpta2 = $this->service->getPrePosts();
         if ($rpta['load'] && $rpta2['load']) {
             $data_mini_posts = $rpta['data'];
             $data_pre_posts = $rpta2['data'];
@@ -27,9 +32,8 @@ class HomeController extends Controller
 
     function personalProfile()
     {
-        $Post = new PostService();
-        $rpta = $Post->getMiniPosts();
-        $rpta2 = $Post->getPrePosts();
+        $rpta = $this->service->getMiniPosts();
+        $rpta2 = $this->service->getPrePosts();
         if ($rpta['load'] && $rpta2['load']) {
             $data_mini_posts = $rpta['data'];
             $data_pre_posts = $rpta2['data'];
@@ -51,9 +55,8 @@ class HomeController extends Controller
 
     function personalContact()
     {
-        $Post = new PostService();
-        $rpta = $Post->getMiniPosts();
-        $rpta2 = $Post->getPrePosts();
+        $rpta = $this->service->getMiniPosts();
+        $rpta2 = $this->service->getPrePosts();
         if ($rpta['load'] && $rpta2['load']) {
             $data_mini_posts = $rpta['data'];
             $data_pre_posts = $rpta2['data'];
@@ -65,14 +68,16 @@ class HomeController extends Controller
 
     function socialiteRegister(Request $request)
     {
+        $json_countries = \DB::table('countries')->first()->json_countries;
+        $countries  = json_decode($json_countries);
+
         $data = $request->session()->get('data');
         session(['temp_data_socialite' => $data]);
-        return view('auth.register', compact('data'));
+        return view('auth.register', compact('data','countries'));
     }
 
     function socialiteStore(CmsRequest $request)
     {
-//        dd($request);
         //for Store
         if ($request->password === $request->confirm_password) {
             $request->request->add(['id_type_user' => 4]);
@@ -89,11 +94,9 @@ class HomeController extends Controller
             } else {
                 return redirect()->to('/login');
             }
-
         } else {
             return redirect()->back()->withInput()->withErrors('Las contraseñas ingresadas son incorrectas.');
         }
-
     }
 
 }

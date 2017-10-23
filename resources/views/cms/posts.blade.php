@@ -13,7 +13,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-inline">
-                                    <input title="buscar" name="search" value="{{ request()->get('search') }}"
+                                    <input title="buscar" name="search" minlength="3" value="{{ request()->get('search') }}"
                                            type="search" class="form-control" placeholder="Search Post">
                                     <select title="categoria" name="category" id="" class="form-control">
                                         <option disabled value="" selected>Category</option>

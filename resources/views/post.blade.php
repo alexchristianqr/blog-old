@@ -1,4 +1,4 @@
-@extends('layouts.web.app',['title'=>'Post','body'=>'single','id_wrapper'=>'wrapper-posted'])
+@extends('layouts.web.app',['title'=>'post','body'=>'single','id_wrapper'=>'wrapper-posted'])
 @section('head')
     <meta property="og:url" content="{{ request()->getUri() }}"/>
     <meta property="og:type" content="website"/>

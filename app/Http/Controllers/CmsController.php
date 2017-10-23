@@ -24,7 +24,7 @@ class CmsController extends Controller
 
     public function __construct(PostService $postService, CmsService $cmsService)
     {
-        $this->middleware(['isActive', 'auth'])->except('logout');
+        $this->middleware(['checkIsActive', 'auth'])->except('logout');
         $this->service = $postService;
         $this->cms = $cmsService;
     }
@@ -60,7 +60,7 @@ class CmsController extends Controller
         if (isset(session('session_roles')->role_post_create) || isset(session('session_roles')->role_post_update)) {
             $categories = $this->getTable('category', ['status', 'A']);
             $tags = $this->getTable('tag', ['status', 'A']);
-            $team = $this->cms->getUsers(null, ['auth' => true, 'authid' => auth()->user()->getAuthIdentifier()])['data'];
+            $team = $this->cms->getUsers(null, ['auth' => true, 'id_auth' => auth()->user()->getAuthIdentifier()])['data'];
             return view('cms.post', compact('categories', 'team', 'tags'));
         } else {
             return abort(401, "User Unauthorized");
@@ -72,8 +72,8 @@ class CmsController extends Controller
         //for Store
         if (isset(session('session_roles')->role_post_create)) {
             $rpta = $this->service->store($request);
-            $this->fnFlashMessage($rpta['title'], $rpta['message'], $rpta['level']);
             if ($rpta['load']) {
+                $this->fnFlashMessage($rpta['title'], $rpta['message'], $rpta['level']);
                 return redirect()->to('cms/posts?status=A');
             } else {
                 return redirect()->back()->withInput()->withErrors($rpta['message']);
@@ -92,12 +92,20 @@ class CmsController extends Controller
                 $data = $rpta['data'];
                 $categories = $this->getTable('category', ['status', 'A']);
                 $tags = $this->getTable('tag', ['status', 'A']);
-                $team = $this->cms->getUsers(null, ['auth' => true, 'authid' => auth()->user()->getAuthIdentifier()])['data'];
+                $team = $this->cms->getUsers(null, ['auth' => true, 'id_auth' => auth()->user()->getAuthIdentifier()])['data'];
                 $array_tags = json_decode($data->id_tag);
                 foreach ($tags as $key => $item) {
                     if (empty($array_tags[$key]->id)) array_push($array_tags, (object)['id' => $item->id, 'value' => false]);
                 }
                 $data->id_tag = json_encode($array_tags);
+
+
+//                $array_images_posts = json_decode($data->images_posts);
+//                dd($array_images_posts);
+
+//                    $data->images_posts
+
+
                 return view('cms.post', compact('data', 'categories', 'team', 'tags'));
             } else {
                 return redirect()->back()->withInput()->withErrors($rpta['message']);
@@ -109,11 +117,12 @@ class CmsController extends Controller
 
     function cmsUpdatePost($id, CmsRequest $request)
     {
+        dd($request);
         //for Update
         if (isset(session('session_roles')->role_post_update)) {
             $rpta = $this->service->update($id, $request);
-            $this->fnFlashMessage($rpta['title'], $rpta['message'], $rpta['level']);
             if ($rpta['load']) {
+                $this->fnFlashMessage($rpta['title'], $rpta['message'], $rpta['level']);
                 return redirect()->to('cms/posts?status=A');
             } else {
                 return redirect()->back()->withInput()->withErrors($rpta['message']);
@@ -127,11 +136,19 @@ class CmsController extends Controller
     {
         //by restfull
         $rpta = $this->service->changeState($request);
-        $this->fnFlashMessage($rpta['title'], $rpta['message'], $rpta['level']);
         if ($rpta['load']) {
-            return response($rpta);
+            if ($request->ajax()) {
+                return response($rpta);
+            } else {
+                $this->fnFlashMessage($rpta['title'], $rpta['message'], $rpta['level']);
+                return redirect()->back();
+            }
         } else {
-            return response($rpta);
+            if ($request->ajax()) {
+                return response($rpta);
+            } else {
+                return redirect()->back()->withInput()->withErrors($rpta['message']);
+            }
         }
     }
 
@@ -164,8 +181,8 @@ class CmsController extends Controller
         //for Store
         if (isset(session('session_roles')->role_tables_create)) {
             $rpta = $this->cms->storeTable($request);
-            $this->fnFlashMessage($rpta['title'], $rpta['message'], $rpta['level']);
             if ($rpta['load']) {
+                $this->fnFlashMessage($rpta['title'], $rpta['message'], $rpta['level']);
                 return redirect()->to('cms/tables?table=' . $request->table);
             } else {
                 return redirect()->back()->withInput()->withErrors($rpta['message']);
@@ -200,8 +217,8 @@ class CmsController extends Controller
         //for Update
         if (isset(session('session_roles')->role_tables_update)) {
             $rpta = $this->cms->updateTable($table, $id, $request);
-            $this->fnFlashMessage($rpta['title'], $rpta['message'], $rpta['level']);
             if ($rpta['load']) {
+                $this->fnFlashMessage($rpta['title'], $rpta['message'], $rpta['level']);
                 return redirect()->to('cms/tables?table=' . $table);
             } else {
                 return redirect()->back()->withInput()->withErrors($rpta['message']);
@@ -251,8 +268,8 @@ class CmsController extends Controller
             } else {
                 return redirect()->back()->withInput()->withErrors('Las contraseñas ingresadas son incorrectas.');
             }
-            $this->fnFlashMessage($rpta['title'], $rpta['message'], $rpta['level']);
             if ($rpta['load']) {
+                $this->fnFlashMessage($rpta['title'], $rpta['message'], $rpta['level']);
                 return redirect()->to('cms/users');
             } else {
                 return redirect()->back()->withInput()->withErrors($rpta['message']);
@@ -292,8 +309,8 @@ class CmsController extends Controller
                     return redirect()->back()->withInput()->withErrors('Las contraseñas ingresadas son incorrectas.');
                 }
             }
-            $this->fnFlashMessage($rpta['title'], $rpta['message'], $rpta['level']);
             if ($rpta['load']) {
+                $this->fnFlashMessage($rpta['title'], $rpta['message'], $rpta['level']);
                 return redirect()->to('cms/users');
             } else {
                 return redirect()->back()->withInput()->withErrors($rpta['message']);
@@ -380,8 +397,8 @@ class CmsController extends Controller
         //for Update
         if (isset(session('session_roles')->role_portfolio_update)) {
             $rpta = $this->cms->updatePortfolio($id, $request);
-            $this->fnFlashMessage($rpta['title'], $rpta['message'], $rpta['level']);
             if ($rpta['load']) {
+                $this->fnFlashMessage($rpta['title'], $rpta['message'], $rpta['level']);
                 return redirect()->to('cms/portfolios?status=A');
             } else {
                 return redirect()->back()->withInput()->withErrors($rpta['message']);

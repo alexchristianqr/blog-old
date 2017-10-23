@@ -72,11 +72,6 @@
         line-height: 1.42857143;
     }
 
-    /* Tinymce */
-    #mceu_21 {
-        z-index: 1111;
-    }
-
     .mce-panel {
         box-shadow: none !important;
     }

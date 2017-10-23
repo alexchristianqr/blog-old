@@ -1,4 +1,4 @@
-@extends('layouts.web.app',['title'=>'Blog','id_wrapper'=>'wrapper'])
+@extends('layouts.web.app',['title'=>'posts','id_wrapper'=>'wrapper'])
 @section('head')
     <meta property="og:url" content="{{ request()->getUri() }}"/>
     <meta property="og:type" content="website"/>
@@ -9,10 +9,9 @@
 @endsection
 @section('content')
     <section id="view-posts">
-
         <!-- Pre-Posts -->
         @foreach($data as $key => $value)
-            @if($key == 0 )
+            @if($key == 0)
                 <article class="post post-header">
                     <header>
                         <div class="title">

@@ -1,18 +1,17 @@
 @if(session()->has('flash_notification.message'))
-    <?php $color = session('flash_notification.level') ?>
+    @php $color = session('flash_notification.level') @endphp
     <div id="alert-flash">
         <div class="row">
             <div class="alert alert-{{ $color }}" style="position: relative;">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <p class="h5 text-uppercase">
+                <p class="h5 text-capitalize">
                     @if($color == 'success')
-                        <i class="fa fa-check-circle to-success"></i>
+                        <i class="fa fa-check-circle"></i>
                     @elseif($color == 'danger')
-                        <i class="fa fa-remove to-danger"></i>
+                        <i class="fa fa-remove"></i>
                     @elseif($color == 'info')
-                        <i class="fa fa-info-circle to-info"></i>
+                        <i class="fa fa-info-circle"></i>
                     @elseif($color == 'warning')
-                        <i class="fa fa-warning to-warning"></i>
+                        <i class="fa fa-warning"></i>
                     @endif
                     &nbsp;<b>{{ session('flash_notification.message')['title'] }}</b>
                 </p>
@@ -21,7 +20,7 @@
         </div>
     </div>
     <script type="text/javascript">
-        setTimeout(function () {document.getElementById('alert-flash').style.display = 'none';}, 120000);
+        setTimeout(function () {document.getElementById('alert-flash').style.display = 'none';}, 60000);
     </script>
 @endif
 

@@ -3,11 +3,11 @@
     @if(isset(session('session_roles')->role_post_create) || isset(session('session_roles')->role_post_update))
         <section id="section-cms-post">
             @if(isset($data))
-                {!! Form::model($data, ['url' => ['cms/update-post', $data->id], 'method' => 'PUT','role'=>'form', 'files'=>'true']) !!}
+                {!! Form::model($data, ['url' => ['cms/update-post', $data->id], 'method' => 'PUT','role'=>'form', 'files'=>'true','id'=>'formUpload']) !!}
             @else
-                {!! Form::open(['url' => 'cms/store-post','method'=>'POST','role'=>'form', 'files'=>'true']) !!}
+                {!! Form::open(['url' => 'cms/store-post','method'=>'POST','role'=>'form', 'files'=>'true','id'=>'formUpload']) !!}
             @endif
-            <input type="hidden" name="id_tag" value="{{ isset($data) && isset($data->id_tag) ? $data->id_tag : '' }}">
+            <input type="hidden" name="id_tag" value="{{ isset($data->id_tag) ? $data->id_tag : '' }}">
             <div class="row">
                 <div class="panel">
                     <div class="panel-body">
@@ -21,10 +21,10 @@
                                             class="fa fa-list-ul fa-fw"></i>List</a>
                             </div>
                             <div class="pull-right">
-                                    <button title="{{ isset($data)?'actualizar post':'crear post' }}" type="submit"
-                                            class="btn btn-primary">
-                                        <i class="fa {{ isset($data)?'fa-refresh':'fa-check' }} fa-fw"></i>{{ isset($data) ? 'Update' : 'Create' }}
-                                    </button>
+                                <button title="{{ isset($data)?'actualizar post':'crear post' }}" type="submit"
+                                        class="btn btn-primary">
+                                    <i class="fa {{ isset($data)?'fa-refresh':'fa-check' }} fa-fw"></i>{{ isset($data) ? 'Update' : 'Create' }}
+                                </button>
                                 <button title="cancelar" type="reset" class="btn btn-danger">
                                     <i class="fa fa-times fa-fw"></i>Cancel
                                 </button>
@@ -45,6 +45,10 @@
                     </li>
                     <li role="presentation">
                         <a title="configuracion" href="#settings" aria-controls="options" role="tab" data-toggle="tab">Settings</a>
+                    </li>
+                    <li role="presentation">
+                        <a title="configuracion" href="#load_images" aria-controls="the_image" role="tab"
+                           data-toggle="tab">Load Images</a>
                     </li>
                 </ul>
                 <!-- Tab panes -->
@@ -153,7 +157,7 @@
                                         @foreach($tags as $key => $value)
                                             <div class="col-md-3">
                                                 <div class="checkbox">
-                                                    @if(isset($data) && isset($data->id_tag))
+                                                    @if(isset($data->id_tag))
                                                         @if(!empty(json_decode($data->id_tag)[$key]) && json_decode($data->id_tag)[$key]->id == $value->id && json_decode($data->id_tag)[$key]->value == true)
                                                             <label for="{{ $value->id }}">
                                                                 <input id="{{ $value->id }}" class="tag-chk"
@@ -187,32 +191,42 @@
                             <div class="panel-body">
                                 @if(session('session_type_user')->id == 1 || session('session_type_user')->id == 2)
                                     <div class="form-group">
-                                    <label for="" class="control-label">Preference Status</label>
-                                    <p class="text-muted">Preferencia estado.</p>
-                                    @php $checkedA = ''; $checkedI = ''; @endphp
-                                    @if(!is_null(old('status')))
-                                        @if(old('status') == 'A')
-                                            @php $checkedA = 'checked';$checkedI = ''; @endphp
-                                        @else
-                                            @php $checkedA = '';$checkedI = 'checked'; @endphp
-                                        @endif
-                                        <label for="chk1"><input title="activo" id="chk1" name="status" type="radio" value="A" {{ $checkedA }} required>&nbsp;Active</label>
-                                        <label for="chk2"><input title="inactivo" id="chk2" name="status" type="radio" value="I" {{ $checkedI }} required>&nbsp;Inactive</label>
-                                    @else
-                                        @if(isset($data))
-                                            @if($data->status == 'A')
-                                                @php $checkedA = 'checked'; $checkedI = ''; @endphp
+                                        <label for="" class="control-label">Preference Status</label>
+                                        <p class="text-muted">Preferencia estado.</p>
+                                        @php $checkedA = ''; $checkedI = ''; @endphp
+                                        @if(!is_null(old('status')))
+                                            @if(old('status') == 'A')
+                                                @php $checkedA = 'checked';$checkedI = ''; @endphp
                                             @else
-                                                @php $checkedA = ''; $checkedI = 'checked'; @endphp
+                                                @php $checkedA = '';$checkedI = 'checked'; @endphp
                                             @endif
-                                            <label for="chk1"><input title="activo" id="chk1" name="status" type="radio" value="A" {{ $checkedA }} required>&nbsp;Active</label>
-                                            <label for="chk2"><input title="inactivo" id="chk2" name="status" type="radio" value="I" {{ $checkedI }} required>&nbsp;Inactive</label>
+                                            <label for="chk1"><input title="activo" id="chk1" name="status" type="radio"
+                                                                     value="A"
+                                                                     {{ $checkedA }} required>&nbsp;Active</label>
+                                            <label for="chk2"><input title="inactivo" id="chk2" name="status"
+                                                                     type="radio" value="I" {{ $checkedI }} required>&nbsp;Inactive</label>
                                         @else
-                                            <label for="chk1"><input title="activo" id="chk1" name="status" type="radio" value="A" required>&nbsp;Active</label>
-                                            <label for="chk2"><input title="inactivo" id="chk2" name="status" type="radio" value="I" checked required>&nbsp;Inactive</label>
+                                            @if(isset($data))
+                                                @if($data->status == 'A')
+                                                    @php $checkedA = 'checked'; $checkedI = ''; @endphp
+                                                @else
+                                                    @php $checkedA = ''; $checkedI = 'checked'; @endphp
+                                                @endif
+                                                <label for="chk1"><input title="activo" id="chk1" name="status"
+                                                                         type="radio" value="A"
+                                                                         {{ $checkedA }} required>&nbsp;Active</label>
+                                                <label for="chk2"><input title="inactivo" id="chk2" name="status"
+                                                                         type="radio" value="I"
+                                                                         {{ $checkedI }} required>&nbsp;Inactive</label>
+                                            @else
+                                                <label for="chk1"><input title="activo" id="chk1" name="status"
+                                                                         type="radio" value="A"
+                                                                         required>&nbsp;Active</label>
+                                                <label for="chk2"><input title="inactivo" id="chk2" name="status"
+                                                                         type="radio" value="I" checked required>&nbsp;Inactive</label>
+                                            @endif
                                         @endif
-                                    @endif
-                                </div>
+                                    </div>
                                 @endif
                                 <div class="form-group">
                                     <label for="" class="control-label">Schedule Date Publication</label>
@@ -249,6 +263,13 @@
                                     </div>
                                     <input type="hidden" name="id_user" value="{{ $team->id }}">
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="load_images">
+                        <div class="panel nav-panel">
+                            <div class="panel-body">
+                                <p>// we working in this section</p>
                             </div>
                         </div>
                     </div>

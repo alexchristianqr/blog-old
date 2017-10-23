@@ -202,18 +202,23 @@ class cmsService
     {
         try {
             $data = (new User())
-                ->select(['users.*', 'tu.name AS name_type_user'])
-                ->join('type_user AS tu', 'tu.id', '=', 'users.id_type_user');
+                ->select(['users.*', 'type_user.name AS type_user_name'])
+                ->join('type_user', 'type_user.id', '=', 'users.id_type_user');
 
-            if (!is_null($request)) {
-                if ($request->has('status')) $data = $data->where('users.status', $request->status);
+            if (!empty($request)) {
+                if ($request->has('status'))
+                    $data = $data->where('users.status', $request->status);
+
+                if ($request->has('field_search') && $request->has('search'))
+                    $data = $data->where('users.' . strtolower($request->field_search), 'like', '%' . $request->search . '%');
             }
 
-            if (isset($option['forPaginate']) == true) {
+            if (isset($option['auth']) == true)
+                $data = $data->where('users.id', $option['id_auth'])->first();
+
+            if (isset($option['forPaginate']) == true)
                 $data = $data->paginate($option['limit']);
-            } elseif (isset($option['auth']) == true) {
-                $data = $data->where('users.id', $option['authid'])->first();
-            }
+
             if ($data) {
                 $this->fnSuccess($data);
             } else {

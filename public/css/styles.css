@@ -1162,7 +1162,7 @@
     #btnUp:active,
     #btnUp:hover,
     #btnUp:hover:active {
-        background-color: #cdcdcd;
+        /*background-color: #cdcdcd;*/
         color: #fff !important;
     }
 

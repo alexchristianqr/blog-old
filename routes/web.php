@@ -13,7 +13,7 @@
 
 //use Illuminate\Support\Facades\Route;
 
-Route::group(['middleware' => ['isActive', 'auth']], function () {
+Route::group(['middleware' => ['checkIsActive', 'auth']], function () {
 
     //CMS HOME
     Route::get('cms/home', 'CmsController@cmsHome');
@@ -52,7 +52,7 @@ Route::group(['middleware' => ['isActive', 'auth']], function () {
 
 });
 
-Route::group(['middleware' => ['web']], function () {
+Route::group(['middleware' => ['guest','web']], function () {
 
     // USER
     Route::get('auth/socialite/{provider}', 'Auth\OAuthController@redirectToProvider')->name('socialite.login');

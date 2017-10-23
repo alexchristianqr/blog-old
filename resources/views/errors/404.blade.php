@@ -1,17 +1,9 @@
-@extends('layouts.web.master')
+@extends('layouts.error',['error'=>404])
 @section('content')
-    <div class="container-fluid errorPage">
-        <div class="row">
-            <div class="col-xs-12 col-md-12">
-                <div class="error-template">
-                    <h2>Oops!</h2>
-                    <h4>página no encontrada.</h4>
-                    <div class="error-actions">
-                        <a href="{{ url('/') }}" class="button btn-block-error">BLOG</a>
-                        <a href="{{ url('/contact') }}" class="button btn-block-error">CONTACTO</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="content">
+        <div class="title">Page not found</div>
+        <p>
+            <span>The origin server did not find a current representation for the target resource or is not willing to disclose that one exists</span>
+        </p>
     </div>
 @endsection

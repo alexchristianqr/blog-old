@@ -62,16 +62,21 @@ class PostService
                 if (isset($option['search'])) {
                     $search = $option["search"];
                     $data->where('post.status', '=', 'A')
-                        ->where(function ($query) use ($search) {
-                            $query->orWhere('post.title', 'like', '%' . $search . '%')->orWhere('post.subtitle', 'like', '%' . $search . '%')->orWhere('post.description', 'like', '%' . $search . '%')->orWhere('post.content', 'like', '%' . $search . '%');
+                        ->where(function ($data) use ($search) {
+                            $data->orWhere('post.title', 'like', '%' . $search . '%')->orWhere('post.subtitle', 'like', '%' . $search . '%')->orWhere('post.description', 'like', '%' . $search . '%')->orWhere('post.content', 'like', '%' . $search . '%');
                         });
                 }
 
                 // Existe Request
-                if (isset($request) != null) {
-                    if ($request->has('search')) $data = $data->where('post.title', 'like', '%' . $request->get('search') . '%');
-                    if ($request->has('category')) $data = $data->where('post.id_category', $request->get('category'));
-                    if ($request->has('status')) $data = $data->where('post.status', $request->get('status'));
+                if (!empty($request)) {
+                    if ($request->has('search'))
+                        $data = $data->where(function ($data) use ($request) {
+                            $data->orWhere('post.title', 'like', '%' . $request->get('search') . '%')->orWhere('post.content', 'like', '%' . $request->get('search') . '%');
+                        });
+                    if ($request->has('category'))
+                        $data = $data->where('post.id_category', $request->get('category'));
+                    if ($request->has('status'))
+                        $data = $data->where('post.status', $request->get('status'));
                 }
 
                 // Filtros personalizados
@@ -120,7 +125,7 @@ class PostService
             if ($data) {
                 $this->fnSuccess($data);
             } else {
-                throw new Exception('excepcion');
+                throw new Exception('my exception');
             }
         } catch (PDOException $e) {
             $this->fnException($e);
@@ -347,7 +352,7 @@ class PostService
             if ($request->hasFile('image')) {
                 $ext = explode('.', $request->image->getClientOriginalName())[1];
                 $rext = $ext === 'jpeg' ? 'jpg' : $ext;
-                $file_name = strtolower($request->slug) . '.' . $rext;
+                $file_name = $data->slug . '.' . $rext;
                 Image::make($request->image)->save(PATH_POSTS . '1000/' . $file_name);
                 $data->image = $file_name;
             }
@@ -389,8 +394,28 @@ class PostService
     {
         try {
             $data = (new Post())->findOrFail($id);
+
+            // Fusion
             $data->fill($request->all());
+
+            // Set Model
             $data->slug = strtolower($request->slug);
+
+            $arr_imgs = [];
+            if ($request->hasFile('posts_images')) {
+                foreach ($request->posts_images as $key => $value) {
+                    // New Image
+                    $ext = explode('.', $value->getClientOriginalName())[1];
+                    $rext = $ext === 'jpeg' ? 'jpg' : $ext;
+                    $file_name = $data->slug . '__' . ($key + 1) . '.' . $rext;
+                    Image::make($value)->save(PATH_POSTS . 'img/' . $file_name);
+                    array_push($arr_imgs, ['id' => $key + 1, 'name' => $file_name]);
+                }
+            }
+
+            // Set Model
+            $data->images_posts = json_encode($arr_imgs);
+
             // Validate File
             if ($request->hasFile('image')) {
                 // Delete Current Image
@@ -398,8 +423,10 @@ class PostService
                 // New Image Set
                 $ext = explode('.', $request->image->getClientOriginalName())[1];
                 $rext = $ext === 'jpeg' ? 'jpg' : $ext;
-                $file_name = strtolower($request->slug) . '.' . $rext;
+                $file_name = $data->slug . '.' . $rext;
                 Image::make($request->image)->save(PATH_POSTS . '1000/' . $file_name);
+
+                // Set Model
                 $data->image = $file_name;
             }
             if ($request->hasFile('image300')) {
@@ -407,7 +434,7 @@ class PostService
                 // New Image Set
                 $ext = explode('.', $request->image300->getClientOriginalName())[1];
                 $rext = $ext === 'jpeg' ? 'jpg' : $ext;
-                $file_name = strtolower($request->slug) . '.' . $rext;
+                $file_name = $data->slug . '.' . $rext;
                 Image::make($request->image300)->save(PATH_POSTS . '300/' . $file_name);
                 $data->image = $file_name;
             }

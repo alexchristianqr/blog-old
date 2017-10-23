@@ -1,4 +1,4 @@
-@extends('layouts.web.app',['title'=>'Contacto','id_wrapper'=>'wrapper'])
+@extends('layouts.web.app',['title'=>'contact','id_wrapper'=>'wrapper'])
 @section('content')
     <section id="view-contact">
         <div class="row">

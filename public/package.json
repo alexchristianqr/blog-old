@@ -16,5 +16,9 @@
     "grunt-contrib-cssmin": "^0.10.0",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-contrib-clean": "^1.0.0"
+  },
+  "dependencies": {
+    "jquery-zoom": "^1.7.20",
+    "pekeupload": "^2.1.1"
   }
 }

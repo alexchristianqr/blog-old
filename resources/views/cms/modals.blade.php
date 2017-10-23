@@ -1,4 +1,3 @@
-<!-- Modal SelectCreatePost -->
 <!-- Modal CreateUpdateTable -->
 @if(isset($tables))
     @if(isset(session('session_roles')->role_tables_create) && isset(session('session_roles')->role_tables_update))

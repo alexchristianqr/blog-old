@@ -33,11 +33,10 @@ class LoginController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @return void
      */
     public function __construct()
     {
-//        $this->middleware('guest', ['except' => 'logout']);
+        $this->middleware(['guest','web'])->except('logout');
     }
 
     public function fnDoLogin(Request $request)
@@ -45,14 +44,14 @@ class LoginController extends Controller
         session(['super_administrator' => false]);
 
         $credentials = $request->only(['email', 'password']);
-        $remember = $request->has('remember') ? true : false;
-        if ($this->guard()->attempt($credentials, $remember)) {
+        $rememberme = $request->has('remember') ? true : false;
+        if ($this->guard()->attempt($credentials, $rememberme)) {
             if (auth()->once($credentials)) {
                 switch (auth()->user()->status) {
                     case 'I':
-                        auth()->logout();
-                        $msg = "Your session has expired because your account is Inactive.";
-                        return redirect()->to('login')->withInput()->withErrors($msg);
+                        $this->guard()->logout();
+                        $request->session()->invalidate();
+                        return redirect()->to('login')->withInput()->withErrors('Your session has expired because your account is deactivated.');
                         break;
                     default:
 

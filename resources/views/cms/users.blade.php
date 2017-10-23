@@ -12,7 +12,23 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-inline">
-                                    <input type="text" class="form-control" placeholder="Search User">
+                                    <select name="field_search" id="" class="form-control">
+                                        <option value="" disabled>Field Filter</option>
+                                        @if(request()->get('field_search') == 'name')
+                                            <option value="{{ request()->get('field_search') }}"
+                                                    selected>{{ request()->get('field_search') }}</option>
+                                            <option value="email">email</option>
+                                        @elseif(request()->get('field_search') == 'email')
+                                            <option value="{{ request()->get('field_search') }}"
+                                                    selected>{{ request()->get('field_search') }}</option>
+                                            <option value="name">name</option>
+                                        @else
+                                            <option value="name" selected>name</option>
+                                            <option value="email">email</option>
+                                        @endif
+                                    </select>
+                                    <input name="search" minlength="3" type="text" class="form-control"
+                                           placeholder="Search User" value="{{ request()->get('search') }}">
                                     <select title="estado" name="status" id="" class="form-control">
                                         <option value="" disabled selected>Status</option>
                                         @foreach($states as $key => $value)
@@ -29,6 +45,8 @@
                                     <button title="filtrar" type="submit" class="btn btn-primary"><i
                                                 class="fa fa-filter fa-fw"></i>Filter
                                     </button>
+                                    <a title="limpiar filtros" href="{{ url('/cms/users?status=A') }}"
+                                       class="btn btn-info"><i class="fa fa-recycle fa-fw"></i>Clean</a>
                                 </div>
                             </div>
                         </div>
@@ -57,8 +75,11 @@
                                                 <td><input type="checkbox"></td>
                                                 <td>{{ $value->name }}</td>
                                                 <td>{{ $value->email }}</td>
-                                                <td>{{ $value->name_type_user }}</td>
-                                                <td title="{{ $value->status == 'A' ? 'activo' : 'inactivo' }}" class="text-center"><i class="fa fa-circle {{ $value->status == 'A' ? 'text-primary' : 'text-danger' }}"></i></td>
+                                                <td>{{ $value->type_user_name }}</td>
+                                                <td title="{{ $value->status == 'A' ? 'activo' : 'inactivo' }}"
+                                                    class="text-center"><i
+                                                            class="fa fa-circle {{ $value->status == 'A' ? 'text-primary' : 'text-danger' }}"></i>
+                                                </td>
                                                 <td class="small">{{ $value->updated_at }}</td>
                                                 <td>
                                                     @isset(session('session_roles')->role_user_edit)

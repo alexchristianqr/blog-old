@@ -78,7 +78,7 @@ define([
                         data: null
                     }).done(function (r) {
 
-                        if(r.data.roles != undefined){
+                        if (r.data.roles != undefined) {
                             var array_roles = JSON.parse(r.data.roles);
                             $.each(array_roles, function (k, v) {
                                 if (v == "on") {
@@ -117,7 +117,7 @@ define([
                         $('#btnSubmitCreateUpdateTable').text('Update');
                         $('#modalCreateUpdateTable').modal({backdrop: 'static'});
                     }).fail(function (r) {
-                       console.error(r);
+                        console.error(r);
                     });
                 });
 
@@ -289,57 +289,68 @@ define([
                 });
             }
 
-            // If Exist Modal for Users
-            if ($('#modalCreateUpdateUser').length) {
+            // If Exist Team Register
+            if ($('#view-team-register').length) {
+                var navListItems = $('ul.setup-panel li a'),
+                    allWells = $('.setup-content');
 
-                // Button Edit Modal
-                $('.btnModalEditUser').on("click", function () {
-                    event.preventDefault();
-                    $.ajax({
-                        url: $(this).attr('href'),
-                        type: 'GET',
-                        data: null
-                    }).done(function (r) {
-                        $('[name="id_user"]').val(r.data.id);
-                        $('[name="name"]').val(r.data.name);
-                        $('[name="email"]').val(r.data.email);
-                        $('[name="id_type_user"]').val(r.data.id_type_user);
-                        $('#chkActiveUser').prop('disabled', false);
-                        $('#chkInactiveUser').prop('disabled', false);
-                        if (r.data.status == 'A') {
-                            $('#chkActiveUser').attr('checked', true);
-                            $('#chkActiveUser').prop('checked', true);
-                        } else {
-                            $('#chkInactiveUser').attr('checked', true);
-                            $('#chkInactiveUser').prop('checked', true);
-                        }
-                        $('#formCreateUpdateUser').attr('action', rootURL + 'cms/update-user/' + r.data.id);
-                        $('#headerCreateUpdateUser').text('Edit User');
-                        $('#contentStatusUser').prop('hidden', false);
-                        $('#btnSubmitCreateUpdateUser').text('Update');
-                        return $('#modalCreateUpdateUser').modal({backdrop: 'static'});
-                    }).fail(function (r) {
-                       console.error(r)
-                    });
+                allWells.hide();
+
+                navListItems.click(function () {
+                    var $target = $($(this).attr('href')),
+                        $item = $(this).closest('li');
+                    if (!$item.hasClass('disabled')) {
+                        navListItems.closest('li').removeClass('active');
+                        $item.addClass('active');
+                        allWells.hide();
+                        $target.show();
+                    }
                 });
 
-                // Button Close Modal
-                $('#btnCloseModalCreateUpdateUser').on('click', function () {
-                    event.preventDefault();
-                    $('#formCreateUpdateUser').attr('action', rootURL + 'cms/store-user');
-                    $('#headerCreateUpdateUser').text('Create User');
-                    $('#contentStatusUser').prop('hidden', true);
-                    $('#chkActiveUser').prop('disabled', true);
-                    $('#chkInactiveUser').prop('disabled', true);
-                    $('[name="status"]').removeAttr('checked');
+                $('ul.setup-panel li.active a').trigger('click');
 
-                    $('#formCreateUpdateUser')
-                        .find("input[type=checkbox], input[type=radio]").removeAttr("checked").prop("checked", false)
-                        .end();
-                    $('#formCreateUpdateUser')[0].reset();
+                $('#activate-step-2').on('click', function () {
+                    var curStep = $(this).closest(".setup-content"),
+                        curStepBtn = curStep.attr("id"),
+                        nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+                        curInputs = curStep.find("input[type='text'],input[type='file'],input[type='password'],input[type='number'],input[type='email'],textarea,select"),
+                        isValid = true;
 
-                    $('#btnSubmitCreateUpdateUser').text('Create');
-                    return $('#modalCreateUpdateUser').modal('hide');
+                    for (var i = 0; i < curInputs.length; i++) {
+                        if (!curInputs[i].validity.valid) {
+                            isValid = false;
+                        }
+                    }
+
+                    if (isValid) {
+                        $('ul.setup-panel li:eq(1)').removeClass('disabled');
+                        $('ul.setup-panel li a[href="#step-2"]').trigger('click');
+                    } else {
+                        nextStepWizard.removeAttr('disabled').trigger('click');
+                    }
+
+                });
+
+                $('#activate-step-3').on('click', function () {
+                    var curStep = $(this).closest(".setup-content"),
+                        curStepBtn = curStep.attr("id"),
+                        nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+                        curInputs = curStep.find("input[type='text'],input[type='file'],input[type='password'],input[type='number'],input[type='email'],textarea,select"),
+                        isValid = true;
+
+                    for (var i = 0; i < curInputs.length; i++) {
+                        if (!curInputs[i].validity.valid) {
+                            isValid = false;
+                        }
+                    }
+
+                    if (isValid) {
+                        $('ul.setup-panel li:eq(2)').removeClass('disabled');
+                        $('ul.setup-panel li a[href="#step-3"]').trigger('click');
+                    } else {
+                        nextStepWizard.removeAttr('disabled').trigger('click');
+                    }
+
                 });
             }
 

@@ -6,7 +6,7 @@
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
             <span class="text-capitalize">{{ auth()->user()->name }}</span>&nbsp;
             <span class="small">({{ strtolower(session('session_type_user')->name) }})</span>&nbsp;&nbsp;
-            <span class="avatar-image"><img alt="User" src="{{ !empty(auth()->user()->image) ? ASSET_USERS.auth()->user()->image : auth()->user()->avatar }}" width="30"></span>&nbsp;&nbsp;
+            <span class="avatar-image"><img alt="User" src="{{ !empty(auth()->user()->image) ? ASSET_USERS.auth()->user()->image : auth()->user()->avatar }}" width="30" height="30" style="max-height: 30px !important;" ></span>&nbsp;&nbsp;
             <i class="fa fa-caret-down"></i>
         </a>
         <ul class="dropdown-menu dropdown-user">

@@ -1,4 +1,4 @@
-@extends('layouts.web.master')
+@extends('layouts.web.master',['title'=>'repositories'])
 @section('content')
     <section id="view-search">
         <div class="row">
@@ -21,7 +21,7 @@
                                                 <header>
                                                     <h3>
                                                         <a title="post"
-                                                           href="{{ url('post/show',['id' => $value->id,'id_category'=>$value->id_category]) }}">{{ $value->title }}</a>
+                                                           href="{{ url('post/show',['id' => $value->slug]) }}">{{ $value->title }}</a>
                                                     </h3>
                                                     <time class="published">
                                                         <span title="usuario y/o invitado" class="name"><span
@@ -47,9 +47,9 @@
                                 <div class="col-xs-12 col-md-12">
                                     <div class="form-group">
                                         <article class="content-search">
-                                            <div class="text-center">
+                                            <div class="text-center text-warning">
                                                 <p style="margin: 0 0 1em 0;">
-                                                    <span><i class="fa fa-exclamation-circle fa-fw"></i>No hay registros.</span>
+                                                    <span><i class="fa fa-exclamation-triangle fa-fw"></i>No hay registros!</span>
                                                 </p>
                                             </div>
                                         </article>
