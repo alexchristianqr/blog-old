@@ -13,7 +13,7 @@ class HomeController extends Controller
 
     public function __construct(PostService $postService)
     {
-        $this->middleware(['guest','web'])->except('logout');
+        $this->middleware(['web'])->except('logout');
         $this->service = $postService;
     }
 
@@ -70,9 +70,7 @@ class HomeController extends Controller
     {
         $json_countries = \DB::table('countries')->first()->json_countries;
         $countries  = json_decode($json_countries);
-
         $data = $request->session()->get('data');
-        session(['temp_data_socialite' => $data]);
         return view('auth.register', compact('data','countries'));
     }
 

@@ -52,7 +52,7 @@ Route::group(['middleware' => ['checkIsActive', 'auth']], function () {
 
 });
 
-Route::group(['middleware' => ['guest','web']], function () {
+Route::group(['middleware' => ['web']], function () {
 
     // USER
     Route::get('auth/socialite/{provider}', 'Auth\OAuthController@redirectToProvider')->name('socialite.login');

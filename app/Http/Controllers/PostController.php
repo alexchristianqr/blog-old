@@ -16,7 +16,7 @@ class PostController extends Controller
 
     public function __construct(PostService $postService)
     {
-        $this->middleware(['guest','web'])->except('logout');
+        $this->middleware(['web'])->except('logout');
         $this->service = $postService;
     }
 
@@ -50,19 +50,6 @@ class PostController extends Controller
 
     function index()
     {
-//        $json_countries = \DB::table('countries')->first()->json_countries;
-//        $countries  = json_decode($json_countries);
-//
-//        foreach($countries as $item){
-//            if($item->continent == "South America"){
-//                dd($item);
-////                echo $item;
-//            }
-////            switch ($item->continent){
-////                case '';
-////            }
-//        }
-
         $rpta = $this->service->getPosts(null, ['flag' => true, 'simplePaginate' => true, 'status' => 'A', 'page' => 2]);
         $rpta2 = $this->service->getMiniPosts();
         $rpta3 = $this->service->getPrePosts();

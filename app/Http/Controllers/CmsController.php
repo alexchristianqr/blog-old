@@ -98,14 +98,6 @@ class CmsController extends Controller
                     if (empty($array_tags[$key]->id)) array_push($array_tags, (object)['id' => $item->id, 'value' => false]);
                 }
                 $data->id_tag = json_encode($array_tags);
-
-
-//                $array_images_posts = json_decode($data->images_posts);
-//                dd($array_images_posts);
-
-//                    $data->images_posts
-
-
                 return view('cms.post', compact('data', 'categories', 'team', 'tags'));
             } else {
                 return redirect()->back()->withInput()->withErrors($rpta['message']);
@@ -117,7 +109,6 @@ class CmsController extends Controller
 
     function cmsUpdatePost($id, CmsRequest $request)
     {
-        dd($request);
         //for Update
         if (isset(session('session_roles')->role_post_update)) {
             $rpta = $this->service->update($id, $request);
