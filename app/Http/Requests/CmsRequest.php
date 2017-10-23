@@ -53,7 +53,7 @@ class CmsRequest extends FormRequest
                         'status' => 'required',
                     ];
                 //for Post
-                else {
+                else
                     return [
                         "id_category" => 'required',
                         "image" => 'sometimes|image|mimes:jpeg,jpg|min:1|max:250',
@@ -67,10 +67,9 @@ class CmsRequest extends FormRequest
                         "content" => 'required',
                         "status" => 'required',
                     ];
-                }
             case "POST":
                 //for Socialite
-                if($this->getPathInfo() == "/socialite/store" )
+                if ($this->getPathInfo() == "/socialite/store")
                     return [
                         'name' => 'required',
                         'email' => 'required|email',
@@ -105,7 +104,7 @@ class CmsRequest extends FormRequest
                         "status" => 'required',
                     ];
                 //for Post
-                else {
+                else
                     return [
                         "id_category" => 'required',
                         "image" => 'required|image|mimes:jpeg,jpg|min:1|max:250',
@@ -119,9 +118,7 @@ class CmsRequest extends FormRequest
                         "content" => 'required',
                         "status" => 'required',
                     ];
-                }
-            //GET
-            default:
+            default: //GET
                 return [];
         }
     }

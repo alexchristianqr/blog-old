@@ -1,4 +1,4 @@
-@extends('layouts.web.master',['title'=>'Team'])
+@extends('layouts.web.master',['title'=>'Team Login'])
 @section('content')
     <section id="view-login">
         <div class="row" style="padding-bottom: 5em">

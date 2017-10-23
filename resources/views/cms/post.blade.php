@@ -1,4 +1,4 @@
-@extends('layouts.cms.app')
+@extends('layouts.cms.app',['title'=>'Post'])
 @section('content')
     @if(isset(session('session_roles')->role_post_create) || isset(session('session_roles')->role_post_update))
         <section id="section-cms-post">

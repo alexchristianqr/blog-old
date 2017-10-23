@@ -1,4 +1,4 @@
-@extends('layouts.cms.app')
+@extends('layouts.cms.app',['title'=>'Tables'])
 @section('content')
     @isset(session('session_roles')->role_tables_list)
         @include('cms.modals')

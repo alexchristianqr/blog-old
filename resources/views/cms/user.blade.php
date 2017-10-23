@@ -1,4 +1,4 @@
-@extends('layouts.cms.app')
+@extends('layouts.cms.app',['title'=>'User'])
 @section('content')
     @if(isset(session('session_roles')->role_user_create) && isset(session('session_roles')->role_user_update))
         <section id="section-cms-user">

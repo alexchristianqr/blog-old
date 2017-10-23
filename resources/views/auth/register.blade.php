@@ -1,4 +1,4 @@
-@extends('layouts.cms.master',['title'=>'Register | Team'])
+@extends('layouts.cms.master',['title'=>'Team Register'])
 @section('content')
     <section id="view-team-register">
         <div class="row">

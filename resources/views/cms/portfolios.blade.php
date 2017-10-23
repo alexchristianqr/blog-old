@@ -1,4 +1,4 @@
-@extends('layouts.cms.app')
+@extends('layouts.cms.app',['title'=>'Portfolios'])
 @section('content')
     @isset(session('session_roles')->role_portfolio_list)
         <section id="section-cms-portfolios">

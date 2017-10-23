@@ -1,4 +1,4 @@
-@extends('layouts.cms.app')
+@extends('layouts.cms.app',['title'=>'Users'])
 @section('content')
     @isset(session('session_roles')->role_user_list)
         <div class="row">

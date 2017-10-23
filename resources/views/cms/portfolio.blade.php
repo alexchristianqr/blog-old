@@ -1,4 +1,4 @@
-@extends('layouts.cms.app')
+@extends('layouts.cms.app',['title'=>'Portfolio'])
 @section('content')
     @if(session('session_roles')->role_portfolio_create || session('session_roles')->role_portfolio_update)
         <section id="section-cms-portfolio">
