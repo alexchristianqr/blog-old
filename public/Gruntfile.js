@@ -11,8 +11,6 @@ module.exports = function (grunt) {
                 src: [
                     'bower_components/font-awesome/css/font-awesome.min.css',
                     'bower_components/social-share-kit/dist/css/social-share-kit.css',
-                    'lib/prismjs/prism.css',
-                    'lib/prismjs/prism-line-numbers.css',
                     'css/bootstrap.dev.css',
                     'assets/css/main.css',//core s principal
                     'css/styles.css'//core css cspersonalizada y Urls añadidas

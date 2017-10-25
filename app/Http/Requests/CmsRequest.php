@@ -116,7 +116,6 @@ class CmsRequest extends FormRequest
                         "slug" => 'required',
                         "description" => 'required',
                         "content" => 'required',
-                        "status" => 'required',
                     ];
             default: //GET
                 return [];

@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     @include('layouts.cms.top')
-
 </head>
 <body>
 
@@ -10,14 +9,14 @@
 <div id="wrapper">
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 10px; background-color: #fff">
-        @include('layouts.cms.nav-left')
-        <!-- /.navbar-header -->
+    @include('layouts.cms.nav-left')
+    <!-- /.navbar-header -->
 
-        @include('layouts.cms.nav-right')
-        <!-- /.navbar-top-links -->
+    @include('layouts.cms.nav-right')
+    <!-- /.navbar-top-links -->
 
-        @include('layouts.cms.sidebar')
-        <!-- /.navbar-static-side -->
+    @include('layouts.cms.sidebar')
+    <!-- /.navbar-static-side -->
     </nav>
 
     <!-- /#page-wrapper -->

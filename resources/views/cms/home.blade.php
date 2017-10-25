@@ -12,7 +12,7 @@
                     <p><b>Hi welcome</b>,</p>
                     <br>
                     <p>
-                        <span>You started the session with a type of <b>({{ session('session_type_user')->name }})</b> user. In this section you will be able to visualize the user manual of a personalized administrative software created in a creative way from a chair, a table, a computer and the mind</span>
+                        <span>You logged in with a user type <b>({{ session('session_type_user')->name }})</b>. In this section you can visualize the user manual of the personalized administrative software implemented in a creative way from a chair, a table, a computer and the mind of Alex Quispe Roque.</span>
                     </p>
                 </div>
                 <hr>

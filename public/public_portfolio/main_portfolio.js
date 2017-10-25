@@ -13,7 +13,7 @@ require.config({
     shim: {
         'jquerypoptrox':['jquery'],
         'utils':['jquery'],
-        'menu':['skel','skelview','utils'],
+        'menu':['skel','skelview','utils']
     }
 });
 

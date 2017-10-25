@@ -2,9 +2,8 @@
  * Created by aquispe on 18/10/2017.
  */
 define([
-    'jquery',
-    'js/Utility',
-], function ($, Utility) {
+    'jquery'
+], function ($) {
 
     var Ctrl;
     var ViewPost = $('#view-post').length;
@@ -101,7 +100,7 @@ define([
                         }
                     }
                 }).fail(function () {
-                    Utility.fnCatch(r);
+                    console.error(r);
                 });
             },
             fnUtil: function () {
@@ -172,7 +171,7 @@ define([
                         $.cookie('cookie_community', r, {expires: date, path: location.href});
                     }
                 }).fail(function (r) {
-                    Utility.fnCatch(r);
+                    console.error(r);
                 });
             }
         };

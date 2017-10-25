@@ -69,31 +69,28 @@
                                 </thead>
                                 <tbody class="small">
                                 @isset($data)
-                                    @if(count($data))
-                                        @foreach($data as $key => $value)
-                                            <tr>
-                                                <td><input type="checkbox"></td>
-                                                <td>{{ $value->name }}</td>
-                                                <td>{{ $value->email }}</td>
-                                                <td>{{ $value->type_user_name }}</td>
-                                                <td title="{{ $value->status == 'A' ? 'activo' : 'inactivo' }}"
-                                                    class="text-center"><i
-                                                            class="fa fa-circle {{ $value->status == 'A' ? 'text-primary' : 'text-danger' }}"></i>
-                                                </td>
-                                                <td class="small">{{ $value->updated_at }}</td>
-                                                <td>
-                                                    @isset(session('session_roles')->role_user_edit)
-                                                        <div class="text-center">
-                                                            <a href="{{ url('cms/edit-user',['id' => $value->id]) }}"
-                                                               class="btn btn-success btn-sm btnModalEditUser">
-                                                                <i class="fa fa-pencil"></i>
-                                                            </a>
-                                                        </div>
-                                                    @endisset
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    @else
+                                    @forelse($data as $key => $value)
+                                        <tr>
+                                            <td><input type="checkbox"></td>
+                                            <td>{{ $value->name }}</td>
+                                            <td>{{ $value->email }}</td>
+                                            <td>{{ $value->type_user_name }}</td>
+                                            <td title="{{ $value->status == 'A' ? 'activo' : 'inactivo' }}"
+                                                class="text-center"><i class="fa fa-circle {{ $value->status == 'A' ? 'text-primary' : 'text-danger' }}"></i>
+                                            </td>
+                                            <td class="small">{{ $value->updated_at }}</td>
+                                            <td>
+                                                @isset(session('session_roles')->role_user_edit)
+                                                    <div class="text-center">
+                                                        <a href="{{ url('cms/edit-user',['id' => $value->id]) }}"
+                                                           class="btn btn-success btn-sm btnModalEditUser">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </a>
+                                                    </div>
+                                                @endisset
+                                            </td>
+                                        </tr>
+                                    @empty
                                         <tr>
                                             <td colspan="7" class="text-center text-warning">
                                                 <div style="padding: 2em 2em 0 2em">
@@ -102,7 +99,7 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                    @endif
+                                    @endforelse
                                 @endisset
                                 </tbody>
                             </table>
