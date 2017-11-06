@@ -74,42 +74,40 @@
                                 </thead>
                                 <tbody class="tbody-small">
                                 @isset($data)
-                                    @if(count($data))
-                                        @foreach($data as $key => $value)
-                                            <tr data-id="{{ $value->id }}">
-                                                <td><input class="chkOnly" type="checkbox"></td>
-                                                <td>{{ $value->name }}</td>
-                                                @if(isset($value->roles))
-                                                    <td class="small" style="word-break:break-all;">
-                                                        {{ $value->roles }}
-                                                    </td>
-                                                @else
-                                                    <td>{{ $value->alias}}</td>
-                                                @endif
-                                                <td title="{{ $value->status == 'A' ? 'activo' : 'inactivo' }}"
-                                                    class="text-center"><i
-                                                            class="fa fa-circle {{ $value->status == 'A' ? 'text-primary' : 'text-danger' }}"></i>
+                                    @forelse($data as $key => $value)
+                                        <tr data-id="{{ $value->id }}">
+                                            <td><input class="chkOnly" type="checkbox"></td>
+                                            <td>{{ $value->name }}</td>
+                                            @if(isset($value->roles))
+                                                <td class="small" style="word-break:break-all;">
+                                                    {{ $value->roles }}
                                                 </td>
-                                                <td class="text-center">
-                                                    @isset(session('session_roles')->role_tables_edit)
-                                                        <a href="{{ url('cms/edit-table',['table' => request()->get('table'),'id' => $value->id]) }}"
-                                                           class="btn btn-success btn-sm btnModalEditTable">
-                                                            <i class="fa fa-pencil"></i>
-                                                        </a>
-                                                    @endisset
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    @else
+                                            @else
+                                                <td>{{ $value->alias}}</td>
+                                            @endif
+                                            <td title="{{ $value->status == 'A' ? 'activo' : 'inactivo' }}"
+                                                class="text-center"><i
+                                                        class="fa fa-circle {{ $value->status == 'A' ? 'text-primary' : 'text-danger' }}"></i>
+                                            </td>
+                                            <td class="text-center">
+                                                @isset(session('session_roles')->role_tables_edit)
+                                                    <a href="{{ url('cms/edit-table',['table' => request()->get('table'),'id' => $value->id]) }}"
+                                                       class="btn btn-success btn-sm btnModalEditTable">
+                                                        <i class="fa fa-pencil"></i>
+                                                    </a>
+                                                @endisset
+                                            </td>
+                                        </tr>
+                                    @empty
                                         <tr>
                                             <td colspan="5" class="text-center text-warning">
                                                 <div style="padding: 2em 2em 0 2em">
                                                     <i class="fa fa-exclamation-triangle"></i>
-                                                    <p>No hay Registros!</p>
+                                                    <p>No hay Data</p>
                                                 </div>
                                             </td>
                                         </tr>
-                                    @endif
+                                    @endforelse
                                 @endisset
                                 </tbody>
                             </table>

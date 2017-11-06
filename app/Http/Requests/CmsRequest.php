@@ -91,6 +91,8 @@ class CmsRequest extends FormRequest
                         'email' => 'required',
                         'image_user' => 'required|image|mimes:jpeg,jpg,png|min:1|max:250',
                         'id_type_user' => 'required',
+                        'age' => 'required',
+                        'nick' => 'required',
                         'password' => 'required',
                         'confirm_password' => 'required',
                         'status' => 'required',
